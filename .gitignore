@@ -1,3 +1,8 @@
 Debug/
 Sigma.vcxproj
 Sigma.vcxproj.filters
+
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
