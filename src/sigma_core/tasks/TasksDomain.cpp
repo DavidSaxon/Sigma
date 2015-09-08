@@ -1,9 +1,16 @@
-#include "sigma_core/tasks/Domain.hpp"
+#include "sigma_core/tasks/TasksDomain.hpp"
 
-namespace sigma_core
-{
-namespace tasks
-{
+// TODO: REMOVE ME
+#include <iostream>
 
-} // namespace tasks
-} // namespace sigma_core
+SIGMA_CORE_NAMESPACE_BEGIN
+SIGMA_CORE_TASKS_NAMESPACE_BEGIN
+
+// TODO: REMOVE ME
+void test()
+{
+    std::cout << "Tasks domain test" << std::endl;
+}
+
+SIGMA_CORE_TASKS_NAMESPACE_END
+SIGMA_CORE_NAMESPACE_END

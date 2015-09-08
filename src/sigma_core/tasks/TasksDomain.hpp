@@ -1,13 +1,18 @@
 #ifndef SIGMA_CORE_TASKS_DOMAIN_HPP_
 #   define SIGMA_CORE_TASKS_DOMAIN_HPP_
 
-namespace sigma_core
-{
-// TODO: document namespace
-namespace tasks
-{
+#include "sigma_core/Globals.hpp"
+#include "sigma_core/tasks/TasksGlobals.hpp"
 
-} // namespace tasks
-} // namespace sigma_core
+SIGMA_CORE_NAMESPACE_BEGIN
+// TODO: document namespace
+SIGMA_CORE_TASKS_NAMESPACE_BEGIN
+
+// TODO: REMOVE ME
+// TODO: test document
+void test();
+
+SIGMA_CORE_TASKS_NAMESPACE_END
+SIGMA_CORE_NAMESPACE_END
 
 #endif

@@ -6,6 +6,8 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
+#include "sigma_core/tasks/TasksDomain.hpp"
+
 int main( int argc, char* argv[] )
 {
     QApplication app( argc, argv );
@@ -22,6 +24,8 @@ int main( int argc, char* argv[] )
     layout->addWidget( button );
 
     window->show();
+
+    sigma_core::tasks::test();
 
     QApplication::exec();
 
