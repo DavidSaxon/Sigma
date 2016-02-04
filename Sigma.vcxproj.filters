@@ -4,27 +4,30 @@
     <Filter Include="src">
       <UniqueIdentifier>{cf0b8085-63f1-40cf-a772-c0879106e4cb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\prototyping">
-      <UniqueIdentifier>{2c348b03-9bfb-4d2d-a7a4-958432cb559c}</UniqueIdentifier>
+    <Filter Include="src\cxx">
+      <UniqueIdentifier>{edac2ed8-f199-42b6-8c66-89cddeb301c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\sigma_core">
-      <UniqueIdentifier>{2f8cedc7-cbcf-427f-9127-4b7792ab90d2}</UniqueIdentifier>
+    <Filter Include="src\cxx\sigma">
+      <UniqueIdentifier>{773cc5e2-a821-4d98-9faa-4c56ab90529c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\sigma_core\tasks">
-      <UniqueIdentifier>{d7b73eb6-477f-4f6b-8b2c-6276c9d21925}</UniqueIdentifier>
+    <Filter Include="src\cxx\sigma\core">
+      <UniqueIdentifier>{6e5d9d02-6974-4d43-942e-b4cfd14cf45d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\cxx\sigma\core\tasks">
+      <UniqueIdentifier>{f3a1584c-30f7-4c19-b0ca-b87afc05965c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\prototyping\QtTest.cpp">
-      <Filter>src\prototyping</Filter>
+    <ClCompile Include="src\cxx\sigma\core\tasks\Task.cpp">
+      <Filter>src\cxx\sigma\core\tasks</Filter>
     </ClCompile>
-    <ClCompile Include="src\sigma_core\tasks\TasksDomain.cpp">
-      <Filter>src\sigma_core\tasks</Filter>
+    <ClCompile Include="src\cxx\sigma\Main.cpp">
+      <Filter>src\cxx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\sigma_core\tasks\TasksDomain.hpp">
-      <Filter>src\sigma_core\tasks</Filter>
+    <ClInclude Include="src\cxx\sigma\core\tasks\Task.hpp">
+      <Filter>src\cxx\sigma\core\tasks</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
