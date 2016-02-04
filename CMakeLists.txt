@@ -3,7 +3,12 @@ project(Sigma)
 
 set(CMAKE_AUTOMOC ON)
 
-set(SRCS
+set(CORE_LIB_SRC
+
+    src/cxx/sigma/core/tasks/Task.cpp
+)
+
+set(UI_SRC
 
     src/cxx/sigma/Main.cpp
 )
@@ -27,7 +32,7 @@ link_directories(
         ${CMAKE_BINARY_DIR}/ext/ChaosCore/lib
 )
 
-add_executable(Sigma ${SRCS})
+add_executable(Sigma ${CORE_LIB_SRC} ${UI_SRC})
 
 target_link_libraries(Sigma
     chaoscore_base
