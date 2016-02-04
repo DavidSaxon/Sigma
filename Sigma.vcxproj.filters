@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{cf0b8085-63f1-40cf-a772-c0879106e4cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\prototyping">
+      <UniqueIdentifier>{2c348b03-9bfb-4d2d-a7a4-958432cb559c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sigma_core">
+      <UniqueIdentifier>{2f8cedc7-cbcf-427f-9127-4b7792ab90d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sigma_core\tasks">
+      <UniqueIdentifier>{d7b73eb6-477f-4f6b-8b2c-6276c9d21925}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\prototyping\QtTest.cpp">
+      <Filter>src\prototyping</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sigma_core\tasks\TasksDomain.cpp">
+      <Filter>src\sigma_core\tasks</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\sigma_core\tasks\TasksDomain.hpp">
+      <Filter>src\sigma_core\tasks</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

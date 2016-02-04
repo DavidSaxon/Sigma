@@ -1,9 +1,15 @@
-Debug/
-Release/
-Sigma.vcxproj
-Sigma.vcxproj.filters
+# Windows
+intermediate
 
-CMakeFiles/
+# Linux
+CMakeFiles
 CMakeCache.txt
 Makefile
 cmake_install.cmake
+
+
+deploy/*
+
+# moc
+ProtoAlpha_automoc.cpp
+moc_*.cpp

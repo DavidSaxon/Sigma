@@ -8,7 +8,7 @@ namespace sigma_core
 namespace tasks
 {
 
-// TODO: document class
+/** TESTING DOXYOGEN */
 class Task
 {
 public:
@@ -20,7 +20,7 @@ public:
     // TODO: unicode string
     // needs to be chaos core
     // read: http://stackoverflow.com/questions/402283/stdwstring-vs-stdstring
-    Task()
+    Task();
 };
 
 } // namespace tasks
