@@ -29,7 +29,7 @@ find_package(Qt5Widgets REQUIRED)
 
 link_directories(
         ${LINK_DIRECTORIES}
-        ${CMAKE_BINARY_DIR}/ext/ChaosCore/lib
+        ${CMAKE_BINARY_DIR}/ext/ChaosCore/lib/linux_x86
 )
 
 add_executable(Sigma ${CORE_LIB_SRC} ${UI_SRC})
