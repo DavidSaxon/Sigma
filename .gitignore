@@ -11,5 +11,5 @@ cmake_install.cmake
 deploy/*
 
 # moc
-ProtoAlpha_automoc.cpp
+*_automoc.cpp
 moc_*.cpp

@@ -1,17 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Test|Win32">
+      <Configuration>Test</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="UI_EXE|Win32">
       <Configuration>UI_EXE</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\cxx\sigma\core\tasks\Task.cpp" />
+  <ItemGroup Condition="'$(Configuration)'=='Core_Lib'Or'$(Configuration)'=='Test'">
+    <ClCompile Include="src\cxx\sigma\core\**" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='UI_EXE'">
     <ClCompile Include="src\cxx\sigma\Main.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\cxx\sigma\core\tasks\Task.hpp" />
+  <ItemGroup Condition="'$(Configuration)'=='UI_EXE'Or'$(Configuration)'=='Test'">
+    <ClCompile Include="src\cxx\sigma\cmd\**" />
+    <ClCompile Include="src\cxx\sigma\gui\**" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Test'">
+    <ClCompile Include="tests\cxx\**" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8C3C8D29-5037-4CF0-ABC5-1F86D6717D5D}</ProjectGuid>
@@ -25,16 +35,31 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='UI_EXE|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UI_EXE|Win32'">
     <OutDir>$(SolutionDir)\$(ProjectName)\build\win_x86\</OutDir>
     <IntDir>intermediate\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'">
+    <OutDir>$(SolutionDir)\$(ProjectName)\build\win_x86\</OutDir>
+    <IntDir>intermediate\$(Configuration)\</IntDir>
+    <TargetName>Tests</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='UI_EXE|Win32'">
     <ClCompile>
@@ -51,6 +76,23 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ChaosCore\lib\win_x86;D:\Libraries\qt5-5.5.0-vs2013\qt5-x86-shared-release\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>chaoscore_base.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ChaosCore\include;D:\Libraries\qt5-5.5.0-vs2013\qt5-x86-shared-release\include;D:\Dropbox\Development\Sigma\Sigma\gen\cpp;D:\Dropbox\Development\Sigma\Sigma\src\cxx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ChaosCore\lib\win_x86;D:\Libraries\qt5-5.5.0-vs2013\qt5-x86-shared-release\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>chaoscore_base.lib;chaoscore_io.lib;chaoscore_test.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

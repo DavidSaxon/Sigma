@@ -1,33 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="src">
-      <UniqueIdentifier>{cf0b8085-63f1-40cf-a772-c0879106e4cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\cxx">
-      <UniqueIdentifier>{edac2ed8-f199-42b6-8c66-89cddeb301c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\cxx\sigma">
-      <UniqueIdentifier>{773cc5e2-a821-4d98-9faa-4c56ab90529c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\cxx\sigma\core">
-      <UniqueIdentifier>{6e5d9d02-6974-4d43-942e-b4cfd14cf45d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\cxx\sigma\core\tasks">
-      <UniqueIdentifier>{f3a1584c-30f7-4c19-b0ca-b87afc05965c}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\cxx\sigma\core\tasks\Task.cpp">
-      <Filter>src\cxx\sigma\core\tasks</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cxx\sigma\Main.cpp">
-      <Filter>src\cxx</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\cxx\sigma\core\tasks\Task.hpp">
-      <Filter>src\cxx\sigma\core\tasks</Filter>
-    </ClInclude>
+    <ClCompile Include="src\cxx\sigma\core\**" />
+    <ClCompile Include="src\cxx\sigma\core\**" />
+    <ClCompile Include="tests\cxx\**" />
   </ItemGroup>
 </Project>

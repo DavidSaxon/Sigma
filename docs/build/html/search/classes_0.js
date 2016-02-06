@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['task',['Task',['../classsigma_1_1core_1_1_task.html',1,'sigma::core']]]
+  ['callbackmanager',['CallbackManager',['../classsigma_1_1core_1_1_callback_manager.html',1,'sigma::core']]]
 ];

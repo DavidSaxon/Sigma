@@ -5,12 +5,19 @@ set(CMAKE_AUTOMOC ON)
 
 set(CORE_LIB_SRC
 
+    src/cxx/sigma/core/Sigma.cpp
+    src/cxx/sigma/core/tasks/TasksDomain.cpp
     src/cxx/sigma/core/tasks/Task.cpp
 )
 
 set(UI_SRC
 
     src/cxx/sigma/Main.cpp
+)
+
+set(TEST_SRC
+
+    tests/cxx/core/task/Task_TestSuite.cpp
 )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/linux_x86)
@@ -40,4 +47,12 @@ target_link_libraries(Sigma
     Qt5::Core
     Qt5::Gui
     Qt5::Widgets
+)
+
+add_executable(Tests ${TEST_SRC} ${CORE_LIB_SRC})
+
+target_link_libraries(Tests
+    chaoscore_test
+    chaoscore_base
+    chaoscore_io
 )

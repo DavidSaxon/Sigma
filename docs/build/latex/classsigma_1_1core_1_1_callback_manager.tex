@@ -1,0 +1,67 @@
+\hypertarget{classsigma_1_1core_1_1_callback_manager}{\section{sigma\-:\-:core\-:\-:Callback\-Manager$<$ function\-\_\-parameters $>$ Class Template Reference}
+\label{classsigma_1_1core_1_1_callback_manager}\index{sigma\-::core\-::\-Callback\-Manager$<$ function\-\_\-parameters $>$@{sigma\-::core\-::\-Callback\-Manager$<$ function\-\_\-parameters $>$}}
+}
+
+
+Object used to manager a specific callback.  
+
+
+
+
+{\ttfamily \#include $<$Callback\-Manager.\-hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classsigma_1_1core_1_1_callback_manager_addca93c8df2c8e419fd6a24bd00b215e}{\hyperlink{classsigma_1_1core_1_1_callback_manager_addca93c8df2c8e419fd6a24bd00b215e}{Callback\-Manager} ()}\label{classsigma_1_1core_1_1_callback_manager_addca93c8df2c8e419fd6a24bd00b215e}
+
+\begin{DoxyCompactList}\small\item\em Creates a new callback manager. \end{DoxyCompactList}\item 
+chaos\-::uint64 \hyperlink{classsigma_1_1core_1_1_callback_manager_a7dbb06902d49789afc466a3ecbacbfe2}{register\-\_\-function} (void($\ast$callback\-\_\-function)(function\-\_\-parameters...))
+\begin{DoxyCompactList}\small\item\em Registers the given function in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename... function\-\_\-parameters$>$class sigma\-::core\-::\-Callback\-Manager$<$ function\-\_\-parameters $>$}
+
+Object used to manager a specific callback. 
+
+This object is instantiated at locations where a callback is required. It handles a list of functions that will be called when the owner of this is triggered.
+
+The \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager} supports arbitrary function types by using a template. Where the arguments of the callback function should be define through the template.
+
+For example to instantiate a \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager} for a function that takes a boolean and two integers as its arguments\-:
+
+
+\begin{DoxyCode}
+\hyperlink{classsigma_1_1core_1_1_callback_manager}{sigma::core::CallbackManager<bool, int, int>} 
+      my\_callback\_manager;
+\end{DoxyCode}
+ 
+
+\subsection{Member Function Documentation}
+\hypertarget{classsigma_1_1core_1_1_callback_manager_a7dbb06902d49789afc466a3ecbacbfe2}{\index{sigma\-::core\-::\-Callback\-Manager@{sigma\-::core\-::\-Callback\-Manager}!register\-\_\-function@{register\-\_\-function}}
+\index{register\-\_\-function@{register\-\_\-function}!sigma::core::CallbackManager@{sigma\-::core\-::\-Callback\-Manager}}
+\subsubsection[{register\-\_\-function}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... function\-\_\-parameters$>$ chaos\-::uint64 {\bf sigma\-::core\-::\-Callback\-Manager}$<$ function\-\_\-parameters $>$\-::register\-\_\-function (
+\begin{DoxyParamCaption}
+\item[{void($\ast$)(function\-\_\-parameters...)}]{callback\-\_\-function}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classsigma_1_1core_1_1_callback_manager_a7dbb06902d49789afc466a3ecbacbfe2}
+
+
+Registers the given function in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager}. 
+
+When this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager} is triggered the registered function will be called.
+
+
+\begin{DoxyParams}{Parameters}
+{\em callback\-\_\-function} & The function to register in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager}. The function's parameters must match the types provided to this object's template.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A globally unique value identifying the provided callback function. This id is unique across all \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager} instances. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/home/david/\-Dropbox/\-Development/\-Sigma/\-Sigma/src/cxx/sigma/core/\hyperlink{_callback_manager_8hpp}{Callback\-Manager.\-hpp}\end{DoxyCompactItemize}
