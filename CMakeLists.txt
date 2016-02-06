@@ -4,19 +4,17 @@ project(Sigma)
 set(CMAKE_AUTOMOC ON)
 
 set(CORE_LIB_SRC
-
     src/cxx/sigma/core/Sigma.cpp
     src/cxx/sigma/core/tasks/TasksDomain.cpp
     src/cxx/sigma/core/tasks/Task.cpp
 )
 
 set(UI_SRC
-
     src/cxx/sigma/Main.cpp
 )
 
 set(TEST_SRC
-
+    tests/cxx/TestsMain.cpp
     tests/cxx/core/task/Task_TestSuite.cpp
 )
 
@@ -49,9 +47,9 @@ target_link_libraries(Sigma
     Qt5::Widgets
 )
 
-add_executable(Tests ${TEST_SRC} ${CORE_LIB_SRC})
+add_executable(tests ${TEST_SRC} ${CORE_LIB_SRC})
 
-target_link_libraries(Tests
+target_link_libraries(tests
     chaoscore_test
     chaoscore_base
     chaoscore_io

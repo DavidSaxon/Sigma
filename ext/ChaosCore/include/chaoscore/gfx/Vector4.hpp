@@ -12,6 +12,9 @@ namespace chaos
 namespace gfx
 {
 
+/*!
+ * \brief Represents a 4 dimensional vector.
+ */
 class Vector4
 {
 public:
@@ -36,6 +39,23 @@ public:
      * \brief W component of this Vector4.
      */
     float w;
+
+    /*!
+     * \brief R access component of this vector (Alias of the X component).
+     */
+    float& r;
+    /*!
+     * \brief G access component of this vector (Alias of the Y component).
+     */
+    float& g;
+    /*!
+     * \brief B access component of this vector (Alias of the X component).
+     */
+    float& b;
+    /*!
+     * \brief A access component of this vector (Alias of the w component).
+     */
+    float& a;
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTORS
@@ -110,6 +130,14 @@ public:
      * \return Whether the vectors are not considered equal.
      */
     bool operator!=( const Vector4& other ) const;
+
+    /*!
+     * \brief Inverse operator.
+     *
+     * \return A new Vector4 which is a copy of this Vector4 with its values
+     * inverted.
+     */
+    Vector4 operator-() const;
 
     /*!
      * \brief Scalar addition operator.
@@ -193,6 +221,23 @@ public:
     Vector4& operator*=( float scalar );
 
     /*!
+     * \brief Vector multiplication operator.
+     *
+     * \param other The other Vector4 to multiply this Vector4 by.
+     * \return A new Vector4 containing the results of the multiplication.
+     */
+    Vector4 operator*( const Vector4& other ) const;
+
+    /*!
+     * \brief Vector compound multiplication operator.
+     *
+     * \param other The other Vector4 to multiply this Vector4 by.
+     * \return A reference to this Vector4 once the multiplication has taken
+     *         place.
+     */
+    Vector4& operator*=( const Vector4& other );
+
+    /*!
      * \brief Scalar division operator.
      *
      * \param scalar The scalar to divide this Vector4 by.
@@ -208,6 +253,22 @@ public:
      */
     Vector4& operator/=( float scalar );
 
+    /*!
+     * \brief Vector division operator.
+     *
+     * \param other The other Vector4 to divide this Vector4 by.
+     * \return A new Vector4 containing the results of the division.
+     */
+    Vector4 operator/( const Vector4& other ) const;
+
+    /*!
+     * \brief Vector compound division operator.
+     *
+     * \param other The other Vector4 to divide this Vector4 by.
+     * \return A reference to this Vector4 once the division has taken
+     *         place.
+     */
+    Vector4& operator/=( const Vector4& other );
 };
 
 //------------------------------------------------------------------------------

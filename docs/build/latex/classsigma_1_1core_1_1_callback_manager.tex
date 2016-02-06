@@ -1,6 +1,5 @@
-\hypertarget{classsigma_1_1core_1_1_callback_manager}{\section{sigma\-:\-:core\-:\-:Callback\-Manager$<$ function\-\_\-parameters $>$ Class Template Reference}
-\label{classsigma_1_1core_1_1_callback_manager}\index{sigma\-::core\-::\-Callback\-Manager$<$ function\-\_\-parameters $>$@{sigma\-::core\-::\-Callback\-Manager$<$ function\-\_\-parameters $>$}}
-}
+\hypertarget{classsigma_1_1core_1_1_callback_manager}{}\section{sigma\+:\+:core\+:\+:Callback\+Manager$<$ function\+\_\+parameters $>$ Class Template Reference}
+\label{classsigma_1_1core_1_1_callback_manager}\index{sigma\+::core\+::\+Callback\+Manager$<$ function\+\_\+parameters $>$@{sigma\+::core\+::\+Callback\+Manager$<$ function\+\_\+parameters $>$}}
 
 
 Object used to manager a specific callback.  
@@ -8,28 +7,41 @@ Object used to manager a specific callback.
 
 
 
-{\ttfamily \#include $<$Callback\-Manager.\-hpp$>$}
+{\ttfamily \#include $<$Callback\+Manager.\+hpp$>$}
 
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classsigma_1_1core_1_1_callback_manager_addca93c8df2c8e419fd6a24bd00b215e}{\hyperlink{classsigma_1_1core_1_1_callback_manager_addca93c8df2c8e419fd6a24bd00b215e}{Callback\-Manager} ()}\label{classsigma_1_1core_1_1_callback_manager_addca93c8df2c8e419fd6a24bd00b215e}
+\hypertarget{classsigma_1_1core_1_1_callback_manager_addca93c8df2c8e419fd6a24bd00b215e}{}\hyperlink{classsigma_1_1core_1_1_callback_manager_addca93c8df2c8e419fd6a24bd00b215e}{Callback\+Manager} ()\label{classsigma_1_1core_1_1_callback_manager_addca93c8df2c8e419fd6a24bd00b215e}
 
 \begin{DoxyCompactList}\small\item\em Creates a new callback manager. \end{DoxyCompactList}\item 
-chaos\-::uint64 \hyperlink{classsigma_1_1core_1_1_callback_manager_a7dbb06902d49789afc466a3ecbacbfe2}{register\-\_\-function} (void($\ast$callback\-\_\-function)(function\-\_\-parameters...))
-\begin{DoxyCompactList}\small\item\em Registers the given function in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+chaos\+::uint64 \hyperlink{classsigma_1_1core_1_1_callback_manager_a7dbb06902d49789afc466a3ecbacbfe2}{register\+\_\+function} (void($\ast$callback\+\_\+function)(function\+\_\+parameters...))
+\begin{DoxyCompactList}\small\item\em Registers the given function in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager}. \end{DoxyCompactList}\item 
+void \hyperlink{classsigma_1_1core_1_1_callback_manager_a1a03ab9185e131aa077c6528e6d2dcd8}{unregister\+\_\+function} (chaos\+::uint64 id)
+\begin{DoxyCompactList}\small\item\em Unregisters the function associated with the given id from this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager}. \end{DoxyCompactList}\item 
+\hypertarget{classsigma_1_1core_1_1_callback_manager_ad0d7c7aed410522b26005713268a845e}{}bool \hyperlink{classsigma_1_1core_1_1_callback_manager_ad0d7c7aed410522b26005713268a845e}{has\+\_\+function} (chaos\+::uint64 id) const \label{classsigma_1_1core_1_1_callback_manager_ad0d7c7aed410522b26005713268a845e}
+
+\begin{DoxyCompactList}\small\item\em Returns whether this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager} has a function associated with the given id. \end{DoxyCompactList}\item 
+\hypertarget{classsigma_1_1core_1_1_callback_manager_a99e53211fc575dbd72711e8318469ad1}{}void \hyperlink{classsigma_1_1core_1_1_callback_manager_a99e53211fc575dbd72711e8318469ad1}{trigger} (function\+\_\+parameters...\+params)\label{classsigma_1_1core_1_1_callback_manager_a99e53211fc575dbd72711e8318469ad1}
+
+\begin{DoxyCompactList}\small\item\em Calls all functions in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager} with the given parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+void($\ast$)(function\+\_\+parameters...) \hyperlink{classsigma_1_1core_1_1_callback_manager_a3c36f3c32e2d6ea0f395f6bdd8775039}{get\+\_\+function} (chaos\+::uint64 id) const
+\begin{DoxyCompactList}\small\item\em Returns the function associated with the given id. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-\subsubsection*{template$<$typename... function\-\_\-parameters$>$class sigma\-::core\-::\-Callback\-Manager$<$ function\-\_\-parameters $>$}
+\subsubsection*{template$<$typename... function\+\_\+parameters$>$class sigma\+::core\+::\+Callback\+Manager$<$ function\+\_\+parameters $>$}
 
 Object used to manager a specific callback. 
 
 This object is instantiated at locations where a callback is required. It handles a list of functions that will be called when the owner of this is triggered.
 
-The \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager} supports arbitrary function types by using a template. Where the arguments of the callback function should be define through the template.
+The \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager} supports arbitrary function types by using a template. Where the arguments of the callback function should be define through the template.
 
-For example to instantiate a \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager} for a function that takes a boolean and two integers as its arguments\-:
+For example to instantiate a \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager} for a function that takes a boolean and two integers as its arguments\+:
 
 
 \begin{DoxyCode}
@@ -39,29 +51,67 @@ For example to instantiate a \hyperlink{classsigma_1_1core_1_1_callback_manager}
  
 
 \subsection{Member Function Documentation}
-\hypertarget{classsigma_1_1core_1_1_callback_manager_a7dbb06902d49789afc466a3ecbacbfe2}{\index{sigma\-::core\-::\-Callback\-Manager@{sigma\-::core\-::\-Callback\-Manager}!register\-\_\-function@{register\-\_\-function}}
-\index{register\-\_\-function@{register\-\_\-function}!sigma::core::CallbackManager@{sigma\-::core\-::\-Callback\-Manager}}
-\subsubsection[{register\-\_\-function}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... function\-\_\-parameters$>$ chaos\-::uint64 {\bf sigma\-::core\-::\-Callback\-Manager}$<$ function\-\_\-parameters $>$\-::register\-\_\-function (
+\hypertarget{classsigma_1_1core_1_1_callback_manager_a7dbb06902d49789afc466a3ecbacbfe2}{}\index{sigma\+::core\+::\+Callback\+Manager@{sigma\+::core\+::\+Callback\+Manager}!register\+\_\+function@{register\+\_\+function}}
+\index{register\+\_\+function@{register\+\_\+function}!sigma\+::core\+::\+Callback\+Manager@{sigma\+::core\+::\+Callback\+Manager}}
+\subsubsection[{register\+\_\+function(void($\ast$callback\+\_\+function)(function\+\_\+parameters...))}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... function\+\_\+parameters$>$ chaos\+::uint64 {\bf sigma\+::core\+::\+Callback\+Manager}$<$ function\+\_\+parameters $>$\+::register\+\_\+function (
 \begin{DoxyParamCaption}
-\item[{void($\ast$)(function\-\_\-parameters...)}]{callback\-\_\-function}
+\item[{void($\ast$)(function\+\_\+parameters...)}]{callback\+\_\+function}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classsigma_1_1core_1_1_callback_manager_a7dbb06902d49789afc466a3ecbacbfe2}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{classsigma_1_1core_1_1_callback_manager_a7dbb06902d49789afc466a3ecbacbfe2}
 
 
-Registers the given function in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager}. 
+Registers the given function in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager}. 
 
-When this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager} is triggered the registered function will be called.
+When this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager} is triggered the registered function will be called.
 
 
 \begin{DoxyParams}{Parameters}
-{\em callback\-\_\-function} & The function to register in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager}. The function's parameters must match the types provided to this object's template.\\
+{\em callback\+\_\+function} & The function to register in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager}. The function\textquotesingle{}s parameters must match the types provided to this object\textquotesingle{}s template.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A globally unique value identifying the provided callback function. This id is unique across all \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\-Manager} instances. 
+A globally unique value identifying the provided callback function. This id is unique across all \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager} instances. 
 \end{DoxyReturn}
+\hypertarget{classsigma_1_1core_1_1_callback_manager_a1a03ab9185e131aa077c6528e6d2dcd8}{}\index{sigma\+::core\+::\+Callback\+Manager@{sigma\+::core\+::\+Callback\+Manager}!unregister\+\_\+function@{unregister\+\_\+function}}
+\index{unregister\+\_\+function@{unregister\+\_\+function}!sigma\+::core\+::\+Callback\+Manager@{sigma\+::core\+::\+Callback\+Manager}}
+\subsubsection[{unregister\+\_\+function(chaos\+::uint64 id)}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... function\+\_\+parameters$>$ void {\bf sigma\+::core\+::\+Callback\+Manager}$<$ function\+\_\+parameters $>$\+::unregister\+\_\+function (
+\begin{DoxyParamCaption}
+\item[{chaos\+::uint64}]{id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{classsigma_1_1core_1_1_callback_manager_a1a03ab9185e131aa077c6528e6d2dcd8}
 
 
-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+Unregisters the function associated with the given id from this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager}. 
+
+Once a function has been unregistered it will no longer be called when this object is triggered.
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em chaos\+::ex\+::\+Key\+Error} & If there is no function associated with the given id in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager}.\\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The identifier associated with the function to unregister. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classsigma_1_1core_1_1_callback_manager_a3c36f3c32e2d6ea0f395f6bdd8775039}{}\index{sigma\+::core\+::\+Callback\+Manager@{sigma\+::core\+::\+Callback\+Manager}!get\+\_\+function@{get\+\_\+function}}
+\index{get\+\_\+function@{get\+\_\+function}!sigma\+::core\+::\+Callback\+Manager@{sigma\+::core\+::\+Callback\+Manager}}
+\subsubsection[{get\+\_\+function}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... function\+\_\+parameters$>$ void($\ast$)(function\+\_\+parameters...) {\bf sigma\+::core\+::\+Callback\+Manager}$<$ function\+\_\+parameters $>$\+::get\+\_\+function(chaos\+::uint64 id) const\hspace{0.3cm}{\ttfamily [inline]}}\label{classsigma_1_1core_1_1_callback_manager_a3c36f3c32e2d6ea0f395f6bdd8775039}
+
+
+Returns the function associated with the given id. 
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em chaos\+::ex\+::\+Key\+Error} & If there is no function associated with the given id in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager}. \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/home/david/\-Dropbox/\-Development/\-Sigma/\-Sigma/src/cxx/sigma/core/\hyperlink{_callback_manager_8hpp}{Callback\-Manager.\-hpp}\end{DoxyCompactItemize}
+D\+:/\+Dropbox/\+Development/\+Sigma/\+Sigma/src/cxx/sigma/core/\hyperlink{_callback_manager_8hpp}{Callback\+Manager.\+hpp}\end{DoxyCompactItemize}

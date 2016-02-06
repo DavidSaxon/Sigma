@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Test|Win32">
-      <Configuration>Test</Configuration>
+    <ProjectConfiguration Include="tests|Win32">
+      <Configuration>tests</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="UI_EXE|Win32">
@@ -10,18 +10,19 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)'=='Core_Lib'Or'$(Configuration)'=='Test'">
-    <ClCompile Include="src\cxx\sigma\core\**" />
+  <ItemGroup Condition="'$(Configuration)'=='Core_Lib'Or'$(Configuration)'=='tests'">
+    <ClCompile Include="src\cxx\sigma\core\Sigma.cpp" />
+    <ClCompile Include="src\cxx\sigma\core\tasks\TasksDomain.cpp" />
+    <ClCompile Include="src\cxx\sigma\core\tasks\Task.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='UI_EXE'">
     <ClCompile Include="src\cxx\sigma\Main.cpp" />
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)'=='UI_EXE'Or'$(Configuration)'=='Test'">
-    <ClCompile Include="src\cxx\sigma\cmd\**" />
-    <ClCompile Include="src\cxx\sigma\gui\**" />
+  <ItemGroup Condition="'$(Configuration)'=='UI_EXE'Or'$(Configuration)'=='tests'">
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)'=='Test'">
-    <ClCompile Include="tests\cxx\**" />
+  <ItemGroup Condition="'$(Configuration)'=='tests'">
+    <ClCompile Include="tests/cxx/TestsMain.cpp" />
+    <ClCompile Include="tests/cxx/core/task/Task_TestSuite.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8C3C8D29-5037-4CF0-ABC5-1F86D6717D5D}</ProjectGuid>
@@ -35,7 +36,7 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='tests|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
@@ -48,7 +49,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='UI_EXE|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='tests|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -56,10 +57,10 @@
     <OutDir>$(SolutionDir)\$(ProjectName)\build\win_x86\</OutDir>
     <IntDir>intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='tests|Win32'">
     <OutDir>$(SolutionDir)\$(ProjectName)\build\win_x86\</OutDir>
     <IntDir>intermediate\$(Configuration)\</IntDir>
-    <TargetName>Tests</TargetName>
+    <TargetName>tests</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='UI_EXE|Win32'">
     <ClCompile>
@@ -78,7 +79,7 @@
       <AdditionalDependencies>chaoscore_base.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='tests|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>

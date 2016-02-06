@@ -153,6 +153,24 @@ public:
 };
 
 //------------------------------------------------------------------------------
+//                                   KEY ERROR
+//------------------------------------------------------------------------------
+
+/*!
+ * \brief Warns that a map key has been requested that does not exist.
+ */
+class KeyError : public ChaosException
+{
+public:
+
+    KeyError( const chaos::uni::UTF8String& message )
+        :
+        ChaosException( message )
+    {
+    }
+};
+
+//------------------------------------------------------------------------------
 //                                ARITHMETIC ERROR
 //------------------------------------------------------------------------------
 

@@ -27,6 +27,15 @@ namespace test
 {
 
 //------------------------------------------------------------------------------
+//                                   FUNCTIONS
+//------------------------------------------------------------------------------
+
+/*!
+ * \brief The main function that should be called to run tests.
+ */
+int deferred_main(int argc, char* argv[]);
+
+//------------------------------------------------------------------------------
 //                                    CLASSES
 //------------------------------------------------------------------------------
 
@@ -170,14 +179,6 @@ class TestCore
 {
 public:
 
-    //-------------------------PUBLIC STATIC ATTRIBUTES-------------------------
-
-    static TestLogger                                    logger;
-    static std::map< chaos::uni::UTF8String, UnitTest* > test_map;
-    static std::set< chaos::uni::UTF8String >            base_modules;
-    static std::set< chaos::uni::UTF8String >            known_modules;
-    static chaos::uni::UTF8String                        current_module;
-
     //-------------------------------CONSTRUCTOR--------------------------------
 
     /*!
@@ -227,6 +228,38 @@ public:
             std::cerr << e.get_message() << std::endl;
             throw e;
         }
+    }
+
+    //-------------------------STATIC VARIABLE GETTERS--------------------------
+
+    static TestLogger& logger()
+    {
+        static TestLogger l;
+        return l;
+    }
+
+    static std::map< chaos::uni::UTF8String, UnitTest* >& test_map()
+    {
+        static std::map< chaos::uni::UTF8String, UnitTest* > t_m;
+        return t_m;
+    }
+
+    static std::set< chaos::uni::UTF8String >& base_modules()
+    {
+        static std::set< chaos::uni::UTF8String > b_m;
+        return b_m;
+    }
+
+    static std::set< chaos::uni::UTF8String >& known_modules()
+    {
+        static std::set< chaos::uni::UTF8String > k_m;
+        return k_m;
+    }
+
+    static chaos::uni::UTF8String& current_module()
+    {
+        static chaos::uni::UTF8String c_m;
+        return c_m;
     }
 
 private:
@@ -433,7 +466,7 @@ private:
  *                chaos::uni::UTF8String.
  */
 #define CHAOS_TEST_MESSAGE( message )                                          \
-    chaos::test::internal::TestCore::logger.write_message( message )
+    chaos::test::internal::TestCore::logger().write_message( message )
 
 /*!
  * \brief Checks whether the given value evaluates to true.
@@ -442,14 +475,14 @@ private:
  * failure.
  */
 #define CHAOS_CHECK_TRUE( a )                                                  \
-    if ( ( a ) )                                                                   \
+    if ( ( a ) )                                                               \
     {                                                                          \
-        chaos::test::internal::TestCore::logger.report_check_pass(             \
+        chaos::test::internal::TestCore::logger().report_check_pass(           \
                 "CHAOS_CHECK_TRUE", __FILE__, __LINE__ );                      \
     }                                                                          \
     else                                                                       \
     {                                                                          \
-        chaos::test::internal::TestCore::logger.report_check_fail(             \
+        chaos::test::internal::TestCore::logger().report_check_fail(           \
                 "CHAOS_CHECK_TRUE", __FILE__, __LINE__, "" );                  \
     }
 
@@ -462,12 +495,12 @@ private:
 #define CHAOS_CHECK_FALSE( a )                                                 \
     if ( !( a ) )                                                              \
     {                                                                          \
-        chaos::test::internal::TestCore::logger.report_check_pass(             \
+        chaos::test::internal::TestCore::logger().report_check_pass(           \
                 "CHAOS_CHECK_FALSE", __FILE__, __LINE__ );                     \
     }                                                                          \
     else                                                                       \
     {                                                                          \
-        chaos::test::internal::TestCore::logger.report_check_fail(             \
+        chaos::test::internal::TestCore::logger().report_check_fail(           \
                 "CHAOS_CHECK_FALSE", __FILE__, __LINE__, "" );                 \
     }
 
@@ -481,14 +514,14 @@ private:
     auto _a = ( a ); auto _b = ( b );                                          \
     if ( _a == _b )                                                            \
     {                                                                          \
-        chaos::test::internal::TestCore::logger.report_check_pass(             \
+        chaos::test::internal::TestCore::logger().report_check_pass(           \
                 "CHAOS_CHECK_EQUAL", __FILE__, __LINE__ );                     \
     }                                                                          \
     else                                                                       \
     {                                                                          \
         chaos::uni::UTF8String f_e_m;                                          \
         f_e_m << _a << " does not equal " << _b;                               \
-        chaos::test::internal::TestCore::logger.report_check_fail(             \
+        chaos::test::internal::TestCore::logger().report_check_fail(           \
                 "CHAOS_CHECK_EQUAL", __FILE__, __LINE__, f_e_m );              \
     }                                                                          \
     }
@@ -504,14 +537,14 @@ private:
     auto _a = ( a ); auto _b = ( b );                                          \
     if ( _a != _b )                                                            \
     {                                                                          \
-        chaos::test::internal::TestCore::logger.report_check_pass(             \
+        chaos::test::internal::TestCore::logger().report_check_pass(           \
                 "CHAOS_CHECK_NOT_EQUAL", __FILE__, __LINE__ );                 \
     }                                                                          \
     else                                                                       \
     {                                                                          \
         chaos::uni::UTF8String f_e_m;                                          \
         f_e_m << _a << " equals " << _b;                                       \
-        chaos::test::internal::TestCore::logger.report_check_fail(             \
+        chaos::test::internal::TestCore::logger().report_check_fail(           \
                 "CHAOS_CHECK_NOT_EQUAL", __FILE__, __LINE__, f_e_m );          \
     }                                                                          \
     }
@@ -528,14 +561,14 @@ private:
     auto _a = ( a ); auto _b = ( b );                                          \
     if ( chaos::math::float_equals( _a, _b ) )                                 \
     {                                                                          \
-        chaos::test::internal::TestCore::logger.report_check_pass(             \
+        chaos::test::internal::TestCore::logger().report_check_pass(           \
                 "CHAOS_CHECK_FLOAT_EQUAL", __FILE__, __LINE__ );               \
     }                                                                          \
     else                                                                       \
     {                                                                          \
         chaos::uni::UTF8String f_e_m;                                          \
         f_e_m << _a << " does not equal " << _b;                               \
-        chaos::test::internal::TestCore::logger.report_check_fail(             \
+        chaos::test::internal::TestCore::logger().report_check_fail(           \
                 "CHAOS_CHECK_FLOAT_EQUAL", __FILE__, __LINE__, f_e_m );        \
     }                                                                          \
     }
@@ -552,14 +585,14 @@ private:
     auto _a = ( a ); auto _b = ( b );                                          \
     if ( !chaos::math::float_equals( _a, _b ) )                                \
     {                                                                          \
-        chaos::test::internal::TestCore::logger.report_check_pass(             \
+        chaos::test::internal::TestCore::logger().report_check_pass(           \
                 "CHAOS_CHECK_FLOAT_NOT_EQUAL", __FILE__, __LINE__ );           \
     }                                                                          \
     else                                                                       \
     {                                                                          \
         chaos::uni::UTF8String f_e_m;                                          \
         f_e_m << _a << " does not equal " << _b;                               \
-        chaos::test::internal::TestCore::logger.report_check_fail(             \
+        chaos::test::internal::TestCore::logger().report_check_fail(           \
                 "CHAOS_CHECK_FLOAT_EQUAL", __FILE__, __LINE__, f_e_m );        \
     }                                                                          \
     }
@@ -580,7 +613,7 @@ private:
     catch( exception_type e )                                                  \
     {                                                                          \
         caught = true;                                                         \
-        chaos::test::internal::TestCore::logger.report_check_pass(             \
+        chaos::test::internal::TestCore::logger().report_check_pass(           \
                 "CHAOS_CHECK_THROW", __FILE__, __LINE__ );                     \
     }                                                                          \
     catch( ... ) {}                                                            \
@@ -588,13 +621,10 @@ private:
     {                                                                          \
         chaos::uni::UTF8String f_e_m;                                          \
         f_e_m << "Exception type: " << #exception_type << " not thrown";       \
-        chaos::test::internal::TestCore::logger.report_check_fail(             \
+        chaos::test::internal::TestCore::logger().report_check_fail(           \
                 "CHAOS_CHECK_THROW", __FILE__, __LINE__, f_e_m );              \
     }                                                                          \
     }
-
-
-#endif
 
 } // namespace test
 } // namespace chaos
@@ -604,3 +634,5 @@ namespace chaos_test_include
 {
 static chaos::test::internal::TestCore reset( "", NULL, "", 0, true );
 }
+
+#endif

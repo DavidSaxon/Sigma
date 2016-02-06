@@ -7,7 +7,7 @@
 
 #include <map>
 
-#include <chaoscore/base/Types.hpp>
+#include <chaoscore/base/BaseExceptions.hpp>
 
 namespace sigma
 {
@@ -86,17 +86,79 @@ public:
         chaos::uint64 id = g_next_callback_id++;
         // this callback shouldn't be registered
         assert(m_callback_funcs.find(id) == m_callback_funcs.end());
+
         // store this function mapped under the id
         m_callback_funcs[id] = callback_function;
         return id;
     }
 
+    /*!
+     * \brief Unregisters the function associated with the given id from this
+     *        CallbackManager.
+     *
+     * Once a function has been unregistered it will no longer be called when
+     * this object is triggered.
+     *
+     * \throws chaos::ex::KeyError If there is no function associated with the
+     *                             given id in this CallbackManager.
+     *
+     * \param id The identifier associated with the function to unregister.
+     */
     void unregister_function(chaos::uint64 id)
     {
         // ensure the id is associated with this object
-        if (m_callback_funcs.find(id) == m_callback_funcs.end())
+        if (!has_function(id))
         {
-            // TODO: throw key error
+            chaos::uni::UTF8String error_message;
+            error_message << "CallbackManager does not have a callback "
+                          << "function with the id: " << id;
+
+            throw chaos::ex::KeyError( error_message );
+        }
+        // remove the id and function from the map
+        m_callback_funcs.erase(id);
+    }
+
+    /*!
+     * \brief Returns whether this CallbackManager has a function associated
+     *        with the given id.
+     */
+    bool has_function(chaos::uint64 id) const
+    {
+        // is this id stored in the map?
+        return m_callback_funcs.find(id) != m_callback_funcs.end();
+    }
+
+    /*!
+     * \brief Returns the function associated with the given id.
+     *
+     * \throws chaos::ex::KeyError If there is no function associated with the
+     *                             given id in this CallbackManager.
+     */
+    void (*get_function(chaos::uint64 id) const)(function_parameters...)
+    {
+        // ensure the id is associated with this object
+        if (!has_function(id))
+        {
+            chaos::uni::UTF8String error_message;
+            error_message << "CallbackManager does not have a callback "
+                          << "function with the id: " << id;
+            throw chaos::ex::KeyError( error_message );
+        }
+        // return the function
+        return m_callback_funcs[id];
+    }
+
+    /*!
+     * \brief Calls all functions in this CallbackManager with the given
+     *        parameters.
+     */
+    void trigger(function_parameters... params)
+    {
+        // iterate over the attached functions and call them
+        CHAOS_FOR_EACH(it, m_callback_funcs)
+        {
+            (*it)(params)
         }
     }
 
