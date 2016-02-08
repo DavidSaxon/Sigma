@@ -15,6 +15,8 @@ set(UI_SRC
 
 set(TEST_SRC
     tests/cxx/TestsMain.cpp
+    tests/cxx/core/Callback_TestSuite.cpp
+    tests/cxx/core/callback/CallbackManager_TestSuite.cpp
     tests/cxx/core/task/Task_TestSuite.cpp
 )
 

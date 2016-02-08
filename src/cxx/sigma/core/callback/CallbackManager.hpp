@@ -5,9 +5,15 @@
 #ifndef SIGMA_CORE_CALLBACKMANAGER_HPP_
 #define SIGMA_CORE_CALLBACKMANAGER_HPP_
 
+#include <cassert>
 #include <map>
+#include <memory>
 
 #include <chaoscore/base/BaseExceptions.hpp>
+
+// TODO: FIX DOCS
+
+// TODO: Manager class holds callback interface and has the fire function??
 
 namespace sigma
 {
@@ -48,7 +54,70 @@ static chaos::uint64 g_next_callback_id = 0;
 template<typename... function_parameters>
 class CallbackManager
 {
+private:
+
+    //--------------------------------------------------------------------------
+    //                             PRIVATE STRUCTURES
+    //--------------------------------------------------------------------------
+
+    /*!
+     * \brief TODO
+     */
+    union PermissiveFunction
+    {
+        /*!
+         *\brief Represents a standard global or static function which is not
+         *       bound to an object.
+         */
+        void (*standard)(function_parameters...);
+        /*!
+         * \brief Represents a member function which is bound to it's owner
+         *        object.
+         */
+        void (*member)(void*, function_parameters...);
+    };
+
+    /*!
+     * \brief TODO:
+     */
+    struct CallbackData
+    {
+        void* owner;
+        PermissiveFunction function;
+    };
+
 public:
+
+    //--------------------------------------------------------------------------
+    //                               PUBLIC CLASSES
+    //--------------------------------------------------------------------------
+
+    class Trigger
+    {
+        friend class CallbackManager;
+    public:
+
+        Trigger()
+            :
+            m_associated_callback(nullptr)
+        {
+        }
+
+        void fire(function_parameters... params)
+        {
+            // TODO: throw exception?
+            assert(m_associated_callback != NULL);
+
+            m_associated_callback->trigger(params...);
+        }
+
+    protected:
+
+        /*!
+         * \brief The CallbackManager this trigger is associated with
+         */
+        CallbackManager* m_associated_callback;
+    };
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
@@ -57,8 +126,9 @@ public:
     /*!
      * \brief Creates a new callback manager.
      */
-    CallbackManager()
+    CallbackManager(Trigger& trigger)
     {
+        trigger.m_associated_callback = this;
     }
 
     //--------------------------------------------------------------------------
@@ -88,7 +158,30 @@ public:
         assert(m_callback_funcs.find(id) == m_callback_funcs.end());
 
         // store this function mapped under the id
-        m_callback_funcs[id] = callback_function;
+        CallbackData f;
+        f.owner = NULL;
+        f.function.standard = callback_function;
+        m_callback_funcs[id] = f;
+        return id;
+    }
+
+    /*!
+     * \brief TODO:
+     */
+    template<typename owner_type,
+             void (owner_type::*function_type)(function_parameters...)>
+    chaos::uint64 register_member_function(owner_type* owner)
+    {
+        // increment the global callback id and use it as this callback id
+        chaos::uint64 id = g_next_callback_id++;
+        // this callback shouldn't be registered
+        assert(m_callback_funcs.find(id) == m_callback_funcs.end());
+
+        // store this function mapped under the id
+        CallbackData f;
+        f.owner = owner;
+        f.function.member = member_wrapper<owner_type, function_type>;
+        m_callback_funcs[id] = f;
         return id;
     }
 
@@ -120,6 +213,15 @@ public:
     }
 
     /*!
+     * \brief Returns the number of functions currently registered in this
+     *        CallbackManager.
+     */
+    std::size_t get_size() const
+    {
+        return m_callback_funcs.size();
+    }
+
+    /*!
      * \brief Returns whether this CallbackManager has a function associated
      *        with the given id.
      */
@@ -146,7 +248,34 @@ public:
             throw chaos::ex::KeyError( error_message );
         }
         // return the function
-        return m_callback_funcs[id];
+        return m_callback_funcs[id].function;
+    }
+
+    // TODO: get function owner??
+
+private:
+
+    //--------------------------------------------------------------------------
+    //                             PRIVATE ATTRIBUTES
+    //--------------------------------------------------------------------------
+
+    /*!
+     * \brief Mapping which stores callback function ids to callback functions
+     */
+    std::map<chaos::uint64, CallbackData> m_callback_funcs;
+
+    //--------------------------------------------------------------------------
+    //                          PRIVATE STATIC FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /*!
+     * \brief TODO:
+     */
+    template<typename owner_type,
+             void (owner_type::*member_function)(function_parameters...)>
+    static void member_wrapper(void* owner, function_parameters... params)
+    {
+        (static_cast<owner_type*>(owner)->*member_function)(params...);
     }
 
     /*!
@@ -158,20 +287,18 @@ public:
         // iterate over the attached functions and call them
         CHAOS_FOR_EACH(it, m_callback_funcs)
         {
-            (*it)(params)
+            // member function?
+            if (it->second.owner != NULL)
+            {
+                it->second.function.member(it->second.owner, params...);
+            }
+            // standard function
+            else
+            {
+                it->second.function.standard(params...);
+            }
         }
     }
-
-private:
-
-    //--------------------------------------------------------------------------
-    //                             PRIVATE ATTRIBUTES
-    //--------------------------------------------------------------------------
-
-    /*!
-     * \brief Mapping which stores callback function ids to callback functions
-     */
-    std::map<chaos::uint64, void (*)(function_parameters...)> m_callback_funcs;
 };
 
 } // namespace core

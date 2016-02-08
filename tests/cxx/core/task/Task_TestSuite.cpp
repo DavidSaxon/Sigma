@@ -8,11 +8,4 @@ CHAOS_TEST_MODULE(core.tasks.task)
 namespace core_tasks_task_tests
 {
 
-CHAOS_TEST_UNIT(proto)
-{
-    std::cout << "Test me" << std::endl;
-
-    sigma::core::init();
-}
-
 } // namespace core_tasks_task_tests
