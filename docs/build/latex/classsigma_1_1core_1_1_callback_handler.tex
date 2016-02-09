@@ -1,6 +1,5 @@
-\hypertarget{classsigma_1_1core_1_1_callback_handler}{\section{sigma\-:\-:core\-:\-:Callback\-Handler$<$ function\-\_\-parameters $>$ Class Template Reference}
-\label{classsigma_1_1core_1_1_callback_handler}\index{sigma\-::core\-::\-Callback\-Handler$<$ function\-\_\-parameters $>$@{sigma\-::core\-::\-Callback\-Handler$<$ function\-\_\-parameters $>$}}
-}
+\hypertarget{classsigma_1_1core_1_1_callback_handler}{}\section{sigma\+:\+:core\+:\+:Callback\+Handler$<$ function\+\_\+parameters $>$ Class Template Reference}
+\label{classsigma_1_1core_1_1_callback_handler}\index{sigma\+::core\+::\+Callback\+Handler$<$ function\+\_\+parameters $>$@{sigma\+::core\+::\+Callback\+Handler$<$ function\+\_\+parameters $>$}}
 
 
 Object used to handle callbacks of a given function type.  
@@ -8,36 +7,35 @@ Object used to handle callbacks of a given function type.
 
 
 
-{\ttfamily \#include $<$Callback.\-hpp$>$}
+{\ttfamily \#include $<$Callback.\+hpp$>$}
 
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classsigma_1_1core_1_1_callback_handler_a640cd1f70da16d82b91a52f6c4e3a7bb}{\hyperlink{classsigma_1_1core_1_1_callback_handler_a640cd1f70da16d82b91a52f6c4e3a7bb}{Callback\-Handler} ()}\label{classsigma_1_1core_1_1_callback_handler_a640cd1f70da16d82b91a52f6c4e3a7bb}
+\hypertarget{classsigma_1_1core_1_1_callback_handler_a640cd1f70da16d82b91a52f6c4e3a7bb}{}\hyperlink{classsigma_1_1core_1_1_callback_handler_a640cd1f70da16d82b91a52f6c4e3a7bb}{Callback\+Handler} ()\label{classsigma_1_1core_1_1_callback_handler_a640cd1f70da16d82b91a52f6c4e3a7bb}
 
-\begin{DoxyCompactList}\small\item\em Creates a new \hyperlink{classsigma_1_1core_1_1_callback_handler}{Callback\-Handler} for callback functions with the template types as parameters. \end{DoxyCompactList}\item 
-\hyperlink{classsigma_1_1core_1_1_callback_interface}{Callback\-Interface}\\*
-$<$ function\-\_\-parameters...$>$ \& \hyperlink{classsigma_1_1core_1_1_callback_handler_ab9ba3abc6d94c0726de2c1dfa0056da0}{get\-\_\-interface} ()
-\begin{DoxyCompactList}\small\item\em Returns the \hyperlink{classsigma_1_1core_1_1_callback_interface}{sigma\-::core\-::\-Callback\-Interface} object associated with this handler. \end{DoxyCompactList}\item 
-void \hyperlink{classsigma_1_1core_1_1_callback_handler_a565178d287893492a86112d67a5302f8}{trigger} (function\-\_\-parameters...\-params)
-\begin{DoxyCompactList}\small\item\em Calls all callback functions registered with this object's internal \hyperlink{classsigma_1_1core_1_1_callback_interface}{Callback\-Interface}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Creates a new \hyperlink{classsigma_1_1core_1_1_callback_handler}{Callback\+Handler} for callback functions with the template types as parameters. \end{DoxyCompactList}\item 
+\hyperlink{classsigma_1_1core_1_1_callback_interface}{Callback\+Interface}$<$ function\+\_\+parameters... $>$ \& \hyperlink{classsigma_1_1core_1_1_callback_handler_ab9ba3abc6d94c0726de2c1dfa0056da0}{get\+\_\+interface} ()
+\begin{DoxyCompactList}\small\item\em Returns the \hyperlink{classsigma_1_1core_1_1_callback_interface}{sigma\+::core\+::\+Callback\+Interface} object associated with this handler. \end{DoxyCompactList}\item 
+void \hyperlink{classsigma_1_1core_1_1_callback_handler_a565178d287893492a86112d67a5302f8}{trigger} (function\+\_\+parameters...\+params)
+\begin{DoxyCompactList}\small\item\em Calls all callback functions registered with this object\textquotesingle{}s internal \hyperlink{classsigma_1_1core_1_1_callback_interface}{Callback\+Interface}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-\subsubsection*{template$<$typename... function\-\_\-parameters$>$class sigma\-::core\-::\-Callback\-Handler$<$ function\-\_\-parameters $>$}
+\subsubsection*{template$<$typename... function\+\_\+parameters$>$class sigma\+::core\+::\+Callback\+Handler$<$ function\+\_\+parameters $>$}
 
 Object used to handle callbacks of a given function type. 
 
-A \hyperlink{classsigma_1_1core_1_1_callback_handler}{Callback\-Handler} object should be used when data needs to be emitted to observer objects. Observers register their callback functions through the \hyperlink{classsigma_1_1core_1_1_callback_handler}{Callback\-Handler}'s internal \hyperlink{classsigma_1_1core_1_1_callback_interface}{sigma\-::core\-::\-Callback\-Interface}. When this object is trigged the functions registered with the \hyperlink{classsigma_1_1core_1_1_callback_interface}{Callback\-Interface} are called.
+A \hyperlink{classsigma_1_1core_1_1_callback_handler}{Callback\+Handler} object should be used when data needs to be emitted to observer objects. Observers register their callback functions through the \hyperlink{classsigma_1_1core_1_1_callback_handler}{Callback\+Handler}\textquotesingle{}s internal \hyperlink{classsigma_1_1core_1_1_callback_interface}{sigma\+::core\+::\+Callback\+Interface}. When this object is trigged the functions registered with the \hyperlink{classsigma_1_1core_1_1_callback_interface}{Callback\+Interface} are called.
 
 This object can support callback functions with arbitrary parameters using templates.
 
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em function\-\_\-parameters} & List of the types of the parameters of the callback function type this object is being instantiated for.\\
+{\em function\+\_\+parameters} & List of the types of the parameters of the callback function type this object is being instantiated for.\\
 \hline
 \end{DoxyTemplParams}
-Example use\-:
+Example use\+:
 
 
 \begin{DoxyCode}
@@ -72,30 +70,30 @@ Example use\-:
  
 
 \subsection{Member Function Documentation}
-\hypertarget{classsigma_1_1core_1_1_callback_handler_ab9ba3abc6d94c0726de2c1dfa0056da0}{\index{sigma\-::core\-::\-Callback\-Handler@{sigma\-::core\-::\-Callback\-Handler}!get\-\_\-interface@{get\-\_\-interface}}
-\index{get\-\_\-interface@{get\-\_\-interface}!sigma::core::CallbackHandler@{sigma\-::core\-::\-Callback\-Handler}}
-\subsubsection[{get\-\_\-interface}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... function\-\_\-parameters$>$ {\bf Callback\-Interface}$<$function\-\_\-parameters...$>$\& {\bf sigma\-::core\-::\-Callback\-Handler}$<$ function\-\_\-parameters $>$\-::get\-\_\-interface (
+\hypertarget{classsigma_1_1core_1_1_callback_handler_ab9ba3abc6d94c0726de2c1dfa0056da0}{}\index{sigma\+::core\+::\+Callback\+Handler@{sigma\+::core\+::\+Callback\+Handler}!get\+\_\+interface@{get\+\_\+interface}}
+\index{get\+\_\+interface@{get\+\_\+interface}!sigma\+::core\+::\+Callback\+Handler@{sigma\+::core\+::\+Callback\+Handler}}
+\subsubsection[{get\+\_\+interface()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... function\+\_\+parameters$>$ {\bf Callback\+Interface}$<$function\+\_\+parameters...$>$\& {\bf sigma\+::core\+::\+Callback\+Handler}$<$ function\+\_\+parameters $>$\+::get\+\_\+interface (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classsigma_1_1core_1_1_callback_handler_ab9ba3abc6d94c0726de2c1dfa0056da0}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{classsigma_1_1core_1_1_callback_handler_ab9ba3abc6d94c0726de2c1dfa0056da0}
 
 
-Returns the \hyperlink{classsigma_1_1core_1_1_callback_interface}{sigma\-::core\-::\-Callback\-Interface} object associated with this handler. 
+Returns the \hyperlink{classsigma_1_1core_1_1_callback_interface}{sigma\+::core\+::\+Callback\+Interface} object associated with this handler. 
 
-The \hyperlink{classsigma_1_1core_1_1_callback_interface}{Callback\-Interface} is used by observers to register callback functions. \hypertarget{classsigma_1_1core_1_1_callback_handler_a565178d287893492a86112d67a5302f8}{\index{sigma\-::core\-::\-Callback\-Handler@{sigma\-::core\-::\-Callback\-Handler}!trigger@{trigger}}
-\index{trigger@{trigger}!sigma::core::CallbackHandler@{sigma\-::core\-::\-Callback\-Handler}}
-\subsubsection[{trigger}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... function\-\_\-parameters$>$ void {\bf sigma\-::core\-::\-Callback\-Handler}$<$ function\-\_\-parameters $>$\-::trigger (
+The \hyperlink{classsigma_1_1core_1_1_callback_interface}{Callback\+Interface} is used by observers to register callback functions. \hypertarget{classsigma_1_1core_1_1_callback_handler_a565178d287893492a86112d67a5302f8}{}\index{sigma\+::core\+::\+Callback\+Handler@{sigma\+::core\+::\+Callback\+Handler}!trigger@{trigger}}
+\index{trigger@{trigger}!sigma\+::core\+::\+Callback\+Handler@{sigma\+::core\+::\+Callback\+Handler}}
+\subsubsection[{trigger(function\+\_\+parameters...\+params)}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... function\+\_\+parameters$>$ void {\bf sigma\+::core\+::\+Callback\+Handler}$<$ function\+\_\+parameters $>$\+::trigger (
 \begin{DoxyParamCaption}
-\item[{function\-\_\-parameters...}]{params}
+\item[{function\+\_\+parameters...}]{params}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classsigma_1_1core_1_1_callback_handler_a565178d287893492a86112d67a5302f8}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{classsigma_1_1core_1_1_callback_handler_a565178d287893492a86112d67a5302f8}
 
 
-Calls all callback functions registered with this object's internal \hyperlink{classsigma_1_1core_1_1_callback_interface}{Callback\-Interface}. 
+Calls all callback functions registered with this object\textquotesingle{}s internal \hyperlink{classsigma_1_1core_1_1_callback_interface}{Callback\+Interface}. 
 
 The callback functions will be called using the parameters passed into this function. 
 
-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/home/david/\-Dropbox/\-Development/\-Sigma/\-Sigma/src/cxx/sigma/core/\hyperlink{_callback_8hpp}{Callback.\-hpp}\end{DoxyCompactItemize}
+D\+:/\+Dropbox/\+Development/\+Sigma/\+Sigma/src/cxx/sigma/core/\hyperlink{_callback_8hpp}{Callback.\+hpp}\end{DoxyCompactItemize}

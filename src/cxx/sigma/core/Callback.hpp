@@ -161,7 +161,7 @@ public:
         if (--m_ref_counter->count == 0)
         {
             // does the callback need unregistering?
-            if (!m_ref_counter->early_unregister)
+            if (is_registered())
             {
                 m_interface->unregister_function(m_id);
             }
@@ -183,6 +183,19 @@ public:
     }
 
     /*!
+     * \brief Returns whether this contains a registered callback or not.
+     *
+     * A callback may return as unregistered because:
+     * - ``unregister`` has been explicitly called.
+     * - The ``CallbackHandler``/``CallbackInterface`` this was registered with
+     *   has been destroyed.
+     */
+    bool is_registered() const
+    {
+        return !m_ref_counter->early_unregister;
+    }
+
+    /*!
      * \brief Explicitly unregisters this callback.
      *
      * Once the callback has been unregistered the function this is associated
@@ -196,7 +209,7 @@ public:
         // there should be at least one instance!!
         assert(m_ref_counter->count > 0);
         // do nothing if the callback is already unregistered
-        if (!m_ref_counter->early_unregister)
+        if (is_registered())
         {
             m_interface->unregister_function(m_id);
             m_ref_counter->early_unregister = true;
