@@ -1,4 +1,10 @@
 var searchData=
 [
-  ['register_5ffunction',['register_function',['../classsigma_1_1core_1_1_callback_manager.html#a7dbb06902d49789afc466a3ecbacbfe2',1,'sigma::core::CallbackManager']]]
+  ['core',['core',['../namespacesigma_1_1core.html',1,'sigma']]],
+  ['sigma_20c_2b_2b_20documentation',['Sigma C++ Documentation',['../index.html',1,'']]],
+  ['scopedcallback',['ScopedCallback',['../classsigma_1_1core_1_1_scoped_callback.html#ae39d91862f76b1804acc8edae410678e',1,'sigma::core::ScopedCallback']]],
+  ['scopedcallback',['ScopedCallback',['../classsigma_1_1core_1_1_scoped_callback.html',1,'sigma::core']]],
+  ['sigma',['sigma',['../namespacesigma.html',1,'']]],
+  ['sigma_2ehpp',['Sigma.hpp',['../_sigma_8hpp.html',1,'']]],
+  ['tasks',['tasks',['../namespacesigma_1_1core_1_1tasks.html',1,'sigma::core']]]
 ];

@@ -9,22 +9,30 @@ Object used to manager a specific callback.
 
 {\ttfamily \#include $<$Callback\+Manager.\+hpp$>$}
 
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classsigma_1_1core_1_1_callback_manager_1_1_trigger}{Trigger}
+\end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classsigma_1_1core_1_1_callback_manager_addca93c8df2c8e419fd6a24bd00b215e}{}\hyperlink{classsigma_1_1core_1_1_callback_manager_addca93c8df2c8e419fd6a24bd00b215e}{Callback\+Manager} ()\label{classsigma_1_1core_1_1_callback_manager_addca93c8df2c8e419fd6a24bd00b215e}
+\hypertarget{classsigma_1_1core_1_1_callback_manager_a16daea2887f1654abd7e5d0f0644bb7d}{}\hyperlink{classsigma_1_1core_1_1_callback_manager_a16daea2887f1654abd7e5d0f0644bb7d}{Callback\+Manager} (\hyperlink{classsigma_1_1core_1_1_callback_manager_1_1_trigger}{Trigger} \&trigger)\label{classsigma_1_1core_1_1_callback_manager_a16daea2887f1654abd7e5d0f0644bb7d}
 
 \begin{DoxyCompactList}\small\item\em Creates a new callback manager. \end{DoxyCompactList}\item 
 chaos\+::uint64 \hyperlink{classsigma_1_1core_1_1_callback_manager_a7dbb06902d49789afc466a3ecbacbfe2}{register\+\_\+function} (void($\ast$callback\+\_\+function)(function\+\_\+parameters...))
 \begin{DoxyCompactList}\small\item\em Registers the given function in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager}. \end{DoxyCompactList}\item 
+\hypertarget{classsigma_1_1core_1_1_callback_manager_a64fc896997b3296fb027bad74831e58c}{}{\footnotesize template$<$typename owner\+\_\+type , void(owner\+\_\+type\+::$\ast$)(function\+\_\+parameters...) function\+\_\+type$>$ }\\chaos\+::uint64 \hyperlink{classsigma_1_1core_1_1_callback_manager_a64fc896997b3296fb027bad74831e58c}{register\+\_\+member\+\_\+function} (owner\+\_\+type $\ast$owner)\label{classsigma_1_1core_1_1_callback_manager_a64fc896997b3296fb027bad74831e58c}
+
+\begin{DoxyCompactList}\small\item\em T\+O\+D\+O\+: \end{DoxyCompactList}\item 
 void \hyperlink{classsigma_1_1core_1_1_callback_manager_a1a03ab9185e131aa077c6528e6d2dcd8}{unregister\+\_\+function} (chaos\+::uint64 id)
 \begin{DoxyCompactList}\small\item\em Unregisters the function associated with the given id from this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager}. \end{DoxyCompactList}\item 
+\hypertarget{classsigma_1_1core_1_1_callback_manager_aff8fd473b7492eeb9f77ee07c47e163a}{}std\+::size\+\_\+t \hyperlink{classsigma_1_1core_1_1_callback_manager_aff8fd473b7492eeb9f77ee07c47e163a}{get\+\_\+size} () const \label{classsigma_1_1core_1_1_callback_manager_aff8fd473b7492eeb9f77ee07c47e163a}
+
+\begin{DoxyCompactList}\small\item\em Returns the number of functions currently registered in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager}. \end{DoxyCompactList}\item 
 \hypertarget{classsigma_1_1core_1_1_callback_manager_ad0d7c7aed410522b26005713268a845e}{}bool \hyperlink{classsigma_1_1core_1_1_callback_manager_ad0d7c7aed410522b26005713268a845e}{has\+\_\+function} (chaos\+::uint64 id) const \label{classsigma_1_1core_1_1_callback_manager_ad0d7c7aed410522b26005713268a845e}
 
-\begin{DoxyCompactList}\small\item\em Returns whether this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager} has a function associated with the given id. \end{DoxyCompactList}\item 
-\hypertarget{classsigma_1_1core_1_1_callback_manager_a99e53211fc575dbd72711e8318469ad1}{}void \hyperlink{classsigma_1_1core_1_1_callback_manager_a99e53211fc575dbd72711e8318469ad1}{trigger} (function\+\_\+parameters...\+params)\label{classsigma_1_1core_1_1_callback_manager_a99e53211fc575dbd72711e8318469ad1}
-
-\begin{DoxyCompactList}\small\item\em Calls all functions in this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager} with the given parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns whether this \hyperlink{classsigma_1_1core_1_1_callback_manager}{Callback\+Manager} has a function associated with the given id. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -114,4 +122,4 @@ Returns the function associated with the given id.
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+Dropbox/\+Development/\+Sigma/\+Sigma/src/cxx/sigma/core/\hyperlink{_callback_manager_8hpp}{Callback\+Manager.\+hpp}\end{DoxyCompactItemize}
+D\+:/\+Dropbox/\+Development/\+Sigma/\+Sigma/src/cxx/sigma/core/callback/\hyperlink{_callback_manager_8hpp}{Callback\+Manager.\+hpp}\end{DoxyCompactItemize}

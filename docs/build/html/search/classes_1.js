@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['task',['Task',['../classsigma_1_1core_1_1tasks_1_1_task.html',1,'sigma::core::tasks']]]
+  ['scopedcallback',['ScopedCallback',['../classsigma_1_1core_1_1_scoped_callback.html',1,'sigma::core']]]
 ];

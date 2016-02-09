@@ -31,13 +31,13 @@ public:
                 m_test_callback.get_interface().register_member_function
                         <ProtoFixture, &ProtoFixture::not_static>(this)
         );
-        m_test_callback.emit(false, 12);
+        m_test_callback.trigger(false, 12);
+        callback_2.unregister();
+        m_test_callback.trigger(true, 58);
     }
 
 private:
 
-    // sigma::core::CallbackManager<bool, int>::Trigger m_test_callback_trigger;
-    // sigma::core::CallbackInterface<bool, int> m_test_callback;
     sigma::core::CallbackHandler<bool, int> m_test_callback;
 };
 

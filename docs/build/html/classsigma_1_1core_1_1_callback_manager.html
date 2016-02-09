@@ -83,6 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classsigma_1_1core_1_1_callback_manager-members.html">List of all members</a>  </div>
@@ -96,26 +97,36 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="_callback_manager_8hpp_source.html">CallbackManager.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_callback_manager_1_1_trigger.html">Trigger</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:addca93c8df2c8e419fd6a24bd00b215e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="addca93c8df2c8e419fd6a24bd00b215e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_callback_manager.html#addca93c8df2c8e419fd6a24bd00b215e">CallbackManager</a> ()</td></tr>
-<tr class="memdesc:addca93c8df2c8e419fd6a24bd00b215e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new callback manager. <br /></td></tr>
-<tr class="separator:addca93c8df2c8e419fd6a24bd00b215e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16daea2887f1654abd7e5d0f0644bb7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16daea2887f1654abd7e5d0f0644bb7d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_callback_manager.html#a16daea2887f1654abd7e5d0f0644bb7d">CallbackManager</a> (<a class="el" href="classsigma_1_1core_1_1_callback_manager_1_1_trigger.html">Trigger</a> &amp;trigger)</td></tr>
+<tr class="memdesc:a16daea2887f1654abd7e5d0f0644bb7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new callback manager. <br /></td></tr>
+<tr class="separator:a16daea2887f1654abd7e5d0f0644bb7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7dbb06902d49789afc466a3ecbacbfe2"><td class="memItemLeft" align="right" valign="top">chaos::uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_callback_manager.html#a7dbb06902d49789afc466a3ecbacbfe2">register_function</a> (void(*callback_function)(function_parameters...))</td></tr>
 <tr class="memdesc:a7dbb06902d49789afc466a3ecbacbfe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the given function in this <a class="el" href="classsigma_1_1core_1_1_callback_manager.html" title="Object used to manager a specific callback. ">CallbackManager</a>.  <a href="#a7dbb06902d49789afc466a3ecbacbfe2">More...</a><br /></td></tr>
 <tr class="separator:a7dbb06902d49789afc466a3ecbacbfe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64fc896997b3296fb027bad74831e58c"><td class="memTemplParams" colspan="2"><a class="anchor" id="a64fc896997b3296fb027bad74831e58c"></a>
+template&lt;typename owner_type , void(owner_type::*)(function_parameters...) function_type&gt; </td></tr>
+<tr class="memitem:a64fc896997b3296fb027bad74831e58c"><td class="memTemplItemLeft" align="right" valign="top">chaos::uint64&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_callback_manager.html#a64fc896997b3296fb027bad74831e58c">register_member_function</a> (owner_type *owner)</td></tr>
+<tr class="memdesc:a64fc896997b3296fb027bad74831e58c"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO: <br /></td></tr>
+<tr class="separator:a64fc896997b3296fb027bad74831e58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a03ab9185e131aa077c6528e6d2dcd8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_callback_manager.html#a1a03ab9185e131aa077c6528e6d2dcd8">unregister_function</a> (chaos::uint64 id)</td></tr>
 <tr class="memdesc:a1a03ab9185e131aa077c6528e6d2dcd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unregisters the function associated with the given id from this <a class="el" href="classsigma_1_1core_1_1_callback_manager.html" title="Object used to manager a specific callback. ">CallbackManager</a>.  <a href="#a1a03ab9185e131aa077c6528e6d2dcd8">More...</a><br /></td></tr>
 <tr class="separator:a1a03ab9185e131aa077c6528e6d2dcd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff8fd473b7492eeb9f77ee07c47e163a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aff8fd473b7492eeb9f77ee07c47e163a"></a>
+std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_callback_manager.html#aff8fd473b7492eeb9f77ee07c47e163a">get_size</a> () const </td></tr>
+<tr class="memdesc:aff8fd473b7492eeb9f77ee07c47e163a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of functions currently registered in this <a class="el" href="classsigma_1_1core_1_1_callback_manager.html" title="Object used to manager a specific callback. ">CallbackManager</a>. <br /></td></tr>
+<tr class="separator:aff8fd473b7492eeb9f77ee07c47e163a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0d7c7aed410522b26005713268a845e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0d7c7aed410522b26005713268a845e"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_callback_manager.html#ad0d7c7aed410522b26005713268a845e">has_function</a> (chaos::uint64 id) const </td></tr>
 <tr class="memdesc:ad0d7c7aed410522b26005713268a845e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this <a class="el" href="classsigma_1_1core_1_1_callback_manager.html" title="Object used to manager a specific callback. ">CallbackManager</a> has a function associated with the given id. <br /></td></tr>
 <tr class="separator:ad0d7c7aed410522b26005713268a845e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99e53211fc575dbd72711e8318469ad1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a99e53211fc575dbd72711e8318469ad1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_callback_manager.html#a99e53211fc575dbd72711e8318469ad1">trigger</a> (function_parameters...params)</td></tr>
-<tr class="memdesc:a99e53211fc575dbd72711e8318469ad1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls all functions in this <a class="el" href="classsigma_1_1core_1_1_callback_manager.html" title="Object used to manager a specific callback. ">CallbackManager</a> with the given parameters. <br /></td></tr>
-<tr class="separator:a99e53211fc575dbd72711e8318469ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -242,13 +253,13 @@ template&lt;typename... function_parameters&gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>D:/Dropbox/Development/Sigma/Sigma/src/cxx/sigma/core/<a class="el" href="_callback_manager_8hpp_source.html">CallbackManager.hpp</a></li>
+<li>D:/Dropbox/Development/Sigma/Sigma/src/cxx/sigma/core/callback/<a class="el" href="_callback_manager_8hpp_source.html">CallbackManager.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.6-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 7 2016 02:17:49 for Sigma  |  API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Feb 9 2016 00:19:25 for Sigma  |  API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

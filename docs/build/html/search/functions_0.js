@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['callbackmanager',['CallbackManager',['../classsigma_1_1core_1_1_callback_manager.html#addca93c8df2c8e419fd6a24bd00b215e',1,'sigma::core::CallbackManager']]]
+  ['callbackhandler',['CallbackHandler',['../classsigma_1_1core_1_1_callback_handler.html#a640cd1f70da16d82b91a52f6c4e3a7bb',1,'sigma::core::CallbackHandler']]]
 ];

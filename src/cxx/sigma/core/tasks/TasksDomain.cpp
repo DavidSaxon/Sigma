@@ -1,6 +1,5 @@
 #include "sigma/core/tasks/TasksDomain.hpp"
 
-#include "sigma/core/callback/CallbackManager.hpp"
 #include "sigma/core/tasks/Task.hpp"
 
 // TODO: REMOVE ME
