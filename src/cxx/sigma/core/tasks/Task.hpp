@@ -11,13 +11,14 @@
 
 #include <chaoscore/base/uni/UTF8String.hpp>
 
+#include "sigma/core/Callback.hpp"
+
 namespace sigma
 {
 namespace core
 {
 namespace tasks
 {
-
 
 /*!
  * \brief TODO
@@ -40,6 +41,12 @@ public:
     Task(const chaos::uni::UTF8String& title, Task* parent=nullptr);
 
     //--------------------------------------------------------------------------
+    //                                 DESTRUCTOR
+    //--------------------------------------------------------------------------
+
+    ~Task();
+
+    //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
@@ -55,7 +62,48 @@ public:
 
     // Task* get_child(std::size_t index) const;
 
+    //--------------------------------------------------------------------------
+    //                              CALLBACK EVENTS
+    //--------------------------------------------------------------------------
+
+    //----------------------------------GLOBAL----------------------------------
+
+    /*!
+     * \brief TODO
+     */
+    static sigma::core::CallbackInterface<Task*>* on_created()
+    {
+        return &s_created_callback.get_interface();
+    }
+
+    /*!
+     * \brief TODO
+     */
+    static sigma::core::CallbackInterface<Task*>* on_destroyed()
+    {
+        return &s_destroyed_callback.get_interface();
+    }
+
+    //----------------------------------LOCAL-----------------------------------
+
+    /*!
+     * \brief TODO
+     */
+    sigma::core::CallbackInterface<Task*, const chaos::uni::UTF8String&>*
+    on_title_changed()
+    {
+        return &m_title_changed_callback.get_interface();
+    }
+
 private:
+
+    //--------------------------------------------------------------------------
+    //                          PRIVATE STATIC VARIABLES
+    //--------------------------------------------------------------------------
+
+    // global callback handlers
+    static sigma::core::CallbackHandler<Task*> s_created_callback;
+    static sigma::core::CallbackHandler<Task*> s_destroyed_callback;
 
     //--------------------------------------------------------------------------
     //                             PRIVATE ATTRIBUTES
@@ -85,6 +133,9 @@ private:
     // TODO: links
 
 
+    // local callback handlers
+    sigma::core::CallbackHandler<Task*, const chaos::uni::UTF8String&>
+            m_title_changed_callback;
 };
 
 } // namespace tasks

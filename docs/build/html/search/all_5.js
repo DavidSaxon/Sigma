@@ -1,10 +1,5 @@
 var searchData=
 [
-  ['core',['core',['../namespacesigma_1_1core.html',1,'sigma']]],
-  ['sigma_20c_2b_2b_20documentation',['Sigma C++ Documentation',['../index.html',1,'']]],
-  ['scopedcallback',['ScopedCallback',['../classsigma_1_1core_1_1_scoped_callback.html#ae39d91862f76b1804acc8edae410678e',1,'sigma::core::ScopedCallback']]],
-  ['scopedcallback',['ScopedCallback',['../classsigma_1_1core_1_1_scoped_callback.html',1,'sigma::core']]],
-  ['sigma',['sigma',['../namespacesigma.html',1,'']]],
-  ['sigma_2ehpp',['Sigma.hpp',['../_sigma_8hpp.html',1,'']]],
-  ['tasks',['tasks',['../namespacesigma_1_1core_1_1tasks.html',1,'sigma::core']]]
+  ['register_5ffunction',['register_function',['../classsigma_1_1core_1_1_callback_interface.html#a447678d82d322396c293aabc534e4e96',1,'sigma::core::CallbackInterface']]],
+  ['register_5fmember_5ffunction',['register_member_function',['../classsigma_1_1core_1_1_callback_interface.html#aea30ba6ae89d5638e91db8ba2207854a',1,'sigma::core::CallbackInterface']]]
 ];

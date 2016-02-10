@@ -78,10 +78,7 @@ CHAOS_TEST_UNIT_FIXTURE(no_params, NoParametersFixture)
     fixture->reset();
 
     // add the static callback
-    sigma::core::ScopedCallback static_callback(
-            handler.get_interface().register_function(fixture->static_func)
-    );
-    CHAOS_CHECK_TRUE(static_callback.is_registered());
+    handler.get_interface().register_function(fixture->static_func);
     // check state
     handler.trigger();
     CHAOS_CHECK_TRUE (fixture->global_called);
@@ -126,14 +123,12 @@ CHAOS_TEST_UNIT_FIXTURE(no_params, NoParametersFixture)
 
     // test for double unregistering
     global_callback.unregister();
-    static_callback.unregister();
     CHAOS_CHECK_FALSE(global_callback.is_registered());
-    CHAOS_CHECK_FALSE(static_callback.is_registered());
 
     // check state
     handler.trigger();
     CHAOS_CHECK_FALSE(fixture->global_called);
-    CHAOS_CHECK_FALSE(fixture->static_called);
+    CHAOS_CHECK_TRUE (fixture->static_called);
     CHAOS_CHECK_FALSE(fixture->member_called);
 }
 

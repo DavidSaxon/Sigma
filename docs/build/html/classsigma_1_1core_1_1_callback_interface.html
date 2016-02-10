@@ -107,13 +107,13 @@ Inheritance diagram for sigma::core::CallbackInterface&lt; function_parameters &
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1117c0ac1a539abfe254e2f12dc1880d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsigma_1_1core_1_1_scoped_callback.html">ScopedCallback</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_callback_interface.html#a1117c0ac1a539abfe254e2f12dc1880d">register_function</a> (void(*callback_function)(function_parameters...))</td></tr>
-<tr class="memdesc:a1117c0ac1a539abfe254e2f12dc1880d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a global or static function as a callback.  <a href="#a1117c0ac1a539abfe254e2f12dc1880d">More...</a><br /></td></tr>
-<tr class="separator:a1117c0ac1a539abfe254e2f12dc1880d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa44a699001122a4828013af440345c7"><td class="memTemplParams" colspan="2">template&lt;typename owner_type , void(owner_type::*)(function_parameters...) function_type&gt; </td></tr>
-<tr class="memitem:aaa44a699001122a4828013af440345c7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classsigma_1_1core_1_1_scoped_callback.html">ScopedCallback</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_callback_interface.html#aaa44a699001122a4828013af440345c7">register_member_function</a> (owner_type *owner)</td></tr>
-<tr class="memdesc:aaa44a699001122a4828013af440345c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a member function as a callback.  <a href="#aaa44a699001122a4828013af440345c7">More...</a><br /></td></tr>
-<tr class="separator:aaa44a699001122a4828013af440345c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a447678d82d322396c293aabc534e4e96"><td class="memItemLeft" align="right" valign="top">TransientCallbackID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_callback_interface.html#a447678d82d322396c293aabc534e4e96">register_function</a> (void(*callback_function)(function_parameters...))</td></tr>
+<tr class="memdesc:a447678d82d322396c293aabc534e4e96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a global or static function as a callback.  <a href="#a447678d82d322396c293aabc534e4e96">More...</a><br /></td></tr>
+<tr class="separator:a447678d82d322396c293aabc534e4e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea30ba6ae89d5638e91db8ba2207854a"><td class="memTemplParams" colspan="2">template&lt;typename owner_type , void(owner_type::*)(function_parameters...) function_type&gt; </td></tr>
+<tr class="memitem:aea30ba6ae89d5638e91db8ba2207854a"><td class="memTemplItemLeft" align="right" valign="top">TransientCallbackID&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_callback_interface.html#aea30ba6ae89d5638e91db8ba2207854a">register_member_function</a> (owner_type *owner)</td></tr>
+<tr class="memdesc:aea30ba6ae89d5638e91db8ba2207854a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a member function as a callback.  <a href="#aea30ba6ae89d5638e91db8ba2207854a">More...</a><br /></td></tr>
+<tr class="separator:aea30ba6ae89d5638e91db8ba2207854a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -130,8 +130,9 @@ class sigma::core::CallbackInterface&lt; function_parameters &gt;</h3>
 
 <p>Used to register global, static, and member functions as callbacks. </p>
 <p>This object will call all registered callback functions when triggered. The callback routine may only be triggered by the owner of this object, see: <a class="el" href="classsigma_1_1core_1_1_callback_handler.html" title="Object used to handle callbacks of a given function type. ">sigma::core::CallbackHandler</a>.</p>
-<p>Registered functions are manager through <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">sigma::core::ScopedCallback</a> instances which aid managing the lifetime of the callback.</p>
-<p>An example of registering both a global and a member function callback:</p>
+<p>Registered functions can have their life cycle manged through a <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a>. The <code>register_function</code> and <code>register_member_function</code> methods return an object of type TransientCallbackID which can be wrapped and handled by a <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a>. The TransientCallbackID object should not be interacted with directly or stored.</p>
+<p>ScopedCallbacks will unregister the wrapped callback when all references go out of scope, or can be explicitly used to unregister the callback.</p>
+<p>An example of registering both a global and a member function callback and storing them with ScopedCallbacks:</p>
 <div class="fragment"><div class="line"><span class="comment">// g_callback_interface is an object of type CallbackInterface&lt;bool, int&gt;</span></div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> global_callback_func(<span class="keywordtype">bool</span> a, <span class="keywordtype">int</span> b)</div>
@@ -171,7 +172,7 @@ class sigma::core::CallbackInterface&lt; function_parameters &gt;</h3>
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a1117c0ac1a539abfe254e2f12dc1880d"></a>
+<a class="anchor" id="a447678d82d322396c293aabc534e4e96"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -181,7 +182,7 @@ template&lt;typename... function_parameters&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsigma_1_1core_1_1_scoped_callback.html">ScopedCallback</a> <a class="el" href="classsigma_1_1core_1_1_callback_interface.html">sigma::core::CallbackInterface</a>&lt; function_parameters &gt;::register_function </td>
+          <td class="memname">TransientCallbackID <a class="el" href="classsigma_1_1core_1_1_callback_interface.html">sigma::core::CallbackInterface</a>&lt; function_parameters &gt;::register_function </td>
           <td>(</td>
           <td class="paramtype">void(*)(function_parameters...)&#160;</td>
           <td class="paramname"><em>callback_function</em></td><td>)</td>
@@ -203,11 +204,11 @@ template&lt;typename... function_parameters&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">sigma::core::ScopedCallback</a> which is used to unregister this callback. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A TransientCallbackID object which can be wrapped with a <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a> but should not be interacted with directly or stored. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="aaa44a699001122a4828013af440345c7"></a>
+<a class="anchor" id="aea30ba6ae89d5638e91db8ba2207854a"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -219,7 +220,7 @@ template&lt;typename owner_type , void(owner_type::*)(function_parameters...) fu
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsigma_1_1core_1_1_scoped_callback.html">ScopedCallback</a> <a class="el" href="classsigma_1_1core_1_1_callback_interface.html">sigma::core::CallbackInterface</a>&lt; function_parameters &gt;::register_member_function </td>
+          <td class="memname">TransientCallbackID <a class="el" href="classsigma_1_1core_1_1_callback_interface.html">sigma::core::CallbackInterface</a>&lt; function_parameters &gt;::register_member_function </td>
           <td>(</td>
           <td class="paramtype">owner_type *&#160;</td>
           <td class="paramname"><em>owner</em></td><td>)</td>
@@ -249,7 +250,7 @@ template&lt;typename owner_type , void(owner_type::*)(function_parameters...) fu
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">sigma::core::ScopedCallback</a> which is used to unregister this callback. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A TransientCallbackID object which can be wrapped with a <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a> but should not be interacted with directly or stored. </dd></dl>
 
 </div>
 </div>
@@ -260,7 +261,7 @@ template&lt;typename owner_type , void(owner_type::*)(function_parameters...) fu
 <!-- HTML footer for doxygen 1.8.6-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 9 2016 23:09:30 for Sigma  |  API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 10 2016 23:56:15 for Sigma  |  API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

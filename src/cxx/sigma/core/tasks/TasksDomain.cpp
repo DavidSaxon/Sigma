@@ -12,23 +12,29 @@ namespace core
 namespace tasks
 {
 
+// TODO: domains should be an object with inheritance(or something better)
+
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
 //------------------------------------------------------------------------------
 
-void callback_test(void* v, sigma::core::tasks::Task* t, int i)
+void task_created(sigma::core::tasks::Task* task)
 {
-    std::cout << "Hello World: " << i << std::endl;
+    std::cout << "new task!" << std::endl;
+}
+
+void task_destroyed(sigma::core::tasks::Task* task)
+{
+    std::cout << "delete task!" << std::endl;
 }
 
 void init()
 {
-    // sigma::core::CallbackManager<int, float, int> callback_manager;
+    // TODO: this seems bad...
+    sigma::core::tasks::Task::on_created()->register_function(task_created);
+    sigma::core::tasks::Task::on_destroyed()->register_function(task_destroyed);
 
-    // sigma::core::CallbackManager<sigma::core::tasks::Task*, int>
-            // callback_manager;
-    // chaos::uint64 id = callback_manager.register_function(NULL, callback_test);
-    // callback_manager.trigger(NULL, 12);
+    sigma::core::tasks::Task t("my_task");
 }
 
 } // namespace tasks

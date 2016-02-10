@@ -18,9 +18,9 @@ Inheritance diagram for sigma\+:\+:core\+:\+:Callback\+Interface$<$ function\+\_
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\+Callback} \hyperlink{classsigma_1_1core_1_1_callback_interface_a1117c0ac1a539abfe254e2f12dc1880d}{register\+\_\+function} (void($\ast$callback\+\_\+function)(function\+\_\+parameters...))
+Transient\+Callback\+I\+D \hyperlink{classsigma_1_1core_1_1_callback_interface_a447678d82d322396c293aabc534e4e96}{register\+\_\+function} (void($\ast$callback\+\_\+function)(function\+\_\+parameters...))
 \begin{DoxyCompactList}\small\item\em Registers a global or static function as a callback. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename owner\+\_\+type , void(owner\+\_\+type\+::$\ast$)(function\+\_\+parameters...) function\+\_\+type$>$ }\\\hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\+Callback} \hyperlink{classsigma_1_1core_1_1_callback_interface_aaa44a699001122a4828013af440345c7}{register\+\_\+member\+\_\+function} (owner\+\_\+type $\ast$owner)
+{\footnotesize template$<$typename owner\+\_\+type , void(owner\+\_\+type\+::$\ast$)(function\+\_\+parameters...) function\+\_\+type$>$ }\\Transient\+Callback\+I\+D \hyperlink{classsigma_1_1core_1_1_callback_interface_aea30ba6ae89d5638e91db8ba2207854a}{register\+\_\+member\+\_\+function} (owner\+\_\+type $\ast$owner)
 \begin{DoxyCompactList}\small\item\em Registers a member function as a callback. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -40,9 +40,11 @@ Used to register global, static, and member functions as callbacks.
 
 This object will call all registered callback functions when triggered. The callback routine may only be triggered by the owner of this object, see\+: \hyperlink{classsigma_1_1core_1_1_callback_handler}{sigma\+::core\+::\+Callback\+Handler}.
 
-Registered functions are manager through \hyperlink{classsigma_1_1core_1_1_scoped_callback}{sigma\+::core\+::\+Scoped\+Callback} instances which aid managing the lifetime of the callback.
+Registered functions can have their life cycle manged through a \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\+Callback}. The {\ttfamily register\+\_\+function} and {\ttfamily register\+\_\+member\+\_\+function} methods return an object of type Transient\+Callback\+I\+D which can be wrapped and handled by a \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\+Callback}. The Transient\+Callback\+I\+D object should not be interacted with directly or stored.
 
-An example of registering both a global and a member function callback\+:
+Scoped\+Callbacks will unregister the wrapped callback when all references go out of scope, or can be explicitly used to unregister the callback.
+
+An example of registering both a global and a member function callback and storing them with Scoped\+Callbacks\+:
 
 
 \begin{DoxyCode}
@@ -90,13 +92,13 @@ Notice that the global function may be passed in directly to the {\ttfamily regi
 
 
 \subsection{Member Function Documentation}
-\hypertarget{classsigma_1_1core_1_1_callback_interface_a1117c0ac1a539abfe254e2f12dc1880d}{}\index{sigma\+::core\+::\+Callback\+Interface@{sigma\+::core\+::\+Callback\+Interface}!register\+\_\+function@{register\+\_\+function}}
+\hypertarget{classsigma_1_1core_1_1_callback_interface_a447678d82d322396c293aabc534e4e96}{}\index{sigma\+::core\+::\+Callback\+Interface@{sigma\+::core\+::\+Callback\+Interface}!register\+\_\+function@{register\+\_\+function}}
 \index{register\+\_\+function@{register\+\_\+function}!sigma\+::core\+::\+Callback\+Interface@{sigma\+::core\+::\+Callback\+Interface}}
-\subsubsection[{register\+\_\+function(void($\ast$callback\+\_\+function)(function\+\_\+parameters...))}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... function\+\_\+parameters$>$ {\bf Scoped\+Callback} {\bf sigma\+::core\+::\+Callback\+Interface}$<$ function\+\_\+parameters $>$\+::register\+\_\+function (
+\subsubsection[{register\+\_\+function(void($\ast$callback\+\_\+function)(function\+\_\+parameters...))}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... function\+\_\+parameters$>$ Transient\+Callback\+I\+D {\bf sigma\+::core\+::\+Callback\+Interface}$<$ function\+\_\+parameters $>$\+::register\+\_\+function (
 \begin{DoxyParamCaption}
 \item[{void($\ast$)(function\+\_\+parameters...)}]{callback\+\_\+function}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\label{classsigma_1_1core_1_1_callback_interface_a1117c0ac1a539abfe254e2f12dc1880d}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{classsigma_1_1core_1_1_callback_interface_a447678d82d322396c293aabc534e4e96}
 
 
 Registers a global or static function as a callback. 
@@ -109,15 +111,15 @@ Registered functions will be called when callback owner triggers the \hyperlink{
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A \hyperlink{classsigma_1_1core_1_1_scoped_callback}{sigma\+::core\+::\+Scoped\+Callback} which is used to unregister this callback. 
+A Transient\+Callback\+I\+D object which can be wrapped with a \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\+Callback} but should not be interacted with directly or stored. 
 \end{DoxyReturn}
-\hypertarget{classsigma_1_1core_1_1_callback_interface_aaa44a699001122a4828013af440345c7}{}\index{sigma\+::core\+::\+Callback\+Interface@{sigma\+::core\+::\+Callback\+Interface}!register\+\_\+member\+\_\+function@{register\+\_\+member\+\_\+function}}
+\hypertarget{classsigma_1_1core_1_1_callback_interface_aea30ba6ae89d5638e91db8ba2207854a}{}\index{sigma\+::core\+::\+Callback\+Interface@{sigma\+::core\+::\+Callback\+Interface}!register\+\_\+member\+\_\+function@{register\+\_\+member\+\_\+function}}
 \index{register\+\_\+member\+\_\+function@{register\+\_\+member\+\_\+function}!sigma\+::core\+::\+Callback\+Interface@{sigma\+::core\+::\+Callback\+Interface}}
-\subsubsection[{register\+\_\+member\+\_\+function(owner\+\_\+type $\ast$owner)}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... function\+\_\+parameters$>$ template$<$typename owner\+\_\+type , void(owner\+\_\+type\+::$\ast$)(function\+\_\+parameters...) function\+\_\+type$>$ {\bf Scoped\+Callback} {\bf sigma\+::core\+::\+Callback\+Interface}$<$ function\+\_\+parameters $>$\+::register\+\_\+member\+\_\+function (
+\subsubsection[{register\+\_\+member\+\_\+function(owner\+\_\+type $\ast$owner)}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename... function\+\_\+parameters$>$ template$<$typename owner\+\_\+type , void(owner\+\_\+type\+::$\ast$)(function\+\_\+parameters...) function\+\_\+type$>$ Transient\+Callback\+I\+D {\bf sigma\+::core\+::\+Callback\+Interface}$<$ function\+\_\+parameters $>$\+::register\+\_\+member\+\_\+function (
 \begin{DoxyParamCaption}
 \item[{owner\+\_\+type $\ast$}]{owner}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\label{classsigma_1_1core_1_1_callback_interface_aaa44a699001122a4828013af440345c7}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{classsigma_1_1core_1_1_callback_interface_aea30ba6ae89d5638e91db8ba2207854a}
 
 
 Registers a member function as a callback. 
@@ -139,7 +141,7 @@ See \hyperlink{classsigma_1_1core_1_1_callback_interface}{sigma\+::core\+::\+Cal
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A \hyperlink{classsigma_1_1core_1_1_scoped_callback}{sigma\+::core\+::\+Scoped\+Callback} which is used to unregister this callback. 
+A Transient\+Callback\+I\+D object which can be wrapped with a \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\+Callback} but should not be interacted with directly or stored. 
 \end{DoxyReturn}
 
 

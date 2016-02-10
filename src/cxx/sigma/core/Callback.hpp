@@ -6,6 +6,7 @@
 #define SIGMA_CORE_CALLBACK_HPP_
 
 #include <cassert>
+#include <map>
 #include <memory>
 
 #include <chaoscore/base/BaseExceptions.hpp>
@@ -19,6 +20,7 @@ namespace core
 //                              FORWARD DECLARATIONS
 //------------------------------------------------------------------------------
 
+struct CallbackReferenceCounter;
 class ScopedCallback;
 
 template<typename... function_parameters>
@@ -47,7 +49,42 @@ protected:
 
     friend class ScopedCallback;
 
+    virtual void add_reference_counter(
+            chaos::uint32 id,
+            CallbackReferenceCounter* ref_counter) = 0;
+
     virtual void unregister_function(chaos::uint32 id) = 0;
+};
+
+/*!
+ * \brief Stores data about a callback id and the interface that holds it.
+ *
+ * This object is used for returning callback id data after registering a
+ * function through a CallbackInterface. It has been hidden as the caller should
+ * never have to handle these objects, when returned they should be wrapped in
+ * a ScopedCallback which will handle callback lifecycle.
+ */
+struct TransientCallbackID
+{
+    /*!
+     * \brief The CallbackInterface that holds this callback.
+     */
+    CallbackInterfaceBase* interface;
+    /*!
+     * \brief The identifier of this callback.
+     */
+    chaos::uint32 id;
+    /*!
+     * \brief Constructor
+     */
+    TransientCallbackID(
+            CallbackInterfaceBase* p_interface,
+            chaos::uint32 p_id)
+        :
+        interface(p_interface),
+        id       (p_id)
+    {
+    }
 };
 
 /*!
@@ -96,33 +133,19 @@ public:
     //                                CONSTRUCTORS
     //--------------------------------------------------------------------------
 
-// hide from doxygen
-#ifndef IN_DOXYGEN
-
     /*!
-     * \brief Constructs a new ScopedCallback.
-     *
-     * This function should only be called by CallbackInterface.
-     *
-     * \param interface The CallbackInterface instance that created this object.
-     * \param id The identifier associated with this callback.
-     * \param reference_counter Returns the internal reference counter of this
-     *                          object.
+     * \brief Constructs a new ScopedCallback from the given
+     *        TransientCallbackID.
      */
-    ScopedCallback(
-                CallbackInterfaceBase* interface,
-                chaos::uint32 id,
-                CallbackReferenceCounter*& reference_counter)
+    ScopedCallback(TransientCallbackID transient)
         :
         m_ref_counter(new CallbackReferenceCounter()),
-        m_interface  (interface),
-        m_id         (id)
+        m_interface  (transient.interface),
+        m_id         (transient.id)
     {
-        reference_counter = m_ref_counter;
+        // pass the reference counter back to the interface
+        m_interface->add_reference_counter(m_id, m_ref_counter);
     }
-
-#endif
-// IN_DOXYGEN
 
     /*!
      * \brief Copy constructor.
@@ -243,10 +266,17 @@ private:
  * callback routine may only be triggered by the owner of this object, see:
  * sigma::core::CallbackHandler.
  *
- * Registered functions are manager through sigma::core::ScopedCallback
- * instances which aid managing the lifetime of the callback.
+ * Registered functions can have their life cycle manged through a
+ * ScopedCallback. The ``register_function`` and ``register_member_function``
+ * methods return an object of type TransientCallbackID which can be wrapped
+ * and handled by a ScopedCallback. The TransientCallbackID object should not
+ * be interacted with directly or stored.
  *
- * An example of registering both a global and a member function callback:
+ * ScopedCallbacks will unregister the wrapped callback when all references go
+ * out of scope, or can be explicitly used to unregister the callback.
+
+ * An example of registering both a global and a member function callback and
+ * storing them with ScopedCallbacks:
  *
  * \code
  * // g_callback_interface is an object of type CallbackInterface<bool, int>
@@ -377,10 +407,11 @@ public:
      *
      * \param callback_function The function to register as callback.
      *
-     * \return A sigma::core::ScopedCallback which is used to unregister this
-     *         callback.
+     * \return A TransientCallbackID object which can be wrapped with a
+     *         ScopedCallback but should not be interacted with directly or
+     *         stored.
      */
-    ScopedCallback register_function(
+    TransientCallbackID register_function(
             void (*callback_function)(function_parameters...))
     {
         // increment the global callback id and use it as this callback id
@@ -395,11 +426,8 @@ public:
         f.function.standard = callback_function;
         m_callback_funcs[id] = f;
 
-        // create a scoped callback, store it's reference counter and return
-        CallbackReferenceCounter* ref_counter = nullptr;
-        ScopedCallback callback(this, id, ref_counter);
-        m_scope_refs[id] = ref_counter;
-        return callback;
+        // return transient information about the callback
+        return TransientCallbackID(this, id);
     }
 
     /*!
@@ -415,12 +443,13 @@ public:
      * \param owner Instance of the object that owns the member function to be
      *              used as the callback.
      *
-     * \return A sigma::core::ScopedCallback which is used to unregister this
-     *         callback.
+     * \return A TransientCallbackID object which can be wrapped with a
+     *         ScopedCallback but should not be interacted with directly or
+     *         stored.
      */
     template<typename owner_type,
              void (owner_type::*function_type)(function_parameters...)>
-    ScopedCallback register_member_function(owner_type* owner)
+    TransientCallbackID register_member_function(owner_type* owner)
     {
         // increment the global callback id and use it as this callback id
         chaos::uint32 id = m_next_id++;
@@ -434,11 +463,8 @@ public:
         f.function.member = member_wrapper<owner_type, function_type>;
         m_callback_funcs[id] = f;
 
-        // create a scoped callback, store it's reference counter and return
-        CallbackReferenceCounter* ref_counter = nullptr;
-        ScopedCallback callback(this, id, ref_counter);
-        m_scope_refs[id] = ref_counter;
-        return callback;
+        // return transient information about the callback
+        return TransientCallbackID(this, id);
     }
 
 private:
@@ -493,6 +519,22 @@ private:
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
+
+    /*!
+     * \brief Passes in a ScopedCallback's reference counter.
+     *
+     * The interface needs to hold the ScopedCallbacks reference counter so that
+     * ScopedCallback can be alerted if this object is destroyed.
+     */
+    virtual void add_reference_counter(
+        chaos::uint32 id,
+        CallbackReferenceCounter* ref_counter)
+    {
+        // check the reference counter isn't registered
+        assert(m_scope_refs.find(id) == m_scope_refs.end());
+        // add to mapping
+         m_scope_refs[id] = ref_counter;
+    }
 
     /*!
      * \brief unregisters the callback with the given id from this
