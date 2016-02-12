@@ -49,6 +49,8 @@ protected:
 
     friend class ScopedCallback;
 
+    virtual bool has_reference_counter(chaos::uint32 id) const = 0;
+
     virtual void add_reference_counter(
             chaos::uint32 id,
             CallbackReferenceCounter* ref_counter) = 0;
@@ -143,6 +145,15 @@ public:
         m_interface  (transient.interface),
         m_id         (transient.id)
     {
+        // is there already a ScopedCallback for callback?
+        if (m_interface->has_reference_counter(m_id))
+        {
+            throw chaos::ex::IllegalActionError(
+                    "Cannot instantiate multiple ScopedCallbacks for the "
+                    "same TransientCallbackID object."
+            );
+        }
+
         // pass the reference counter back to the interface
         m_interface->add_reference_counter(m_id, m_ref_counter);
     }
@@ -519,6 +530,15 @@ private:
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
+
+    /*!
+     * \brief Returns whether this holds a reference counter for the given
+     *        callback.
+     */
+    virtual bool has_reference_counter(chaos::uint32 id) const
+    {
+        return m_scope_refs.find(id) != m_scope_refs.end();
+    }
 
     /*!
      * \brief Passes in a ScopedCallback's reference counter.

@@ -372,12 +372,21 @@ CHAOS_TEST_UNIT_FIXTURE(char_string_params, CharStringParametersFixture)
     sigma::core::CallbackHandler<char, const std::string&> handler;
 
     // add member callback
-    sigma::core::ScopedCallback member_callback(
+    sigma::core::TransientCallbackID member_id =
             handler.get_interface().register_member_function<
                     CharStringParametersFixture,
                     &CharStringParametersFixture::member_func
-            >(fixture)
+            >(fixture);
+
+    // create a scoped callback
+    sigma::core::ScopedCallback member_callback(member_id);
+    // ensure that a second ScopedCallback cannot be registered
+    CHAOS_CHECK_THROW(
+            sigma::core::ScopedCallback(member_id),
+            chaos::ex::IllegalActionError
     );
+
+
     CHAOS_CHECK_TRUE(member_callback.is_registered());
 
     // check state

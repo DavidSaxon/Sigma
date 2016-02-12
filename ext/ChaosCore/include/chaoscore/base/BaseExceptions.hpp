@@ -135,6 +135,24 @@ public:
 };
 
 //------------------------------------------------------------------------------
+//                              ILLEGAL ACTION ERROR
+//------------------------------------------------------------------------------
+
+/*!
+ * \brief Warns that an illegal action has been performed.
+ */
+class IllegalActionError : public ChaosException
+{
+public:
+
+    IllegalActionError( const chaos::uni::UTF8String& message )
+        :
+        ChaosException( message )
+    {
+    }
+};
+
+//------------------------------------------------------------------------------
 //                           INDEX OUT OF BOUNDS ERROR
 //------------------------------------------------------------------------------
 
