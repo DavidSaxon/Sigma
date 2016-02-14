@@ -11,6 +11,9 @@
 
 #include <chaoscore/base/BaseExceptions.hpp>
 
+// TODO:
+#include <iostream>
+
 namespace sigma
 {
 namespace core
@@ -125,7 +128,7 @@ struct CallbackReferenceCounter
  * The ScopedCallback can be explicitly unregistered using the ``unregister``
  * function. Once explicitly unregistered other reference to this are safe to
  * go out of scope and have the ``unregister`` function called on them
- * (although redundant).
+ * (although this will only nullify the objects).
  */
 class ScopedCallback
 {
@@ -136,8 +139,27 @@ public:
     //--------------------------------------------------------------------------
 
     /*!
+     * \brief Default constructor.
+     *
+     * Constructs a new null ScopedCallback. Note an null ScopedCallback
+     * cannot be copied. To assign an null ScopedCallback use the assignment
+     * operator (=) with a TransientCallbackID as the right-hand operator.
+     */
+    ScopedCallback()
+        :
+        m_ref_counter(nullptr),
+        m_interface  (nullptr),
+        m_id         (0)
+    {
+    }
+
+    /*!
      * \brief Constructs a new ScopedCallback from the given
      *        TransientCallbackID.
+     *
+     * \throws chaos::ex::IllegalActionError If a ScopedCallback has already
+     *                                       been initialised for this callback
+     *                                       id.
      */
     ScopedCallback(TransientCallbackID transient)
         :
@@ -145,17 +167,7 @@ public:
         m_interface  (transient.interface),
         m_id         (transient.id)
     {
-        // is there already a ScopedCallback for callback?
-        if (m_interface->has_reference_counter(m_id))
-        {
-            throw chaos::ex::IllegalActionError(
-                    "Cannot instantiate multiple ScopedCallbacks for the "
-                    "same TransientCallbackID object."
-            );
-        }
-
-        // pass the reference counter back to the interface
-        m_interface->add_reference_counter(m_id, m_ref_counter);
+        init();
     }
 
     /*!
@@ -163,6 +175,9 @@ public:
      *
      * Makes a copy of the given ScopedCallback and increases the reference
      * counter.
+     *
+     * \throws chaos::ex::IllegalActionError If the other ScopedCallback to copy
+     *                                       from is a null ScopedCallback.
      */
     ScopedCallback(const ScopedCallback& other)
         :
@@ -170,6 +185,15 @@ public:
         m_interface  (other.m_interface),
         m_id         (other.m_id)
     {
+        // are we trying to copy from a null callback?
+        if (other.is_null())
+        {
+            throw chaos::ex::IllegalActionError(
+                    "Cannot use ScopedCallback copy constructor to copy from a "
+                    "null ScopedCallback."
+            );
+        }
+
         // increment the reference counter
         ++m_ref_counter->count;
     }
@@ -178,8 +202,38 @@ public:
     //                                 OPERATORS
     //--------------------------------------------------------------------------
 
-    // delete the assignment operators
+    // delete the default assignment operator
     ScopedCallback& operator=(const ScopedCallback& other) = delete;
+
+    /*!
+     * \brief TransientCallbackID assignment operator.
+     *
+     * Assigns the data from the given TransientCallbackID to this
+     * ScopedCallback.
+     *
+     * \note This can only be performed on null ScopedCallbacks to "properly"
+     *       initialise them.
+     *
+     * \throws chaos::ex::IllegalActionError If a ScopedCallback has already
+     *                                       been initialised for this callback
+     *                                       id. Or if this is not a null
+     *                                       ScopedCallback.
+     */
+    ScopedCallback& operator=(TransientCallbackID transient)
+    {
+        // can only be performed on null ScopedCallbacks
+        if (!is_null())
+        {
+            throw chaos::ex::IllegalActionError(
+                    "Cannot assign to a non-null ScopedCallback.");
+        }
+
+        m_ref_counter = new CallbackReferenceCounter();
+        m_interface = transient.interface;
+        m_id = transient.id;
+
+        init();
+    }
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
@@ -187,6 +241,12 @@ public:
 
     ~ScopedCallback()
     {
+        // do nothing if this is null
+        if (is_null())
+        {
+            return;
+        }
+
         // reference counter should be non-zero
         assert(m_ref_counter->count > 0);
 
@@ -217,6 +277,23 @@ public:
     }
 
     /*!
+     * \brief Returns whether this is a null ScopedCallback.
+     *
+     * Null ScopedCallbacks cannot be copied and must be assigned using the
+     * assignment operator with a TransientCallbackID as the right-hand value.
+     */
+    bool is_null() const
+    {
+        if (m_ref_counter == nullptr)
+        {
+            assert(m_interface == nullptr);
+            return true;
+        }
+        assert(m_interface != nullptr);
+        return false;
+    }
+
+    /*!
      * \brief Returns whether this contains a registered callback or not.
      *
      * A callback may return as unregistered because:
@@ -226,6 +303,10 @@ public:
      */
     bool is_registered() const
     {
+        if (is_null())
+        {
+            return false;
+        }
         return !m_ref_counter->early_unregister;
     }
 
@@ -234,20 +315,31 @@ public:
      *
      * Once the callback has been unregistered the function this is associated
      * with will no longer be called when the CallbackHandler is triggered.
+     * Once unregistering this will become a null ScopedCallback.
      *
-     * This function is safe to call multiple times although additional calls
-     * are redundant and have no further affect.
+     * \throws chaos::ex::IllegalActionError If this is called on a null
+     *                                       ScopedCallbackId.
      */
     void unregister()
     {
+        if (is_null())
+        {
+            throw chaos::ex::IllegalActionError(
+                    "unregister cannot be called on null ScopedCallbacks");
+        }
+
         // there should be at least one instance!!
         assert(m_ref_counter->count > 0);
-        // do nothing if the callback is already unregistered
+        // unregister if it hasn't been done already
         if (is_registered())
         {
             m_interface->unregister_function(m_id);
             m_ref_counter->early_unregister = true;
         }
+        // nullify this object
+        m_ref_counter = nullptr;
+        m_interface   = nullptr;
+        m_id          = 0;
     }
 
 private:
@@ -268,6 +360,36 @@ private:
      * \brief The global id of the callback this is handling.
      */
     chaos::uint32 m_id;
+
+    //--------------------------------------------------------------------------
+    //                          PRIVATE MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /*!
+     * \brief Initialises this ScopedCallback id.
+     *
+     * \throws chaos::ex::IllegalActionError If a ScopedCallback has already
+     *                                       been initialised for this callback
+     *                                       id.
+     */
+    void init()
+    {
+        // is there already a ScopedCallback for this callback id?
+        if (m_interface->has_reference_counter(m_id))
+        {
+            // nullify the callback
+            m_ref_counter = nullptr;
+            m_interface   = nullptr;
+            m_id          = 0;
+            throw chaos::ex::IllegalActionError(
+                    "Cannot instantiate multiple ScopedCallbacks for the "
+                    "same TransientCallbackID object."
+            );
+        }
+
+        // pass the reference counter back to the interface
+        m_interface->add_reference_counter(m_id, m_ref_counter);
+    }
 };
 
 /*!

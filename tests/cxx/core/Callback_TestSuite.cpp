@@ -66,11 +66,12 @@ CHAOS_TEST_UNIT_FIXTURE(no_params, NoParametersFixture)
     sigma::core::CallbackHandler<> handler;
 
     // add global callback
+    CHAOS_TEST_MESSAGE("Checking adding global callback");
     sigma::core::ScopedCallback global_callback(
             handler.get_interface().register_function(global_func_void)
     );
     CHAOS_CHECK_TRUE(global_callback.is_registered());
-    // check state
+    CHAOS_TEST_MESSAGE("Checking state");
     handler.trigger();
     CHAOS_CHECK_TRUE (fixture->global_called);
     CHAOS_CHECK_FALSE(fixture->static_called);
@@ -79,7 +80,7 @@ CHAOS_TEST_UNIT_FIXTURE(no_params, NoParametersFixture)
 
     // add the static callback
     handler.get_interface().register_function(fixture->static_func);
-    // check state
+    CHAOS_TEST_MESSAGE("Checking state");
     handler.trigger();
     CHAOS_CHECK_TRUE (fixture->global_called);
     CHAOS_CHECK_TRUE (fixture->static_called);
@@ -87,7 +88,7 @@ CHAOS_TEST_UNIT_FIXTURE(no_params, NoParametersFixture)
     fixture->reset();
 
     {
-        // add member callback
+        CHAOS_TEST_MESSAGE("Checking adding member callback");
         sigma::core::ScopedCallback member_callback(
                 handler.get_interface().register_member_function<
                         NoParametersFixture,
@@ -95,7 +96,7 @@ CHAOS_TEST_UNIT_FIXTURE(no_params, NoParametersFixture)
                 >(fixture)
         );
         CHAOS_CHECK_TRUE(member_callback.is_registered());
-        // check state
+        CHAOS_TEST_MESSAGE("Checking state");
         handler.trigger();
         CHAOS_CHECK_TRUE (fixture->global_called);
         CHAOS_CHECK_TRUE (fixture->static_called);
@@ -103,29 +104,25 @@ CHAOS_TEST_UNIT_FIXTURE(no_params, NoParametersFixture)
         fixture->reset();
     } // member goes out of scope
 
-    // check state
+    CHAOS_TEST_MESSAGE("Checking state");
     handler.trigger();
     CHAOS_CHECK_TRUE (fixture->global_called);
     CHAOS_CHECK_TRUE (fixture->static_called);
     CHAOS_CHECK_FALSE(fixture->member_called);
     fixture->reset();
 
-    // unregister global
+    CHAOS_TEST_MESSAGE("Checking unregistering global callback");
     global_callback.unregister();
     CHAOS_CHECK_FALSE(global_callback.is_registered());
 
-    // check state
+    CHAOS_TEST_MESSAGE("Checking state");
     handler.trigger();
     CHAOS_CHECK_FALSE(fixture->global_called);
     CHAOS_CHECK_TRUE (fixture->static_called);
     CHAOS_CHECK_FALSE(fixture->member_called);
     fixture->reset();
 
-    // test for double unregistering
-    global_callback.unregister();
-    CHAOS_CHECK_FALSE(global_callback.is_registered());
-
-    // check state
+    CHAOS_TEST_MESSAGE("Checking state");
     handler.trigger();
     CHAOS_CHECK_FALSE(fixture->global_called);
     CHAOS_CHECK_TRUE (fixture->static_called);
@@ -195,12 +192,12 @@ CHAOS_TEST_UNIT_FIXTURE(int_param, IntParameterFixture)
     sigma::core::CallbackHandler<int>* handler =
             new sigma::core::CallbackHandler<int>();
 
-    // add the static callback
+    CHAOS_TEST_MESSAGE("Checking adding static callback");
     sigma::core::ScopedCallback static_callback(
             handler->get_interface().register_function(fixture->static_func)
     );
     CHAOS_CHECK_TRUE(static_callback.is_registered());
-    // check state
+    CHAOS_TEST_MESSAGE("Checking state");
     handler->trigger(12);
     CHAOS_CHECK_FALSE(fixture->global_called);
     CHAOS_CHECK_EQUAL(fixture->global_int, 0);
@@ -211,7 +208,7 @@ CHAOS_TEST_UNIT_FIXTURE(int_param, IntParameterFixture)
     fixture->reset();
 
     {
-        // add member callback
+        CHAOS_TEST_MESSAGE("Checking adding member callback");
         sigma::core::ScopedCallback member_callback(
                 handler->get_interface().register_member_function<
                         IntParameterFixture,
@@ -219,7 +216,7 @@ CHAOS_TEST_UNIT_FIXTURE(int_param, IntParameterFixture)
                 >(fixture)
         );
         CHAOS_CHECK_TRUE(member_callback.is_registered());
-        // check state
+        CHAOS_TEST_MESSAGE("Checking state");
         handler->trigger(-874);
         CHAOS_CHECK_FALSE(fixture->global_called);
         CHAOS_CHECK_EQUAL(fixture->global_int, 0);
@@ -231,10 +228,11 @@ CHAOS_TEST_UNIT_FIXTURE(int_param, IntParameterFixture)
 
         {
             // copy member callback
+            CHAOS_TEST_MESSAGE("Checking copying callback");
             sigma::core::ScopedCallback member_copy(member_callback);
             CHAOS_CHECK_TRUE(member_callback.is_registered());
             CHAOS_CHECK_TRUE(member_copy.is_registered());
-            // check state
+            CHAOS_TEST_MESSAGE("Checking state");
             handler->trigger(9);
             CHAOS_CHECK_FALSE(fixture->global_called);
             CHAOS_CHECK_EQUAL(fixture->global_int, 0);
@@ -244,9 +242,10 @@ CHAOS_TEST_UNIT_FIXTURE(int_param, IntParameterFixture)
             CHAOS_CHECK_EQUAL(fixture->member_int, 9);
             fixture->reset();
         } // copy goes out of scope but shouldn't unregister
+        CHAOS_TEST_MESSAGE("Checking copy going out of scope");
         CHAOS_CHECK_TRUE(member_callback.is_registered());
 
-        // check state
+        CHAOS_TEST_MESSAGE("Checking state");
         handler->trigger(-1);
         CHAOS_CHECK_FALSE(fixture->global_called);
         CHAOS_CHECK_EQUAL(fixture->global_int, 0);
@@ -257,7 +256,7 @@ CHAOS_TEST_UNIT_FIXTURE(int_param, IntParameterFixture)
         fixture->reset();
     } // member goes out of scope
 
-    // check state
+    CHAOS_TEST_MESSAGE("Checking state");
     handler->trigger(32235);
     CHAOS_CHECK_FALSE(fixture->global_called);
     CHAOS_CHECK_EQUAL(fixture->global_int, 0);
@@ -267,13 +266,13 @@ CHAOS_TEST_UNIT_FIXTURE(int_param, IntParameterFixture)
     CHAOS_CHECK_EQUAL(fixture->member_int, 0);
     fixture->reset();
 
-    // add global callback
+    CHAOS_TEST_MESSAGE("Checking adding global callback");
     sigma::core::ScopedCallback global_callback(
             handler->get_interface().register_function(global_func_int)
     );
     CHAOS_CHECK_TRUE(global_callback.is_registered());
 
-    // check state
+    CHAOS_TEST_MESSAGE("Checking state");
     handler->trigger(-80);
     CHAOS_CHECK_TRUE (fixture->global_called);
     CHAOS_CHECK_EQUAL(fixture->global_int, -80);
@@ -283,7 +282,7 @@ CHAOS_TEST_UNIT_FIXTURE(int_param, IntParameterFixture)
     CHAOS_CHECK_EQUAL(fixture->member_int, 0);
     fixture->reset();
 
-    // delete the handler
+    CHAOS_TEST_MESSAGE("Checking deleting callback handler");
     delete handler;
     handler = nullptr;
 
@@ -291,7 +290,7 @@ CHAOS_TEST_UNIT_FIXTURE(int_param, IntParameterFixture)
     CHAOS_CHECK_FALSE(global_callback.is_registered());
     CHAOS_CHECK_FALSE(static_callback.is_registered());
 
-    // check unregistering does not alter state
+    CHAOS_TEST_MESSAGE("Checking unregistering after handle delete");
     global_callback.unregister();
     static_callback.unregister();
     CHAOS_CHECK_FALSE(global_callback.is_registered());
@@ -371,7 +370,7 @@ CHAOS_TEST_UNIT_FIXTURE(char_string_params, CharStringParametersFixture)
     // create the handler
     sigma::core::CallbackHandler<char, const std::string&> handler;
 
-    // add member callback
+    CHAOS_TEST_MESSAGE("Checking adding member callback");
     sigma::core::TransientCallbackID member_id =
             handler.get_interface().register_member_function<
                     CharStringParametersFixture,
@@ -380,16 +379,18 @@ CHAOS_TEST_UNIT_FIXTURE(char_string_params, CharStringParametersFixture)
 
     // create a scoped callback
     sigma::core::ScopedCallback member_callback(member_id);
-    // ensure that a second ScopedCallback cannot be registered
+    CHAOS_CHECK_TRUE(member_callback.is_registered());
+
+    CHAOS_TEST_MESSAGE(
+            "Checking that another ScopedCallback cannot be constructed from "
+            "the same TransientCallbackID"
+    );
     CHAOS_CHECK_THROW(
             sigma::core::ScopedCallback(member_id),
             chaos::ex::IllegalActionError
     );
 
-
-    CHAOS_CHECK_TRUE(member_callback.is_registered());
-
-    // check state
+    CHAOS_TEST_MESSAGE("Checking state");
     handler.trigger('a', "Hello");
     CHAOS_CHECK_FALSE(fixture->global_called);
     CHAOS_CHECK_EQUAL(fixture->global_char, '\0');
@@ -402,13 +403,13 @@ CHAOS_TEST_UNIT_FIXTURE(char_string_params, CharStringParametersFixture)
     CHAOS_CHECK_EQUAL(fixture->member_string, "Hello");
     fixture->reset();
 
-    // add global callback
+    CHAOS_TEST_MESSAGE("Checking adding global callback");
     sigma::core::ScopedCallback global_callback(
             handler.get_interface().register_function(global_func_char_str)
     );
     CHAOS_CHECK_TRUE(global_callback.is_registered());
 
-    // check state
+    CHAOS_TEST_MESSAGE("Checking state");
     handler.trigger('\t', "World");
     CHAOS_CHECK_TRUE (fixture->global_called);
     CHAOS_CHECK_EQUAL(fixture->global_char, '\t');
@@ -422,13 +423,13 @@ CHAOS_TEST_UNIT_FIXTURE(char_string_params, CharStringParametersFixture)
     fixture->reset();
 
     {
-        // add static callback
+        CHAOS_TEST_MESSAGE("Checking adding static callback");
         sigma::core::ScopedCallback static_callback(
                 handler.get_interface().register_function(fixture->static_func)
         );
         CHAOS_CHECK_TRUE(static_callback.is_registered());
 
-        // check state
+        CHAOS_TEST_MESSAGE("Checking state");
         handler.trigger('6', "...");
         CHAOS_CHECK_TRUE (fixture->global_called);
         CHAOS_CHECK_EQUAL(fixture->global_char, '6');
@@ -441,11 +442,11 @@ CHAOS_TEST_UNIT_FIXTURE(char_string_params, CharStringParametersFixture)
         CHAOS_CHECK_EQUAL(fixture->member_string, "...");
         fixture->reset();
 
-        // unregister member callback
+        CHAOS_TEST_MESSAGE("Checking unregistering member callback");
         member_callback.unregister();
         CHAOS_CHECK_FALSE(member_callback.is_registered());
 
-        // check state
+        CHAOS_TEST_MESSAGE("Checking state");
         handler.trigger('J', " ");
         CHAOS_CHECK_TRUE (fixture->global_called);
         CHAOS_CHECK_EQUAL(fixture->global_char, 'J');
@@ -459,7 +460,7 @@ CHAOS_TEST_UNIT_FIXTURE(char_string_params, CharStringParametersFixture)
         fixture->reset();
     } // static callback goes out of scope
 
-    // check state
+    CHAOS_TEST_MESSAGE("Checking state");
     handler.trigger('z', "___o__O__");
     CHAOS_CHECK_TRUE (fixture->global_called);
     CHAOS_CHECK_EQUAL(fixture->global_char, 'z');
@@ -472,11 +473,11 @@ CHAOS_TEST_UNIT_FIXTURE(char_string_params, CharStringParametersFixture)
     CHAOS_CHECK_EQUAL(fixture->member_string, "");
     fixture->reset();
 
-    // unregister global callback
+    CHAOS_TEST_MESSAGE("Checking unregistering global callback");
     global_callback.unregister();
     CHAOS_CHECK_FALSE(global_callback.is_registered());
 
-    // check state
+    CHAOS_TEST_MESSAGE("Checking state");
     handler.trigger(' ', "nope");
     CHAOS_CHECK_FALSE(fixture->global_called);
     CHAOS_CHECK_EQUAL(fixture->global_char, '\0');
@@ -488,6 +489,91 @@ CHAOS_TEST_UNIT_FIXTURE(char_string_params, CharStringParametersFixture)
     CHAOS_CHECK_EQUAL(fixture->member_char, '\0');
     CHAOS_CHECK_EQUAL(fixture->member_string, "");
     fixture->reset();
+}
+
+//------------------------------------------------------------------------------
+//                                 NULL CALLBACK
+//------------------------------------------------------------------------------
+
+class NullCallbackFixture : public chaos::test::Fixture
+{
+public:
+
+    //--------------------------------ATTRIBUTES--------------------------------
+
+    bool callback_called;
+
+    //--------------------------------FUNCTIONS---------------------------------
+
+    virtual void setup()
+    {
+        callback_called = false;
+    }
+
+    void on_callback(float f)
+    {
+        callback_called = true;
+    }
+};
+
+CHAOS_TEST_UNIT_FIXTURE(null_callback, NullCallbackFixture)
+{
+    // create the handler
+    sigma::core::CallbackHandler<float> handler;
+
+    // create the null callback
+    CHAOS_TEST_MESSAGE("Checking default constructor callback is null");
+    sigma::core::ScopedCallback callback;
+    CHAOS_CHECK_TRUE(callback.is_null());
+
+    CHAOS_TEST_MESSAGE("Checking that null callback cannot be copied");
+    CHAOS_CHECK_THROW(
+            sigma::core::ScopedCallback(callback),
+            chaos::ex::IllegalActionError
+    );
+
+    // assign to the callback
+    CHAOS_TEST_MESSAGE("Checking callback is no longer null after assignment");
+    callback = handler.get_interface().register_member_function<
+            NullCallbackFixture,
+            &NullCallbackFixture::on_callback>(fixture);
+    CHAOS_CHECK_FALSE(callback.is_null());
+
+    CHAOS_TEST_MESSAGE("Checking non-null callback can now be copied");
+    sigma::core::ScopedCallback callback_copy(callback);
+    CHAOS_CHECK_EQUAL(callback.get_id(), callback_copy.get_id());
+
+    CHAOS_TEST_MESSAGE("Checking non-null callback cannot be assigned");
+    CHAOS_CHECK_THROW(
+            ( callback = handler.get_interface().register_member_function<
+                    NullCallbackFixture,
+                    &NullCallbackFixture::on_callback>(fixture) ),
+            chaos::ex::IllegalActionError
+    );
+
+    // check that two callbacks can't assign to the same id
+    CHAOS_TEST_MESSAGE("Checking callbacks cannot assign to the same id");
+    sigma::core::TransientCallbackID t_id =
+            handler.get_interface().register_member_function<
+                    NullCallbackFixture,
+                    &NullCallbackFixture::on_callback>(fixture);
+    sigma::core::ScopedCallback callback_1;
+    sigma::core::ScopedCallback callback_2;
+    callback_1 = t_id;
+    CHAOS_CHECK_THROW(
+            (callback_2 = t_id),
+            chaos::ex::IllegalActionError
+    );
+
+    CHAOS_TEST_MESSAGE("Checking unregister callback nullifies it");
+    callback.unregister();
+    CHAOS_CHECK_TRUE(callback.is_null());
+
+    CHAOS_TEST_MESSAGE("Checking that null callback cannot be unregistered");
+    CHAOS_CHECK_THROW(
+            callback.unregister(),
+            chaos::ex::IllegalActionError
+    );
 }
 
 } // namespace core_callback_tests

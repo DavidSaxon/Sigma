@@ -58,6 +58,8 @@ public:
 
     // Task* get_parent() const;
 
+    // void set_parent(Task* parent);
+
     // std::size_t get_children_size() const;
 
     // Task* get_child(std::size_t index) const;
