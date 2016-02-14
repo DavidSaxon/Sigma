@@ -53,6 +53,11 @@ void Task::set_title(const chaos::uni::UTF8String& title)
     m_title_changed_callback.trigger(this, title);
 }
 
+Task* const Task::get_parent() const
+{
+    return m_parent;
+}
+
 } // namespace tasks
 } // namespace core
 } // namespace sigma

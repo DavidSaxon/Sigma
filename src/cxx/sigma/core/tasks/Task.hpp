@@ -54,9 +54,7 @@ public:
 
     void set_title(const chaos::uni::UTF8String& title);
 
-    // TODO: needs callbacks implemented
-
-    // Task* get_parent() const;
+    Task* const get_parent() const;
 
     // void set_parent(Task* parent);
 
