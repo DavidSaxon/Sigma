@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['add_5fchild',['add_child',['../classsigma_1_1core_1_1tasks_1_1_task.html#abac88c4ddaf54ae20aab497e95023f9e',1,'sigma::core::tasks::Task']]],
   ['api_5fall',['API_ALL',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227a5328f8d7cbf6b6709e5f314832bcb007',1,'sigma::core']]],
   ['api_5fbuild',['API_BUILD',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227a21b294c75f929374e9eebfa67e31d80b',1,'sigma::core']]],
   ['api_5flint',['API_LINT',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227aac7402732b780aa9407183ed7bd7c809',1,'sigma::core']]],

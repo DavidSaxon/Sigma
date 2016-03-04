@@ -103,7 +103,7 @@
         type_name( const type_name& ) = delete;      \
         void operator=( const type_name& ) = delete
 
-//-----------------------------------FOREACH------------------------------------
+//-----------------------------------FOR EACH-----------------------------------
 
 /*!
  * \brief Performs iteration over the given collection.
@@ -119,12 +119,12 @@
  * Example usage:
  *
  * \code
- * std::vector< int > vec;
- * vec.push_back( 1 );
- * vec.push_back( 2 );
- * vec.push_back( 3 );
+ * std::vector<int> vec;
+ * vec.push_back(1);
+ * vec.push_back(2);
+ * vec.push_back(3);
  *
- * CHAOS_FOR_EACH( it, vec )
+ * CHAOS_FOR_EACH(it, vec)
  * {
  *     std::cout << *it << std::endl;
  * }
@@ -135,8 +135,23 @@
  * // 3
  * \endcode
  */
-#define CHAOS_FOR_EACH( it, collection )                                       \
-        for (  auto it = collection.begin(); it != collection.end(); ++it )
+#define CHAOS_FOR_EACH(it, collection)                                         \
+        for (auto it = collection.begin(); it != collection.end(); ++it)
+
+//--------------------------------CONST FOR EACH--------------------------------
+
+/*!
+ * \brief Preforms const iteration over the given collection.
+ *
+ * \param it The name of the const_iterator object that will return results.
+ * \param collection Iterable object that will be iterated over.
+ *
+ * See #CHAOS_FOR_EACH for more information.
+ */
+#define CHAOS_CONST_FOR_EACH(it, collection)                                   \
+        for (auto it = collection.cbegin(); it != collection.cend(); ++it)
+
+//--------------------------------PRINT ITERABLE--------------------------------
 
 /*!
  * \brief Prints the given iterable object to std::cout.

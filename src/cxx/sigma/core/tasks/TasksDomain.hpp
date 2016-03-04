@@ -7,6 +7,11 @@
 #ifndef SIGMA_CORE_TASKS_TASKSDOMAIN_HPP_
 #define SIGMA_CORE_TASKS_TASKSDOMAIN_HPP_
 
+#include <memory>
+#include <set>
+
+#include <chaoscore/base/uni/UTF8String.hpp>
+
 namespace sigma
 {
 namespace core
@@ -17,6 +22,18 @@ namespace core
  * TODO:
  */
 namespace tasks
+{
+
+//------------------------------------------------------------------------------
+//                                TYPE DEFINITIONS
+//------------------------------------------------------------------------------
+
+class RootTask;
+
+/*!
+ * \brief TODO:
+ */
+namespace domain
 {
 
 //------------------------------------------------------------------------------
@@ -32,6 +49,33 @@ namespace tasks
  */
 void init();
 
+/*!
+ * \brief Uninitialises the task management API component.
+ *
+ * TODO:
+ */
+void clean_up();
+
+// TODO: doxygen hide end??
+
+/*!
+ * \brief TODO:
+ */
+const std::set<std::unique_ptr<RootTask>>& get_boards();
+
+/*!
+ * \brief TODO:
+ */
+RootTask* new_board(const chaos::uni::UTF8String& title);
+
+/*!
+ * \brief TODO
+ *
+ * TODO
+ */
+bool delete_board(RootTask* board_root);
+
+} // namespace domain
 } // namespace tasks
 } // namespace core
 } // namespace sigma

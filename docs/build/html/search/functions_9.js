@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['unregister',['unregister',['../classsigma_1_1core_1_1_scoped_callback.html#ad8d8ea4671f58077c8f9ef020e52e125',1,'sigma::core::ScopedCallback']]],
-  ['unregister_5ffunction',['unregister_function',['../classsigma_1_1core_1_1_callback_manager.html#a1a03ab9185e131aa077c6528e6d2dcd8',1,'sigma::core::CallbackManager']]]
+  ['task',['Task',['../classsigma_1_1core_1_1tasks_1_1_task.html#ad0c18c7b0fc306cf4fe6f133766b2779',1,'sigma::core::tasks::Task::Task(Task *parent, const chaos::uni::UTF8String &amp;title)'],['../classsigma_1_1core_1_1tasks_1_1_task.html#a222255707537a07f64c687c87efef1e6',1,'sigma::core::tasks::Task::Task(const Task &amp;other)'],['../classsigma_1_1core_1_1tasks_1_1_task.html#a22316f108f9eeea2d2497b825b068c84',1,'sigma::core::tasks::Task::Task(const chaos::uni::UTF8String &amp;title)']]],
+  ['trigger',['trigger',['../classsigma_1_1core_1_1_callback_handler.html#a565178d287893492a86112d67a5302f8',1,'sigma::core::CallbackHandler']]]
 ];

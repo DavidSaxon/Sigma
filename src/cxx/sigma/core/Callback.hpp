@@ -126,7 +126,7 @@ struct CallbackReferenceCounter
  * destroyed the Callback will be unregistered.
  *
  * The ScopedCallback can be explicitly unregistered using the ``unregister``
- * function. Once explicitly unregistered other reference to this are safe to
+ * function. Once explicitly unregistered other references to this are safe to
  * go out of scope and have the ``unregister`` function called on them
  * (although this will only nullify the objects).
  */
@@ -141,9 +141,12 @@ public:
     /*!
      * \brief Default constructor.
      *
-     * Constructs a new null ScopedCallback. Note an null ScopedCallback
-     * cannot be copied. To assign an null ScopedCallback use the assignment
-     * operator (=) with a TransientCallbackID as the right-hand operator.
+     * Constructs a new null ScopedCallback.
+     *
+     * \note A null ScopedCallback cannot be copied. To assign a null
+     *       ScopedCallback use the assignment operator
+     *       (operator=(TransientCallbackID)) with a TransientCallbackID as the
+     *       right-hand operator.
      */
     ScopedCallback()
         :
@@ -211,8 +214,7 @@ public:
      * Assigns the data from the given TransientCallbackID to this
      * ScopedCallback.
      *
-     * \note This can only be performed on null ScopedCallbacks to "properly"
-     *       initialise them.
+     * \note This can only be performed on null ScopedCallbacks.
      *
      * \throws chaos::ex::IllegalActionError If a ScopedCallback has already
      *                                       been initialised for this callback
@@ -297,7 +299,7 @@ public:
      * \brief Returns whether this contains a registered callback or not.
      *
      * A callback may return as unregistered because:
-     * - ``unregister`` has been explicitly called.
+     * - unregister() has been explicitly called.
      * - The ``CallbackHandler``/``CallbackInterface`` this was registered with
      *   has been destroyed.
      */
@@ -314,8 +316,8 @@ public:
      * \brief Explicitly unregisters this callback.
      *
      * Once the callback has been unregistered the function this is associated
-     * with will no longer be called when the CallbackHandler is triggered.
-     * Once unregistering this will become a null ScopedCallback.
+     * with will no longer be called when the CallbackHandler is triggered and
+     * this will become a null ScopedCallback.
      *
      * \throws chaos::ex::IllegalActionError If this is called on a null
      *                                       ScopedCallbackId.

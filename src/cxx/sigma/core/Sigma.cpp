@@ -20,7 +20,7 @@ void init(APIDomains api_domains)
     // initialise requested domains
     if ( api_domains & API_TASKS )
     {
-        sigma::core::tasks::init();
+        sigma::core::tasks::domain::init();
     }
 
     // CallbackManager<sigma::core::tasks::Task*,

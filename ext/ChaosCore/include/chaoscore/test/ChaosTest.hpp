@@ -446,9 +446,16 @@ private:
     struct name : public chaos::test::internal::UnitTest                       \
     {                                                                          \
         fixture_type* fixture;                                                 \
-        name() : UnitTest( #name ), fixture( new fixture_type() ){}            \
+        name() : UnitTest( #name ), fixture( nullptr ){}                       \
         virtual ~name(){ delete fixture; }                                     \
-        virtual chaos::test::Fixture* get_fixture() { return fixture; }        \
+        virtual chaos::test::Fixture* get_fixture()                            \
+        {                                                                      \
+            if (fixture == nullptr)                                            \
+            {                                                                  \
+                fixture = new fixture_type();                                  \
+            }                                                                  \
+            return fixture;                                                    \
+        }                                                                      \
         virtual void execute();                                                \
     };                                                                         \
     static chaos::test::internal::TestCore object_##name (                     \

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['get_5fid',['get_id',['../classsigma_1_1core_1_1_scoped_callback.html#a3b4ae371184bb639999677cf66440461',1,'sigma::core::ScopedCallback']]],
-  ['get_5finterface',['get_interface',['../classsigma_1_1core_1_1_callback_handler.html#ab9ba3abc6d94c0726de2c1dfa0056da0',1,'sigma::core::CallbackHandler']]]
+  ['callbackhandler',['CallbackHandler',['../classsigma_1_1core_1_1_callback_handler.html#a640cd1f70da16d82b91a52f6c4e3a7bb',1,'sigma::core::CallbackHandler']]],
+  ['clear_5fchildren',['clear_children',['../classsigma_1_1core_1_1tasks_1_1_task.html#acb08acc571c5e0678d27d52a18a7db5e',1,'sigma::core::tasks::Task']]]
 ];

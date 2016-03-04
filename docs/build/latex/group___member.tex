@@ -1,0 +1,58 @@
+\hypertarget{group___member}{\section{Callbacks wat}
+\label{group___member}\index{Callbacks wat@{Callbacks wat}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classsigma_1_1core_1_1_callback_interface}{sigma\-::core\-::\-Callback\-Interface}\\*
+$<$ Task $\ast$, const \\*
+chaos\-::uni\-::\-U\-T\-F8\-String \\*
+\&, const \\*
+chaos\-::uni\-::\-U\-T\-F8\-String \& $>$ $\ast$ \hyperlink{group___member_gafb01222cabc945022f095921437a10a0}{sigma\-::core\-::tasks\-::\-Task\-::on\-\_\-title\-\_\-changed} ()
+\begin{DoxyCompactList}\small\item\em For registering callbacks that handle when a \hyperlink{classsigma_1_1core_1_1tasks_1_1_task}{Task} has its title attribute changed. \end{DoxyCompactList}\item 
+\hyperlink{classsigma_1_1core_1_1_callback_interface}{sigma\-::core\-::\-Callback\-Interface}\\*
+$<$ Task $\ast$, Task $\ast$, Task $\ast$ $>$ $\ast$ \hyperlink{group___member_ga4947e26b1208f36cf4bab3f2091db786}{sigma\-::core\-::tasks\-::\-Task\-::on\-\_\-parent\-\_\-changed} ()
+\begin{DoxyCompactList}\small\item\em For registering callbacks that handle when a \hyperlink{classsigma_1_1core_1_1tasks_1_1_task}{Task} has its parent attribute changed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+\subsection{Function Documentation}
+\hypertarget{group___member_gafb01222cabc945022f095921437a10a0}{\index{Callbacks wat@{Callbacks wat}!on\-\_\-title\-\_\-changed@{on\-\_\-title\-\_\-changed}}
+\index{on\-\_\-title\-\_\-changed@{on\-\_\-title\-\_\-changed}!Callbacks wat@{Callbacks wat}}
+\subsubsection[{on\-\_\-title\-\_\-changed}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sigma\-::core\-::\-Callback\-Interface}$<$ Task$\ast$, const chaos\-::uni\-::\-U\-T\-F8\-String\&, const chaos\-::uni\-::\-U\-T\-F8\-String\&$>$$\ast$ sigma\-::core\-::tasks\-::\-Task\-::on\-\_\-title\-\_\-changed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{group___member_gafb01222cabc945022f095921437a10a0}
+
+
+For registering callbacks that handle when a \hyperlink{classsigma_1_1core_1_1tasks_1_1_task}{Task} has its title attribute changed. 
+
+Relevant callback functions take three arguments\-:
+\begin{DoxyItemize}
+\item {\ttfamily Task$\ast$} -\/ the \hyperlink{classsigma_1_1core_1_1tasks_1_1_task}{Task} thats title has changed.
+\item {\ttfamily const chaos\-::uni\-::\-U\-T\-F8\-String\&} -\/ the previous title of the \hyperlink{classsigma_1_1core_1_1tasks_1_1_task}{Task}.
+\item {\ttfamily const chaos\-::uni\-::\-U\-T\-F8\-String\&} -\/ the new title of the \hyperlink{classsigma_1_1core_1_1tasks_1_1_task}{Task}. 
+\end{DoxyItemize}\hypertarget{group___member_ga4947e26b1208f36cf4bab3f2091db786}{\index{Callbacks wat@{Callbacks wat}!on\-\_\-parent\-\_\-changed@{on\-\_\-parent\-\_\-changed}}
+\index{on\-\_\-parent\-\_\-changed@{on\-\_\-parent\-\_\-changed}!Callbacks wat@{Callbacks wat}}
+\subsubsection[{on\-\_\-parent\-\_\-changed}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sigma\-::core\-::\-Callback\-Interface}$<$Task$\ast$, Task$\ast$, Task$\ast$$>$$\ast$ sigma\-::core\-::tasks\-::\-Task\-::on\-\_\-parent\-\_\-changed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{group___member_ga4947e26b1208f36cf4bab3f2091db786}
+
+
+For registering callbacks that handle when a \hyperlink{classsigma_1_1core_1_1tasks_1_1_task}{Task} has its parent attribute changed. 
+
+Relevant callback functions take three arguments\-:
+\begin{DoxyItemize}
+\item {\ttfamily Task$\ast$} -\/ The \hyperlink{classsigma_1_1core_1_1tasks_1_1_task}{Task} thats parent has changed.
+\item {\ttfamily Task$\ast$} -\/ The previous parent of the \hyperlink{classsigma_1_1core_1_1tasks_1_1_task}{Task}.
+\item {\ttfamily Task$\ast$} -\/ The new parent of the \hyperlink{classsigma_1_1core_1_1tasks_1_1_task}{Task}.
+\end{DoxyItemize}
+
+\begin{DoxyNote}{Note}
+If the new parent is null this \hyperlink{classsigma_1_1core_1_1tasks_1_1_task}{Task} is about to be destroyed. 
+\end{DoxyNote}
