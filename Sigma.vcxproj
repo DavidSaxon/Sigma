@@ -13,6 +13,7 @@
   <ItemGroup Condition="'$(Configuration)'=='Core_Lib'Or'$(Configuration)'=='tests'">
     <ClCompile Include="src\cxx\sigma\core\Sigma.cpp" />
     <ClCompile Include="src\cxx\sigma\core\tasks\TasksDomain.cpp" />
+    <ClCompile Include="src\cxx\sigma\core\tasks\RootTask.cpp" />
     <ClCompile Include="src\cxx\sigma\core\tasks\Task.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='UI_EXE'">
@@ -23,6 +24,7 @@
   <ItemGroup Condition="'$(Configuration)'=='tests'">
     <ClCompile Include="tests/cxx/TestsMain.cpp" />
     <ClCompile Include="tests/cxx/core/Callback_TestSuite.cpp" />
+    <ClCompile Include="tests/cxx/core/task/TaskDomain_TestSuite.cpp" />
     <ClCompile Include="tests/cxx/core/task/Task_TestSuite.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
