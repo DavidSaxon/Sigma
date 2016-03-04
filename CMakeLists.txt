@@ -18,7 +18,7 @@ set(TEST_SRC
     tests/cxx/TestsMain.cpp
     tests/cxx/core/Callback_TestSuite.cpp
     tests/cxx/core/task/TaskDomain_TestSuite.cpp
-    # tests/cxx/core/task/Task_TestSuite.cpp
+    tests/cxx/core/task/Task_TestSuite.cpp
 )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/linux_x86)

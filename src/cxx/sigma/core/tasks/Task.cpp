@@ -22,20 +22,35 @@ sigma::core::CallbackHandler<Task*> Task::s_destroyed_callback;
 
 Task::Task(Task* parent, const chaos::uni::UTF8String& title)
     :
-    m_id    (++s_id),
     m_parent(parent),
     m_title (title)
 {
+    // check parent is not null
+    if (m_parent == nullptr)
+    {
+        throw chaos::ex::ValueError("Tasks cannot have a null parent");
+    }
+    // check the title is not empty
+    if (m_title.is_empty())
+    {
+        throw chaos::ex::ValueError("Tasks cannot have a blank title");
+    }
+
+    // assign id
+    m_id = ++s_id;
+
     // fire callback
     s_created_callback.trigger(this);
 }
 
 Task::Task(const Task& other)
     :
-    m_id    (++s_id),
     m_parent(other.m_parent),
     m_title(other.m_title + " (copy)")
 {
+    // assign id
+    m_id = ++s_id;
+
     // fire callback
     s_created_callback.trigger(this);
 }
@@ -129,10 +144,14 @@ void Task::set_title(const chaos::uni::UTF8String& title)
 
 Task::Task(const chaos::uni::UTF8String& title)
     :
-    m_id    (++s_id),
     m_parent(nullptr),
     m_title (title)
 {
+    assert(!title.is_empty());
+
+    // assign id
+    m_id = ++s_id;
+
     // fire callback
     s_created_callback.trigger(this);
 }

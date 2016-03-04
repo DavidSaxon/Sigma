@@ -63,6 +63,12 @@ const std::set<std::unique_ptr<RootTask>>& get_boards()
 
 RootTask* new_board(const chaos::uni::UTF8String& title)
 {
+    // check the title is not empty
+    if (title.is_empty())
+    {
+        throw chaos::ex::ValueError("Task Boards cannot have a blank title");
+    }
+
     // ensure we have a unique title
     chaos::uni::UTF8String resolved_title;
     resolve_unique_board_title(title, resolved_title);

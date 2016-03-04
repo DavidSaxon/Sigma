@@ -2,8 +2,126 @@
 
 CHAOS_TEST_MODULE(core.tasks.task)
 
-#include "sigma/core/Sigma.hpp"
-#include "sigma/core/tasks/Task.hpp"
+#include "sigma/core/tasks/RootTask.hpp"
+#include "sigma/core/tasks/TasksDomain.hpp"
+
+namespace
+{
+
+//------------------------------------------------------------------------------
+//                                  BASE FIXTURE
+//------------------------------------------------------------------------------
+
+class TaskBaseFixture : public chaos::test::Fixture
+{
+public:
+
+    //--------------------------------ATTRIBUTES--------------------------------
+
+    sigma::core::tasks::RootTask* board;
+
+    //--------------------------------FUNCTIONS---------------------------------
+
+    void setup()
+    {
+        sigma::core::tasks::domain::init();
+
+        board = sigma::core::tasks::domain::new_board("root");
+    }
+
+    virtual void teardown()
+    {
+        sigma::core::tasks::domain::clean_up();
+    }
+};
+
+//------------------------------------------------------------------------------
+//                                  CONSTRUCTOR
+//------------------------------------------------------------------------------
+
+class ConstructorFixture : public TaskBaseFixture
+{
+public:
+
+    //--------------------------------ATTRIBUTES--------------------------------
+
+    sigma::core::ScopedCallback task_created_cb_id;
+    sigma::core::tasks::Task* callback_task;
+
+    //--------------------------------FUNCTIONS---------------------------------
+
+    virtual void setup()
+    {
+        // super call
+        TaskBaseFixture::setup();
+
+        // set state
+        callback_task = nullptr;
+
+        // connect callback
+        task_created_cb_id = sigma::core::tasks::Task::on_created()->
+                register_member_function<
+                        ConstructorFixture,
+                        &ConstructorFixture::on_task_created
+                >(this);
+    }
+
+    void on_task_created(sigma::core::tasks::Task* task)
+    {
+        callback_task = task;
+    }
+};
+
+CHAOS_TEST_UNIT_FIXTURE(constructor, ConstructorFixture)
+{
+    CHAOS_TEST_MESSAGE("Checking callback is uncalled");
+    CHAOS_CHECK_EQUAL(fixture->callback_task, nullptr);
+
+    CHAOS_TEST_MESSAGE("Checking callback after construction");
+    chaos::uni::UTF8String task_1_title("task_1");
+    sigma::core::tasks::Task* task_1 =
+        new sigma::core::tasks::Task(fixture->board, task_1_title);
+    CHAOS_CHECK_EQUAL(fixture->callback_task, task_1);
+
+    chaos::uni::UTF8String task_2_title("task_2");
+    sigma::core::tasks::Task* task_2 =
+        new sigma::core::tasks::Task(task_1, task_2_title);
+    CHAOS_CHECK_EQUAL(fixture->callback_task, task_2);
+
+    CHAOS_TEST_MESSAGE("Checking Ids");
+    CHAOS_CHECK_EQUAL(task_1->get_id(), 2);
+    CHAOS_CHECK_EQUAL(task_2->get_id(), 3);
+
+    CHAOS_TEST_MESSAGE("Checking parents");
+    CHAOS_CHECK_EQUAL(task_1->get_parent(), fixture->board);
+    CHAOS_CHECK_EQUAL(task_2->get_parent(), task_1);
+
+    CHAOS_TEST_MESSAGE("Checking titles");
+    CHAOS_CHECK_EQUAL(task_1->get_title(), task_1_title);
+    CHAOS_CHECK_EQUAL(task_2->get_title(), task_2_title);
+
+    CHAOS_TEST_MESSAGE("Checking error on null parent");
+    CHAOS_CHECK_THROW(
+        new sigma::core::tasks::Task(nullptr, "null_parent_task"),
+        chaos::ex::ValueError
+    );
+    CHAOS_TEST_MESSAGE("Checking id hasn't been incremented");
+    sigma::core::tasks::Task* id_checker_1 =
+        new sigma::core::tasks::Task(fixture->board, "id_checker_1");
+    CHAOS_CHECK_EQUAL(id_checker_1->get_id(), 4);
+
+    CHAOS_TEST_MESSAGE("Checking error on empty title");
+    CHAOS_CHECK_THROW(
+        new sigma::core::tasks::Task(fixture->board, ""),
+        chaos::ex::ValueError
+    );
+    CHAOS_TEST_MESSAGE("Checking id hasn't been incremented");
+    sigma::core::tasks::Task* id_checker_2 =
+        new sigma::core::tasks::Task(fixture->board, "id_checker_2");
+    CHAOS_CHECK_EQUAL(id_checker_2->get_id(), 5);
+}
+
+} // namespace anonymous
 
 namespace core_tasks_task_tests
 {

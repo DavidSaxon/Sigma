@@ -110,6 +110,20 @@ CHAOS_TEST_UNIT_FIXTURE(boards, TaskDomainBaseFixture)
     CHAOS_CHECK_EQUAL(boards.size(), 2);
     CHAOS_CHECK_TRUE((fixture->has_board(boards, board_2)));
 
+    CHAOS_TEST_MESSAGE("Checking ids");
+    CHAOS_CHECK_EQUAL(board_1->get_id(), 1);
+    CHAOS_CHECK_EQUAL(board_2->get_id(), 2);
+
+    CHAOS_TEST_MESSAGE("Checking error on board with empty title");
+    CHAOS_CHECK_THROW(
+        sigma::core::tasks::domain::new_board(""),
+        chaos::ex::ValueError
+    );
+    CHAOS_TEST_MESSAGE("Checking id hasn't been incremented");
+    sigma::core::tasks::Task* id_checker_1 =
+        new sigma::core::tasks::Task(board_1, "id_checker_1");
+    CHAOS_CHECK_EQUAL(id_checker_1->get_id(), 3);
+
     CHAOS_TEST_MESSAGE("Checking title mangling on new board");
     sigma::core::tasks::RootTask* board_3 =
         sigma::core::tasks::domain::new_board("First");
