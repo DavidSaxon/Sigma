@@ -14,6 +14,10 @@ set(UI_SRC
     src/cxx/sigma/Main.cpp
 )
 
+set(GUI_LIB_SRC
+    src/cxx/sigma/gui/GUIBootstrap.cpp
+)
+
 set(TEST_SRC
     tests/cxx/TestsMain.cpp
     tests/cxx/core/Callback_TestSuite.cpp
@@ -21,6 +25,7 @@ set(TEST_SRC
     tests/cxx/core/task/Task_TestSuite.cpp
 )
 
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/linux_x86)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/linux_x86)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++0x")
@@ -40,20 +45,31 @@ link_directories(
         ${CMAKE_BINARY_DIR}/ext/ChaosCore/lib/linux_x86
 )
 
-add_executable(Sigma ${CORE_LIB_SRC} ${UI_SRC})
+add_library(sigma_core SHARED ${CORE_LIB_SRC})
 
-target_link_libraries(Sigma
+target_link_libraries(sigma_core
     chaoscore_base
     chaoscore_io
+)
+
+add_library(sigma_gui SHARED ${GUI_LIB_SRC})
+
+target_link_libraries(sigma_gui
+    sigma_core
     Qt5::Core
     Qt5::Gui
     Qt5::Widgets
 )
 
-add_executable(tests ${TEST_SRC} ${CORE_LIB_SRC})
+add_executable(Sigma ${UI_SRC})
+
+target_link_libraries(Sigma
+    sigma_gui
+)
+
+add_executable(tests ${TEST_SRC})
 
 target_link_libraries(tests
     chaoscore_test
-    chaoscore_base
-    chaoscore_io
+    sigma_core
 )

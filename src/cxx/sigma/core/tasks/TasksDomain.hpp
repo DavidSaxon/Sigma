@@ -31,7 +31,7 @@ namespace tasks
 class RootTask;
 
 /*!
- * \brief TODO:
+ * \brief The domain for interacting with the task management module.
  */
 namespace domain
 {

@@ -1,8 +1,8 @@
-#include <iostream>
+#include <sigma/gui/GUIBootstrap.hpp>
 
 int main(int argc, char* argv[])
 {
-    std::cout << "Hello World" << std::endl;
+    // TODO: batch mode
 
-    return 0;
+    return sigma::gui::bootstrap(argc, argv);
 }
