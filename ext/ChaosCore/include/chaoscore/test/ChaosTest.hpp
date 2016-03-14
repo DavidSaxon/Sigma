@@ -518,7 +518,7 @@ private:
  */
 #define CHAOS_CHECK_EQUAL( a, b )                                              \
     {                                                                          \
-    auto _a = ( a ); auto _b = ( b );                                          \
+    auto _a = (a); auto _b = _a; _b = (b);                                     \
     if ( _a == _b )                                                            \
     {                                                                          \
         chaos::test::internal::TestCore::logger().report_check_pass(           \
@@ -541,7 +541,7 @@ private:
  */
 #define CHAOS_CHECK_NOT_EQUAL( a, b )                                          \
     {                                                                          \
-    auto _a = ( a ); auto _b = ( b );                                          \
+    auto _a = (a); auto _b = _a; _b = (b);                                     \
     if ( _a != _b )                                                            \
     {                                                                          \
         chaos::test::internal::TestCore::logger().report_check_pass(           \
@@ -565,7 +565,7 @@ private:
  */
 #define CHAOS_CHECK_FLOAT_EQUAL( a, b )                                        \
     {                                                                          \
-    auto _a = ( a ); auto _b = ( b );                                          \
+    auto _a = (a); auto _b = _a; _b = (b);                                     \
     if ( chaos::math::float_equals( _a, _b ) )                                 \
     {                                                                          \
         chaos::test::internal::TestCore::logger().report_check_pass(           \
@@ -589,7 +589,7 @@ private:
  */
 #define CHAOS_CHECK_FLOAT_NOT_EQUAL( a, b )                                    \
     {                                                                          \
-    auto _a = ( a ); auto _b = ( b );                                          \
+    auto _a = (a); auto _b = _a; _b = (b);                                     \
     if ( !chaos::math::float_equals( _a, _b ) )                                \
     {                                                                          \
         chaos::test::internal::TestCore::logger().report_check_pass(           \

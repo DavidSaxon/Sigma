@@ -1,6 +1,6 @@
 #include <chaoscore/test/ChaosTest.hpp>
 
-CHAOS_TEST_MODULE(core.tasks.TaskDomain)
+CHAOS_TEST_MODULE(core.tasks.task_domain)
 
 #include "sigma/core/tasks/RootTask.hpp"
 #include "sigma/core/tasks/TasksDomain.hpp"

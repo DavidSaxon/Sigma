@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['get_5ffunction',['get_function',['../classsigma_1_1core_1_1_callback_manager.html#a3c36f3c32e2d6ea0f395f6bdd8775039',1,'sigma::core::CallbackManager']]]
+  ['m_5ftitle',['m_title',['../classsigma_1_1core_1_1tasks_1_1_task.html#a049db1297dbeb6efca7ec90cc3a7a74f',1,'sigma::core::tasks::Task']]]
 ];

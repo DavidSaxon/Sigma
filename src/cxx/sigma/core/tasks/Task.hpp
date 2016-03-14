@@ -6,7 +6,6 @@
 #define SIGMA_CORE_TASKS_TASK_HPP_
 
 #include <cstddef>
-#include <set>
 
 #include <chaoscore/base/uni/UTF8String.hpp>
 
@@ -68,27 +67,15 @@ public:
 
     virtual ~Task()
     {
-        // fire callback
-        s_destroyed_callback.trigger(this);
+        clean_up();
     }
 
     //--------------------------------------------------------------------------
     //                                 OPERATORS
     //--------------------------------------------------------------------------
 
-    /*!
-     * \brief Assignment operator.
-     *
-     * Assigns this task to copy it's values from the other given Task.
-     *
-     * \note The id of this task will remain the same, and this Task's children
-     * will not be copied from the other Task or modified.
-     *
-     * \param other Task to assign from.
-     *
-     * \throws chaos::ex::ValueError If the ``other`` parameter is a RootTask.
-     */
-    Task& operator=(const Task& other);
+    // tasks cannot be assigned
+    Task& operator=(const Task& other) = delete;
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -116,7 +103,9 @@ public:
     /*!
      * \brief Sets the parent Task of this Task.
      *
-     * \throws chaos::ex::ValueError If ``parent`` is null.
+     * \throws chaos::ex::ValueError If ``parent`` is null. // TODO: REMOVE ME
+     * \throws chaos::ex::IllegalActionError If the given parent is already a
+     *                                       descendant of this Task.
      */
     virtual void set_parent(Task* const parent);
 
@@ -128,7 +117,7 @@ public:
     /*!
      * \brief Returns the Tasks that have this Task as their parent.
      */
-    const std::set<Task*>& get_chidren() const;
+    const std::vector<Task*>& get_chidren() const;
 
     /*!
      * \brief Returns whether this Task has the given Task as a child.
@@ -180,7 +169,6 @@ public:
      */
     void clear_children();
 
-
     /*!
      * \brief Returns the title string of this Task.
      */
@@ -226,6 +214,22 @@ public:
     //----------------------------------LOCAL-----------------------------------
 
     /*!
+     * \brief For registering callbacks that handle when a Task has its parent
+     *        attribute changed.
+     *
+     * Relevant callback functions take three arguments:
+     * - ``Task*`` - The Task thats parent has changed.
+     * - ``Task*`` - The previous parent of the Task.
+     * - ``Task*`` - The new parent of the Task.
+     *
+     * \note If the new parent is null this Task is about to be destroyed.
+     */
+    sigma::core::CallbackInterface<Task*, Task*, Task*>* on_parent_changed()
+    {
+        return &m_parent_changed_callback.get_interface();
+    }
+
+    /*!
      * \brief For registering callbacks that handle when a Task has its title
      *        attribute changed
      *
@@ -241,22 +245,6 @@ public:
     on_title_changed()
     {
         return &m_title_changed_callback.get_interface();
-    }
-
-    /*!
-     * \brief For registering callbacks that handle when a Task has its parent
-     *        attribute changed.
-     *
-     * Relevant callback functions take three arguments:
-     * - ``Task*`` - The Task thats parent has changed.
-     * - ``Task*`` - The previous parent of the Task.
-     * - ``Task*`` - The new parent of the Task.
-     *
-     * \note If the new parent is null this Task is about to be destroyed.
-     */
-    sigma::core::CallbackInterface<Task*, Task*, Task*>* on_parent_changed()
-    {
-        return &m_parent_changed_callback.get_interface();
     }
 
 protected:
@@ -313,7 +301,7 @@ private:
     /*!
      * \brief TODO:
      */
-    std::set<Task*> m_children;
+    std::vector<Task*> m_children;
 
 
     // TODO: brief
@@ -330,6 +318,43 @@ private:
             const chaos::uni::UTF8String&,
             const chaos::uni::UTF8String&> m_title_changed_callback;
     sigma::core::CallbackHandler<Task*, Task*, Task*> m_parent_changed_callback;
+
+    //--------------------------------------------------------------------------
+    //                          PRIVATE MEMBER FUNCTIONS
+    //--------------------------------------------------------------------------
+
+    /*!
+     * \brief Internal function that sets this Task's parent but does not fire
+     *        a callback.
+     *
+     * This function handles state checking and children assignment of the
+     * parent task.
+     */
+    void set_parent_internal(Task* const parent);
+
+    /*!
+     * \brief Internal function that sets this Task's title but does not fire a
+     *         callback.
+     *
+     * This function handles state checking.
+     */
+    void set_title_internal(const chaos::uni::UTF8String& title);
+
+    /*!
+     * \brief Checks whether this task has the given task as a child.
+     *
+     * This function will be called recursively on any child tasks.
+     */
+    bool has_descendant(Task* const descendant) const;
+
+    /*!
+     * \brief The deletion routine.
+     *
+     * Deletes all of the Task's children and removes this Task from its
+     * parents list of children.
+     */
+    void clean_up();
+
 };
 
 } // namespace tasks

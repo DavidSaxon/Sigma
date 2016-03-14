@@ -1,5 +1,6 @@
 /*!
  * \file
+ * \brief Classes that make up Sigma's callback system.
  * \author David Saxon
  */
 #ifndef SIGMA_CORE_CALLBACK_HPP_
@@ -202,6 +203,35 @@ public:
     }
 
     //--------------------------------------------------------------------------
+    //                                 DESTRUCTOR
+    //--------------------------------------------------------------------------
+
+    ~ScopedCallback()
+    {
+        // do nothing if this is null
+        if (is_null())
+        {
+            return;
+        }
+
+        // reference counter should be non-zero
+        assert(m_ref_counter->count > 0);
+
+        // decrement the reference counter and check if this is the last
+        // reference
+        if (--m_ref_counter->count == 0)
+        {
+            // does the callback need unregistering?
+            if (is_registered())
+            {
+                m_interface->unregister_function(m_id);
+            }
+            // clean up the reference counter
+            delete m_ref_counter;
+        }
+    }
+
+    //--------------------------------------------------------------------------
     //                                 OPERATORS
     //--------------------------------------------------------------------------
 
@@ -235,35 +265,8 @@ public:
         m_id = transient.id;
 
         init();
-    }
 
-    //--------------------------------------------------------------------------
-    //                                 DESTRUCTOR
-    //--------------------------------------------------------------------------
-
-    ~ScopedCallback()
-    {
-        // do nothing if this is null
-        if (is_null())
-        {
-            return;
-        }
-
-        // reference counter should be non-zero
-        assert(m_ref_counter->count > 0);
-
-        // decrement the reference counter and check if this is the last
-        // reference
-        if (--m_ref_counter->count == 0)
-        {
-            // does the callback need unregistering?
-            if (is_registered())
-            {
-                m_interface->unregister_function(m_id);
-            }
-            // clean up the reference counter
-            delete m_ref_counter;
-        }
+        return *this;
     }
 
     //--------------------------------------------------------------------------

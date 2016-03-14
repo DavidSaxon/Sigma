@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['task',['Task',['../classsigma_1_1core_1_1tasks_1_1_task.html#ad0c18c7b0fc306cf4fe6f133766b2779',1,'sigma::core::tasks::Task::Task(Task *parent, const chaos::uni::UTF8String &amp;title)'],['../classsigma_1_1core_1_1tasks_1_1_task.html#a222255707537a07f64c687c87efef1e6',1,'sigma::core::tasks::Task::Task(const Task &amp;other)'],['../classsigma_1_1core_1_1tasks_1_1_task.html#a22316f108f9eeea2d2497b825b068c84',1,'sigma::core::tasks::Task::Task(const chaos::uni::UTF8String &amp;title)']]],
-  ['trigger',['trigger',['../classsigma_1_1core_1_1_callback_handler.html#a565178d287893492a86112d67a5302f8',1,'sigma::core::CallbackHandler']]]
+  ['scopedcallback',['ScopedCallback',['../classsigma_1_1core_1_1_scoped_callback.html#ab7d6ecc53f4f2ae5c099aa432ca5fe46',1,'sigma::core::ScopedCallback::ScopedCallback()'],['../classsigma_1_1core_1_1_scoped_callback.html#aa6b342b546577026badad33e7bf521b9',1,'sigma::core::ScopedCallback::ScopedCallback(TransientCallbackID transient)'],['../classsigma_1_1core_1_1_scoped_callback.html#ae39d91862f76b1804acc8edae410678e',1,'sigma::core::ScopedCallback::ScopedCallback(const ScopedCallback &amp;other)']]],
+  ['set_5fparent',['set_parent',['../classsigma_1_1core_1_1tasks_1_1_root_task.html#a4b9f9c86ba7a0e5b681479a444cd60b1',1,'sigma::core::tasks::RootTask::set_parent()'],['../classsigma_1_1core_1_1tasks_1_1_task.html#a975655055e70f4a2228153e84ff4e725',1,'sigma::core::tasks::Task::set_parent()']]],
+  ['set_5ftitle',['set_title',['../classsigma_1_1core_1_1tasks_1_1_root_task.html#ad618706d088cbe4492402c6f2b2628e2',1,'sigma::core::tasks::RootTask::set_title()'],['../classsigma_1_1core_1_1tasks_1_1_task.html#ab65a709ed6a7e804fea2b0ef763313c9',1,'sigma::core::tasks::Task::set_title()']]]
 ];

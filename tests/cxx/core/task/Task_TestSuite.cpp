@@ -96,9 +96,20 @@ CHAOS_TEST_UNIT_FIXTURE(constructor, ConstructorFixture)
     CHAOS_CHECK_EQUAL(task_1->get_parent(), fixture->board);
     CHAOS_CHECK_EQUAL(task_2->get_parent(), task_1);
 
+    CHAOS_TEST_MESSAGE("Checking children");
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(task_1));
+    CHAOS_CHECK_EQUAL(task_1->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(task_1->has_child(task_2));
+    CHAOS_CHECK_EQUAL(task_2->get_children_count(), 0);
+
     CHAOS_TEST_MESSAGE("Checking titles");
     CHAOS_CHECK_EQUAL(task_1->get_title(), task_1_title);
     CHAOS_CHECK_EQUAL(task_2->get_title(), task_2_title);
+
+    CHAOS_TEST_MESSAGE("Checking is not root task");
+    CHAOS_CHECK_FALSE(task_1->is_root());
+    CHAOS_CHECK_FALSE(task_2->is_root());
 
     CHAOS_TEST_MESSAGE("Checking error on null parent");
     CHAOS_CHECK_THROW(
@@ -121,317 +132,553 @@ CHAOS_TEST_UNIT_FIXTURE(constructor, ConstructorFixture)
     CHAOS_CHECK_EQUAL(id_checker_2->get_id(), 5);
 }
 
-} // namespace anonymous
+//------------------------------------------------------------------------------
+//                                COPY CONSTRUCTOR
+//------------------------------------------------------------------------------
 
-namespace core_tasks_task_tests
+CHAOS_TEST_UNIT_FIXTURE(copy_constructor, ConstructorFixture)
 {
+    CHAOS_TEST_MESSAGE("Checking callback is uncalled");
+    CHAOS_CHECK_EQUAL(fixture->callback_task, nullptr);
+
+    // create a tasks to copy from
+    chaos::uni::UTF8String task_1_title("task_1");
+    sigma::core::tasks::Task* task_1 =
+        new sigma::core::tasks::Task(fixture->board, task_1_title);
+    chaos::uni::UTF8String task_2_title("task_2");
+    sigma::core::tasks::Task* task_2 =
+        new sigma::core::tasks::Task(task_1, task_2_title);
+
+    CHAOS_TEST_MESSAGE("Checking callback is after copy construction");
+    sigma::core::tasks::Task* task_3 =
+        new sigma::core::tasks::Task(*task_1);
+    CHAOS_CHECK_EQUAL(fixture->callback_task, task_3);
+    sigma::core::tasks::Task* task_4 =
+        new sigma::core::tasks::Task(*task_2);
+    CHAOS_CHECK_EQUAL(fixture->callback_task, task_4);
+
+    CHAOS_TEST_MESSAGE("Checking Ids");
+    CHAOS_CHECK_EQUAL(task_3->get_id(), 4);
+    CHAOS_CHECK_EQUAL(task_4->get_id(), 5);
+
+    CHAOS_TEST_MESSAGE("Checking parents");
+    CHAOS_CHECK_EQUAL(task_3->get_parent(), fixture->board);
+    CHAOS_CHECK_EQUAL(task_4->get_parent(), task_1);
+
+    CHAOS_TEST_MESSAGE("Checking children");
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(task_1));
+    CHAOS_CHECK_TRUE(fixture->board->has_child(task_3));
+    CHAOS_CHECK_EQUAL(task_1->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(task_1->has_child(task_2));
+    CHAOS_CHECK_TRUE(task_1->has_child(task_4));
+    CHAOS_CHECK_EQUAL(task_2->get_children_count(), 0);
+    CHAOS_CHECK_EQUAL(task_3->get_children_count(), 0);
+    CHAOS_CHECK_EQUAL(task_4->get_children_count(), 0);
+
+    CHAOS_TEST_MESSAGE("Checking titles");
+    CHAOS_CHECK_EQUAL(task_3->get_title(), task_1_title);
+    CHAOS_CHECK_EQUAL(task_4->get_title(), task_2_title);
+
+    CHAOS_TEST_MESSAGE("Checking is not root task");
+    CHAOS_CHECK_FALSE(task_3->is_root());
+    CHAOS_CHECK_FALSE(task_4->is_root());
+
+    CHAOS_TEST_MESSAGE("Checking error on copy from root");
+    CHAOS_CHECK_THROW(
+        new sigma::core::tasks::Task(*fixture->board),
+        chaos::ex::ValueError
+    );
+    CHAOS_TEST_MESSAGE("Checking id hasn't been incremented");
+    sigma::core::tasks::Task* id_checker_1 =
+        new sigma::core::tasks::Task(fixture->board, "id_checker_1");
+    CHAOS_CHECK_EQUAL(id_checker_1->get_id(), 6);
+}
 
 //------------------------------------------------------------------------------
-//                                  CONSTRUCTOR
+//                                   SET PARENT
 //------------------------------------------------------------------------------
 
-// CHAOS_TEST_UNIT(construtor)
-// {
+class SetParentFixture : public TaskBaseFixture
+{
+public:
 
-// }
+    //--------------------------------ATTRIBUTES--------------------------------
 
-// //------------------------------------------------------------------------------
-// //                               TITLE CONSTRUCTOR
-// //------------------------------------------------------------------------------
+    sigma::core::tasks::Task* callback_task;
+    sigma::core::tasks::Task* callback_old;
+    sigma::core::tasks::Task* callback_new;
 
-// class TitleConstructorFixture : public chaos::test::Fixture
-// {
-// public:
+    sigma::core::tasks::Task* destroyed_task;
+    sigma::core::tasks::Task* prev_destroyed_task;
 
-//     //--------------------------------ATTRIBUTES--------------------------------
+    sigma::core::tasks::Task* task_1;
+    sigma::core::tasks::Task* task_2;
+    sigma::core::tasks::Task* task_3;
 
-//     sigma::core::ScopedCallback task_created_cb_id;
-//     bool callback_called;
-//     sigma::core::tasks::Task* callback_task;
+    //--------------------------------FUNCTIONS---------------------------------
 
-//     //--------------------------------FUNCTIONS---------------------------------
+    virtual void setup()
+    {
+        // super call
+        TaskBaseFixture::setup();
 
-//     void on_task_created(sigma::core::tasks::Task* task)
-//     {
-//         callback_called = true;
-//         callback_task = task;
-//     }
+        // set state
+        callback_task = nullptr;
+        callback_old  = nullptr;
+        callback_new  = nullptr;
+        destroyed_task = nullptr;
+        prev_destroyed_task = nullptr;
 
-//     virtual void setup()
-//     {
-//         // set state
-//         callback_called = false;
-//         callback_task = nullptr;
+        task_1 = new sigma::core::tasks::Task(board, "task_1");
+        task_2 = new sigma::core::tasks::Task(board, "task_2");
+        task_3 = new sigma::core::tasks::Task(task_1, "task_3");
 
-//         // connect callback
-//         task_created_cb_id = sigma::core::tasks::Task::on_created()->
-//                 register_member_function<
-//                         TitleConstructorFixture,
-//                         &TitleConstructorFixture::on_task_created
-//                 >(this);
-//     }
-// };
+        // connect callbacks
+        task_1->on_parent_changed()->
+                register_member_function<
+                        SetParentFixture,
+                        &SetParentFixture::on_parent_changed
+                >(this);
+        task_2->on_parent_changed()->
+                register_member_function<
+                        SetParentFixture,
+                        &SetParentFixture::on_parent_changed
+                >(this);
+        task_3->on_parent_changed()->
+                register_member_function<
+                        SetParentFixture,
+                        &SetParentFixture::on_parent_changed
+                >(this);
 
-// CHAOS_TEST_UNIT_FIXTURE(title_constructor, TitleConstructorFixture)
-// {
-//     CHAOS_TEST_MESSAGE("Checking callback is uncalled");
-//     CHAOS_CHECK_FALSE(fixture->callback_called);
-//     CHAOS_CHECK_EQUAL(fixture->callback_task, nullptr);
+        sigma::core::tasks::Task::on_destroyed()->
+                register_member_function<
+                        SetParentFixture,
+                        &SetParentFixture::on_task_destroyed
+                >(this);
+    }
 
-//     CHAOS_TEST_MESSAGE("Checking callback after construction");
-//     chaos::uni::UTF8String task_title("test_task");
-//     sigma::core::tasks::Task task(task_title);
-//     CHAOS_CHECK_TRUE(fixture->callback_called);
-//     CHAOS_CHECK_EQUAL(fixture->callback_task, &task);
+    void on_parent_changed(
+            sigma::core::tasks::Task* task,
+            sigma::core::tasks::Task* old_parent,
+            sigma::core::tasks::Task* new_parent)
+    {
+        callback_task = task;
+        callback_old = old_parent;
+        callback_new = new_parent;
+    }
 
-//     // create another child task
-//     chaos::uni::UTF8String child_task_title("child_task");
-//     sigma::core::tasks::Task child_task(child_task_title, &task);
+    void on_task_destroyed(sigma::core::tasks::Task* task)
+    {
+        prev_destroyed_task = destroyed_task;
+        destroyed_task = task;
+    }
+};
 
-//     CHAOS_TEST_MESSAGE("Checking title");
-//     CHAOS_CHECK_EQUAL(task.get_title(), task_title);
-//     CHAOS_CHECK_EQUAL(child_task.get_title(), child_task_title);
+CHAOS_TEST_UNIT_FIXTURE(set_parent, SetParentFixture)
+{
+    CHAOS_TEST_MESSAGE("Checking initial states");
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_1));
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->task_1->has_child(fixture->task_3));
+    CHAOS_CHECK_EQUAL(fixture->task_2->get_children_count(), 0);
+    CHAOS_CHECK_EQUAL(fixture->task_3->get_children_count(), 0);
 
-//     CHAOS_TEST_MESSAGE("Checking parent");
-//     CHAOS_CHECK_EQUAL(task.get_parent(), nullptr);
-//     CHAOS_CHECK_EQUAL(child_task.get_parent(), &task);
+    CHAOS_TEST_MESSAGE("Checking callbacks are uncalled");
+    CHAOS_CHECK_EQUAL(fixture->callback_task, nullptr);
+    CHAOS_CHECK_EQUAL(fixture->destroyed_task, nullptr);
 
-//     // check the task can't be defined with a null parent
-//     // TODO:
+    CHAOS_TEST_MESSAGE("Checking case 1");
+    fixture->task_2->set_parent(fixture->task_1);
+    CHAOS_TEST_MESSAGE("Checking callback");
+    CHAOS_CHECK_EQUAL(fixture->callback_task, fixture->task_2);
+    CHAOS_CHECK_EQUAL(fixture->callback_old, fixture->board);
+    CHAOS_CHECK_EQUAL(fixture->callback_new, fixture->task_1);
+    CHAOS_TEST_MESSAGE("Checking hierarchy");
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_1));
+    CHAOS_CHECK_FALSE(fixture->board->has_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(fixture->task_1->has_child(fixture->task_3));
+    CHAOS_CHECK_TRUE(fixture->task_1->has_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->task_2->get_children_count(), 0);
+    CHAOS_CHECK_EQUAL(fixture->task_3->get_children_count(), 0);
 
+    CHAOS_TEST_MESSAGE("Checking case 2");
+    fixture->task_3->set_parent(fixture->task_2);
+    CHAOS_TEST_MESSAGE("Checking callback");
+    CHAOS_CHECK_EQUAL(fixture->callback_task, fixture->task_3);
+    CHAOS_CHECK_EQUAL(fixture->callback_old, fixture->task_1);
+    CHAOS_CHECK_EQUAL(fixture->callback_new, fixture->task_2);
+    CHAOS_TEST_MESSAGE("Checking hierarchy");
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_1));
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_children_count(), 1);
+    CHAOS_CHECK_FALSE(fixture->task_1->has_child(fixture->task_3));
+    CHAOS_CHECK_TRUE(fixture->task_1->has_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->task_2->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->task_2->has_child(fixture->task_3));
+    CHAOS_CHECK_EQUAL(fixture->task_3->get_children_count(), 0);
 
-// }
+    CHAOS_TEST_MESSAGE("Checking tasks can't be parented to descendants");
+    CHAOS_CHECK_THROW(
+        fixture->task_2->set_parent(fixture->task_3),
+        chaos::ex::IllegalActionError
+    )
+    CHAOS_CHECK_EQUAL(fixture->task_2->get_parent(), fixture->task_1);
+    CHAOS_CHECK_THROW(
+        fixture->task_1->set_parent(fixture->task_3),
+        chaos::ex::IllegalActionError
+    )
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_parent(), fixture->board);
 
-// //------------------------------------------------------------------------------
-// //                                   DESTRUCTOR
-// //------------------------------------------------------------------------------
+    CHAOS_TEST_MESSAGE("Checking setting parent to null deletes the task");
+    fixture->task_3->set_parent(nullptr);
+    CHAOS_CHECK_EQUAL(fixture->destroyed_task, fixture->task_3);
+    CHAOS_CHECK_FALSE(fixture->task_2->has_child(fixture->task_3));
 
-// class DestructorFixture : public chaos::test::Fixture
-// {
-// public:
+    fixture->task_1->set_parent(nullptr);
+    CHAOS_CHECK_EQUAL(fixture->destroyed_task, fixture->task_1);
+    CHAOS_CHECK_EQUAL(fixture->prev_destroyed_task, fixture->task_2);
+    CHAOS_CHECK_FALSE(fixture->board->has_child(fixture->task_1));
+}
 
-//     //--------------------------------ATTRIBUTES--------------------------------
+//------------------------------------------------------------------------------
+//                                   ADD CHILD
+//------------------------------------------------------------------------------
 
-//     sigma::core::ScopedCallback task_destroyed_cb_id;
-//     bool callback_called;
-//     sigma::core::tasks::Task* callback_task;
+class AddChildFixture : public TaskBaseFixture
+{
+public:
 
-//     //--------------------------------FUNCTIONS---------------------------------
+    //--------------------------------ATTRIBUTES--------------------------------
 
-//     void reset()
-//     {
-//         callback_called = false;
-//         callback_task = nullptr;
-//     }
+    sigma::core::tasks::Task* callback_task;
+    sigma::core::tasks::Task* callback_old;
+    sigma::core::tasks::Task* callback_new;
 
-//     void on_task_destroyed(sigma::core::tasks::Task* task)
-//     {
-//         callback_called = true;
-//         callback_task = task;
-//     }
+    sigma::core::tasks::Task* task_1;
+    sigma::core::tasks::Task* task_2;
+    sigma::core::tasks::Task* task_3;
 
-//     virtual void setup()
-//     {
-//         // set state
-//         reset();
+    //--------------------------------FUNCTIONS---------------------------------
 
-//         // connect callback
-//         task_destroyed_cb_id = sigma::core::tasks::Task::on_destroyed()->
-//                 register_member_function<
-//                         DestructorFixture,
-//                         &DestructorFixture::on_task_destroyed
-//                 >(this);
-//     }
-// };
+    virtual void setup()
+    {
+        // super call
+        TaskBaseFixture::setup();
 
-// CHAOS_TEST_UNIT_FIXTURE(destructor, DestructorFixture)
-// {
-//     sigma::core::tasks::Task* task_ptr = new sigma::core::tasks::Task("t_1");
-//     CHAOS_TEST_MESSAGE("Checking callback is uncalled");
-//     CHAOS_CHECK_FALSE(fixture->callback_called);
-//     CHAOS_CHECK_EQUAL(fixture->callback_task, nullptr);
+        // set state
+        callback_task = nullptr;
+        callback_old  = nullptr;
+        callback_new  = nullptr;
 
-//     CHAOS_TEST_MESSAGE("Checking deleting task");
-//     delete task_ptr;
-//     CHAOS_CHECK_TRUE(fixture->callback_called);
-//     CHAOS_CHECK_EQUAL(fixture->callback_task, task_ptr);
+        task_1 = new sigma::core::tasks::Task(board, "task_1");
+        task_2 = new sigma::core::tasks::Task(board, "task_2");
+        task_3 = new sigma::core::tasks::Task(task_1, "task_3");
 
-//     {
-//         fixture->reset();
-//         sigma::core::tasks::Task task("t_2");
-//         task_ptr = &task;
-//         CHAOS_TEST_MESSAGE("Checking callback is uncalled");
-//         CHAOS_CHECK_FALSE(fixture->callback_called);
-//         CHAOS_CHECK_EQUAL(fixture->callback_task, nullptr);
-//     }
-//     CHAOS_TEST_MESSAGE("Checking task going out of scope");
-//     CHAOS_CHECK_TRUE(fixture->callback_called);
-//     CHAOS_CHECK_EQUAL(fixture->callback_task, task_ptr);
-// }
+        // connect callbacks
+        task_1->on_parent_changed()->
+                register_member_function<
+                        AddChildFixture,
+                        &AddChildFixture::on_parent_changed
+                >(this);
+        task_2->on_parent_changed()->
+                register_member_function<
+                        AddChildFixture,
+                        &AddChildFixture::on_parent_changed
+                >(this);
+        task_3->on_parent_changed()->
+                register_member_function<
+                        AddChildFixture,
+                        &AddChildFixture::on_parent_changed
+                >(this);
+    }
 
-// //------------------------------------------------------------------------------
-// //                                   SET TITLE
-// //------------------------------------------------------------------------------
+    void on_parent_changed(
+            sigma::core::tasks::Task* task,
+            sigma::core::tasks::Task* old_parent,
+            sigma::core::tasks::Task* new_parent)
+    {
+        callback_task = task;
+        callback_old = old_parent;
+        callback_new = new_parent;
+    }
+};
 
-// class SetTitleFixture : public chaos::test::Fixture
-// {
-// public:
+CHAOS_TEST_UNIT_FIXTURE(add_child, AddChildFixture)
+{
+    CHAOS_TEST_MESSAGE("Checking initial states");
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_1));
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->task_1->has_child(fixture->task_3));
+    CHAOS_CHECK_EQUAL(fixture->task_2->get_children_count(), 0);
+    CHAOS_CHECK_EQUAL(fixture->task_3->get_children_count(), 0);
 
-//     //--------------------------------ATTRIBUTES--------------------------------
+    CHAOS_TEST_MESSAGE("Checking callback is uncalled");
+    CHAOS_CHECK_EQUAL(fixture->callback_task, nullptr);
 
+    CHAOS_TEST_MESSAGE("Checking case 1");
+    CHAOS_CHECK_TRUE(fixture->task_1->add_child(fixture->task_2));
+    CHAOS_TEST_MESSAGE("Checking callback");
+    CHAOS_CHECK_EQUAL(fixture->callback_task, fixture->task_2);
+    CHAOS_CHECK_EQUAL(fixture->callback_old, fixture->board);
+    CHAOS_CHECK_EQUAL(fixture->callback_new, fixture->task_1);
+    CHAOS_TEST_MESSAGE("Checking hierarchy");
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_1));
+    CHAOS_CHECK_FALSE(fixture->board->has_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(fixture->task_1->has_child(fixture->task_3));
+    CHAOS_CHECK_TRUE(fixture->task_1->has_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->task_2->get_children_count(), 0);
+    CHAOS_CHECK_EQUAL(fixture->task_3->get_children_count(), 0);
 
-//     chaos::uni::UTF8String initial_title;
-//     sigma::core::tasks::Task task;
-//     sigma::core::ScopedCallback title_changed_cb_id;
-//     bool callback_called;
-//     sigma::core::tasks::Task* callback_task;
-//     chaos::uni::UTF8String callback_title;
+    CHAOS_TEST_MESSAGE("Checking case 2");
+    CHAOS_CHECK_TRUE(fixture->task_2->add_child(fixture->task_3));
+    CHAOS_TEST_MESSAGE("Checking callback");
+    CHAOS_CHECK_EQUAL(fixture->callback_task, fixture->task_3);
+    CHAOS_CHECK_EQUAL(fixture->callback_old, fixture->task_1);
+    CHAOS_CHECK_EQUAL(fixture->callback_new, fixture->task_2);
+    CHAOS_TEST_MESSAGE("Checking hierarchy");
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_1));
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_children_count(), 1);
+    CHAOS_CHECK_FALSE(fixture->task_1->has_child(fixture->task_3));
+    CHAOS_CHECK_TRUE(fixture->task_1->has_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->task_2->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->task_2->has_child(fixture->task_3));
+    CHAOS_CHECK_EQUAL(fixture->task_3->get_children_count(), 0);
 
-//     //-------------------------------CONSTRUCTOR--------------------------------
+    CHAOS_TEST_MESSAGE("Checking tasks can't be parented to descendants");
+    CHAOS_CHECK_THROW(
+        fixture->task_3->add_child(fixture->task_2),
+        chaos::ex::IllegalActionError
+    )
+    CHAOS_CHECK_EQUAL(fixture->task_2->get_parent(), fixture->task_1);
+    CHAOS_CHECK_THROW(
+        fixture->task_3->add_child(fixture->task_1),
+        chaos::ex::IllegalActionError
+    )
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_parent(), fixture->board);
 
-//     SetTitleFixture()
-//         :
-//         Fixture      (),
-//         initial_title("initial_title"),
-//         task         (initial_title)
-//     {
-//     }
+    // Checking that an existing child cannot be added
+    CHAOS_CHECK_FALSE(fixture->board->add_child(fixture->task_1));
+    CHAOS_CHECK_FALSE(fixture->task_1->add_child(fixture->task_2));
+    CHAOS_CHECK_FALSE(fixture->task_2->add_child(fixture->task_3));
+}
 
-//     //--------------------------------FUNCTIONS---------------------------------
+//------------------------------------------------------------------------------
+//                                  REMOVE CHILD
+//------------------------------------------------------------------------------
 
-//     void on_title_changed(
-//             sigma::core::tasks::Task* task,
-//             const chaos::uni::UTF8String& title)
-//     {
-//         callback_called = true;
-//         callback_task = task;
-//         callback_title = title;
-//     }
+class RemoveChildFixture : public TaskBaseFixture
+{
+public:
 
-//     virtual void setup()
-//     {
-//         // set state
-//         callback_called = false;
-//         callback_task = nullptr;
+    //--------------------------------ATTRIBUTES--------------------------------
 
-//         // connect callback
-//         title_changed_cb_id = task.on_title_changed()->
-//                 register_member_function<
-//                         SetTitleFixture,
-//                         &SetTitleFixture::on_title_changed
-//                 >(this);
-//     }
-// };
+    sigma::core::tasks::Task* destroyed_task;
+    sigma::core::tasks::Task* prev_destroyed_task_1;
+    sigma::core::tasks::Task* prev_destroyed_task_2;
 
-// CHAOS_TEST_UNIT_FIXTURE(set_title, SetTitleFixture)
-// {
-//     CHAOS_TEST_MESSAGE("Checking initial title");
-//     CHAOS_CHECK_EQUAL(fixture->task.get_title(), fixture->initial_title);
+    sigma::core::tasks::Task* task_1;
+    sigma::core::tasks::Task* task_2;
+    sigma::core::tasks::Task* task_3;
+    sigma::core::tasks::Task* task_4;
+    sigma::core::tasks::Task* task_5;
 
-//     CHAOS_TEST_MESSAGE("Checking callback is uncalled");
-//     CHAOS_CHECK_FALSE(fixture->callback_called);
+    //--------------------------------FUNCTIONS---------------------------------
 
-//     CHAOS_TEST_MESSAGE("Checking title after set");
-//     chaos::uni::UTF8String new_title("new_title");
-//     fixture->task.set_title("new_title");
-//     CHAOS_CHECK_EQUAL(fixture->task.get_title(), new_title);
+    virtual void setup()
+    {
+        // super call
+        TaskBaseFixture::setup();
 
-//     CHAOS_TEST_MESSAGE("Checking callback is called");
-//     CHAOS_CHECK_TRUE(fixture->callback_called);
-//     CHAOS_CHECK_EQUAL(fixture->callback_task, &fixture->task);
-//     CHAOS_CHECK_EQUAL(fixture->callback_title, new_title);
-// }
+        // set state
+        destroyed_task = nullptr;
+        prev_destroyed_task_1 = nullptr;
+        prev_destroyed_task_2 = nullptr;
 
-// //------------------------------------------------------------------------------
-// //                                   SET PARENT
-// //------------------------------------------------------------------------------
+        task_1 = new sigma::core::tasks::Task(board, "task_1");
+        task_2 = new sigma::core::tasks::Task(board, "task_2");
+        task_3 = new sigma::core::tasks::Task(task_1, "task_3");
+        task_4 = new sigma::core::tasks::Task(task_3, "task_4");
+        task_5 = new sigma::core::tasks::Task(task_3, "task_5");
 
-// class SetParentFixture : public chaos::test::Fixture
-// {
-// public:
+        // connect callbacks
+        sigma::core::tasks::Task::on_destroyed()->
+                register_member_function<
+                        RemoveChildFixture,
+                        &RemoveChildFixture::on_task_destroyed
+                >(this);
+    }
 
-//     //--------------------------------ATTRIBUTES--------------------------------
+    void on_task_destroyed(sigma::core::tasks::Task* task)
+    {
+        prev_destroyed_task_2 = prev_destroyed_task_1;
+        prev_destroyed_task_1 = destroyed_task;
+        destroyed_task = task;
+    }
+};
 
-//     bool callback_called;
-//     sigma::core::tasks::Task* this_task;
-//     sigma::core::tasks::Task* new_parent;
-//     sigma::core::tasks::Task* old_parent;
+CHAOS_TEST_UNIT_FIXTURE(remove_child, RemoveChildFixture)
+{
+    CHAOS_TEST_MESSAGE("Checking initial states");
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_1));
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->task_1->has_child(fixture->task_3));
+    CHAOS_CHECK_EQUAL(fixture->task_2->get_children_count(), 0);
+    CHAOS_CHECK_EQUAL(fixture->task_3->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(fixture->task_3->has_child(fixture->task_4));
+    CHAOS_CHECK_TRUE(fixture->task_3->has_child(fixture->task_5));
+    CHAOS_CHECK_EQUAL(fixture->task_4->get_children_count(), 0);
+    CHAOS_CHECK_EQUAL(fixture->task_5->get_children_count(), 0);
 
-//     //--------------------------------FUNCTIONS---------------------------------
+    CHAOS_TEST_MESSAGE("Checking callback is uncalled");
+    CHAOS_CHECK_EQUAL(fixture->destroyed_task, nullptr);
 
-//     void reset()
-//     {
-//         callback_called = false;
-//         this_task  = nullptr;
-//         new_parent = nullptr;
-//         old_parent = nullptr;
-//     }
+    CHAOS_TEST_MESSAGE("Checking removing Tasks that's aren't children");
+    CHAOS_CHECK_FALSE(fixture->board->remove_child(fixture->task_3));
+    CHAOS_CHECK_FALSE(fixture->task_1->remove_child(fixture->board));
+    CHAOS_CHECK_FALSE(fixture->task_1->remove_child(fixture->task_2));
+    CHAOS_CHECK_FALSE(fixture->task_1->remove_child(fixture->task_4));
+    CHAOS_CHECK_FALSE(fixture->task_2->remove_child(fixture->task_3));
+    CHAOS_CHECK_FALSE(fixture->task_2->remove_child(fixture->task_5));
 
-//     void on_parent_changed(
-//             sigma::core::tasks::Task* a_this_task,
-//             sigma::core::tasks::Task* a_new_parent,
-//             sigma::core::tasks::Task* a_old_parent )
-//     {
-//         callback_called = false;
-//         this_task  = a_this_task;
-//         new_parent = a_new_parent;
-//         old_parent = a_old_parent;
-//     }
+    CHAOS_TEST_MESSAGE("Checking hierarchy has remained the same");
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_1));
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->task_1->has_child(fixture->task_3));
+    CHAOS_CHECK_EQUAL(fixture->task_2->get_children_count(), 0);
+    CHAOS_CHECK_EQUAL(fixture->task_3->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(fixture->task_3->has_child(fixture->task_4));
+    CHAOS_CHECK_TRUE(fixture->task_3->has_child(fixture->task_5));
+    CHAOS_CHECK_EQUAL(fixture->task_4->get_children_count(), 0);
+    CHAOS_CHECK_EQUAL(fixture->task_5->get_children_count(), 0);
 
-//     virtual void setup()
-//     {
-//         reset();
+    CHAOS_TEST_MESSAGE("Checking removing task_2 from task_1");
+    CHAOS_CHECK_TRUE(fixture->board->remove_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->destroyed_task, fixture->task_2);
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_1));
+    CHAOS_CHECK_FALSE(fixture->board->has_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->task_1->has_child(fixture->task_3));
+    CHAOS_CHECK_EQUAL(fixture->task_3->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(fixture->task_3->has_child(fixture->task_4));
+    CHAOS_CHECK_TRUE(fixture->task_3->has_child(fixture->task_5));
 
-//         // // set state
-//         // callback_called = false;
-//         // callback_task = nullptr;
+    CHAOS_TEST_MESSAGE("Checking removing task_3 from task_1");
+    CHAOS_CHECK_TRUE(fixture->task_1->remove_child(fixture->task_3));
+    CHAOS_CHECK_EQUAL(fixture->destroyed_task, fixture->task_3);
+    CHAOS_CHECK_EQUAL(fixture->prev_destroyed_task_1, fixture->task_5);
+    CHAOS_CHECK_EQUAL(fixture->prev_destroyed_task_2, fixture->task_4);
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_1));
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_children_count(), 0);
+    CHAOS_CHECK_FALSE(fixture->task_1->has_child(fixture->task_3));
+}
 
-//         // // connect callback
-//         // title_changed_cb_id = task.on_title_changed()->
-//         //         register_member_function<
-//         //                 SetParentFixture,
-//         //                 &SetParentFixture::on_title_changed
-//         //         >(this);
-//     }
-// };
+class ClearChildrenFixture : public TaskBaseFixture
+{
+public:
 
-// CHAOS_TEST_UNIT_FIXTURE(set_parent, SetParentFixture)
-// {
-//     // // create a parent and child
-//     // {
-//     // sigma::core::tasks::Task* parent_task =
-//     //         new sigma::core::tasks::Task("parent_task");
-//     // sigma::core::tasks::Task* child_task =
-//     //         new sigma::core::tasks::Task("child_task");
+    //--------------------------------ATTRIBUTES--------------------------------
 
-//     // // hook up callback
-//     // child_task->on_parent_changed()->register_member_function<
-//     //         SetParentFixture,
-//     //         &SetParentFixture::on_parent_changed
-//     // >(fixture);
+    sigma::core::tasks::Task* destroyed_task;
+    sigma::core::tasks::Task* prev_destroyed_task_1;
+    sigma::core::tasks::Task* prev_destroyed_task_2;
 
-//     // CHAOS_TEST_MESSAGE("Checking callback uncalled");
-//     // CHAOS_CHECK_FALSE(fixture->callback_called);
-//     // CHAOS_CHECK_EQUAL(fixture->this_task, nullptr);
-//     // CHAOS_CHECK_EQUAL(fixture->new_parent, nullptr);
-//     // CHAOS_CHECK_EQUAL(fixture->old_parent, nullptr);
+    sigma::core::tasks::Task* task_1;
+    sigma::core::tasks::Task* task_2;
+    sigma::core::tasks::Task* task_3;
+    sigma::core::tasks::Task* task_4;
+    sigma::core::tasks::Task* task_5;
 
-//     // // set parent
-//     // child_task->set_parent(parent_task);
+    //--------------------------------FUNCTIONS---------------------------------
 
-//     // CHAOS_TEST_MESSAGE("Checking parent");
-//     // CHAOS_CHECK_EQUAL(child_task->get_parent(), parent_task);
+    virtual void setup()
+    {
+        // super call
+        TaskBaseFixture::setup();
 
-//     // CHAOS_TEST_MESSAGE("Checking callback called");
-//     // CHAOS_CHECK_TRUE(fixture->callback_called);
-//     // CHAOS_CHECK_EQUAL(fixture->this_task, child_task);
-//     // CHAOS_CHECK_EQUAL(fixture->new_parent, nullptr);
-//     // CHAOS_CHECK_EQUAL(fixture->old_parent, parent_task);
+        // set state
+        destroyed_task = nullptr;
+        prev_destroyed_task_1 = nullptr;
+        prev_destroyed_task_2 = nullptr;
 
-//     // // clean up
-//     // delete parent_task;
-//     // delete child_task;
-//     // }
-// }
+        task_1 = new sigma::core::tasks::Task(board, "task_1");
+        task_2 = new sigma::core::tasks::Task(board, "task_2");
+        task_3 = new sigma::core::tasks::Task(task_1, "task_3");
+        task_4 = new sigma::core::tasks::Task(task_3, "task_4");
+        task_5 = new sigma::core::tasks::Task(task_3, "task_5");
 
-} // namespace core_tasks_task_tests
+        // connect callbacks
+        sigma::core::tasks::Task::on_destroyed()->
+                register_member_function<
+                        ClearChildrenFixture,
+                        &ClearChildrenFixture::on_task_destroyed
+                >(this);
+    }
+
+    void on_task_destroyed(sigma::core::tasks::Task* task)
+    {
+        prev_destroyed_task_2 = prev_destroyed_task_1;
+        prev_destroyed_task_1 = destroyed_task;
+        destroyed_task = task;
+    }
+};
+
+CHAOS_TEST_UNIT_FIXTURE(clear_children, ClearChildrenFixture)
+{
+    CHAOS_TEST_MESSAGE("Checking initial states");
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_1));
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_children_count(), 1);
+    CHAOS_CHECK_TRUE(fixture->task_1->has_child(fixture->task_3));
+    CHAOS_CHECK_EQUAL(fixture->task_2->get_children_count(), 0);
+    CHAOS_CHECK_EQUAL(fixture->task_3->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(fixture->task_3->has_child(fixture->task_4));
+    CHAOS_CHECK_TRUE(fixture->task_3->has_child(fixture->task_5));
+    CHAOS_CHECK_EQUAL(fixture->task_4->get_children_count(), 0);
+    CHAOS_CHECK_EQUAL(fixture->task_5->get_children_count(), 0);
+
+    CHAOS_TEST_MESSAGE("Checking callback is uncalled");
+    CHAOS_CHECK_EQUAL(fixture->destroyed_task, nullptr);
+
+    CHAOS_TEST_MESSAGE("Checking case 1");
+    fixture->task_1->clear_children();
+    CHAOS_TEST_MESSAGE("Checking callback");
+    CHAOS_CHECK_EQUAL(fixture->prev_destroyed_task_2, fixture->task_4);
+    CHAOS_CHECK_EQUAL(fixture->prev_destroyed_task_1, fixture->task_5);
+    CHAOS_CHECK_EQUAL(fixture->destroyed_task, fixture->task_3);
+    CHAOS_TEST_MESSAGE("Checking hierarchy");
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 2);
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_1));
+    CHAOS_CHECK_TRUE(fixture->board->has_child(fixture->task_2));
+    CHAOS_CHECK_EQUAL(fixture->task_1->get_children_count(), 0);
+    CHAOS_CHECK_FALSE(fixture->task_1->has_child(fixture->task_3));
+    CHAOS_CHECK_EQUAL(fixture->task_2->get_children_count(), 0);
+
+    CHAOS_TEST_MESSAGE("Checking case 2");
+    fixture->board->clear_children();
+    CHAOS_TEST_MESSAGE("Checking callback");
+    CHAOS_CHECK_EQUAL(fixture->prev_destroyed_task_1, fixture->task_1);
+    CHAOS_CHECK_EQUAL(fixture->destroyed_task, fixture->task_2);
+    CHAOS_TEST_MESSAGE("Checking hierarchy");
+    CHAOS_CHECK_EQUAL(fixture->board->get_children_count(), 0);
+    CHAOS_CHECK_FALSE(fixture->board->has_child(fixture->task_1));
+    CHAOS_CHECK_FALSE(fixture->board->has_child(fixture->task_2));
+}
+
+} // namespace anonymous
