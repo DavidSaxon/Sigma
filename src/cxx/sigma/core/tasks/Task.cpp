@@ -183,6 +183,7 @@ void Task::clear_children()
     {
         remove_child(*it);
     }
+    m_children.clear();
 }
 
 const chaos::uni::UTF8String& Task::get_title() const
