@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <SourceDir>src/</SourceDir>
+        <GenDir>gen/cpp</GenDir>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <QtDir>D:/Libraries/Qt/5.5/</QtDir>
+      <MocExt>hpp</MocExt>
+      <Moc>$(QtDir)msvc2013_64/bin/moc.exe</Moc>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <QtIncludes Include="$(SourceDir)/**/*.$(MocExt)"/>
+    </ItemGroup>
+
+    <Target Inputs="@(QtIncludes)"
+            Name="Moc"
+            BeforeTargets="ClCompile"
+            Outputs="@(QtIncludes->'$(GenDir)/moc_%(Filename).cpp')">
+        <Exec Command = "$(Moc) %(QtIncludes.identity) -nw -o $(GenDir)/moc_%(Filename).cpp $(MocFlags)"/>
+    </Target>
+
+    <Target Name="CreateDirectories" BeforeTargets="Moc">
+        <MakeDir Directories="$(GenDir)"/>
+    </Target>
+
+    <Target Inputs="@(CopyToOutput)"
+            Name="CopytoOut"
+            Outputs="@(CopyToOutput->'%(DestinationFolder)/%(RecursiveDir)%(Filename)%(Extension)')"
+            AfterTargets="Link">
+    </Target>
+
+</Project>

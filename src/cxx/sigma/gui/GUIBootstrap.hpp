@@ -14,11 +14,20 @@ namespace sigma
 namespace gui
 {
 
+//------------------------------------------------------------------------------
+//                                   FUNCTIONS
+//------------------------------------------------------------------------------
+
 /*!
  * \brief Preforms all bootstrapping tasks and launches Sigma using using a
  *        graphical user interface.
  */
 int bootstrap(int argc, char* argv[]);
+
+/*!
+ * \brief Loads the font's required by Sigma gui.
+ */
+void load_fonts();
 
 } // namespace gui
 } // namespace sigma
