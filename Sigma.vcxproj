@@ -116,14 +116,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ChaosCore\include;D:\Libraries\qt5-5.5.0-vs2013\qt5-x86-shared-release\include;D:\Dropbox\Development\Sigma\Sigma\gen\cpp;D:\Dropbox\Development\Sigma\Sigma\src\cxx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ChaosCore\include;D:\Dropbox\Development\Sigma\Sigma\ext\MetaEngine\include;D:\Libraries\qt5-5.5.0-vs2013\qt5-x86-shared-release\include;D:\Dropbox\Development\Sigma\Sigma\gen\cpp;D:\Dropbox\Development\Sigma\Sigma\src\cxx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ChaosCore\lib\win_x86;D:\Libraries\qt5-5.5.0-vs2013\qt5-x86-shared-release\lib;D:\Dropbox\Development\Sigma\Sigma\build\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>chaoscore_base.lib;chaoscore_io.lib;sigma_core.lib;sigma_gui.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ChaosCore\lib\win_x86;D:\Dropbox\Development\Sigma\Sigma\ext\MetaEngine\lib\win_x86;D:\Libraries\qt5-5.5.0-vs2013\qt5-x86-shared-release\lib;D:\Dropbox\Development\Sigma\Sigma\build\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>chaoscore_base.lib;chaoscore_io.lib;metaengine.lib;sigma_core.lib;sigma_gui.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Core_lib|Win32'">
@@ -133,7 +133,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ChaosCore\include;D:\Dropbox\Development\Sigma\Sigma\src\cxx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ChaosCore\include;D:\Dropbox\Development\Sigma\Sigma\ext\MetaEngine\include;D:\Dropbox\Development\Sigma\Sigma\src\cxx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -150,7 +150,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ChaosCore\include;D:\Libraries\qt5-5.5.0-vs2013\qt5-x86-shared-release\include;D:\Dropbox\Development\Sigma\Sigma\src\cxx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ChaosCore\include;D:\Dropbox\Development\Sigma\Sigma\ext\MetaEngine\include;D:\Libraries\qt5-5.5.0-vs2013\qt5-x86-shared-release\include;D:\Dropbox\Development\Sigma\Sigma\src\cxx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

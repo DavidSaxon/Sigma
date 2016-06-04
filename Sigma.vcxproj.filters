@@ -2,5 +2,14 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="src\cxx\sigma\Main.cpp" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
   </ItemGroup>
 </Project>

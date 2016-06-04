@@ -11,14 +11,20 @@
 
 #include "sigma/gui/startup/SplashScreen.hpp"
 
+// TODO: REMOVE ME
+#include <iostream>
+
 namespace sigma
 {
 namespace gui
 {
 
 // TODO: MOVE THIS
-meta::Data meta_res_globals(
-        chaos::io::sys::Path("meta/resources/globals.json"));
+meta::Data meta_res_globals(chaos::io::sys::Path()
+    .join("meta")
+    .join("resources")
+    .join("globals.json")
+);
 
 int bootstrap(int argc, char* argv[])
 {
