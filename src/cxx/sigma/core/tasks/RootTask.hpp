@@ -16,8 +16,8 @@ namespace tasks
 {
 
 typedef void (*TitleResolver_t)(
-        const chaos::uni::UTF8String&,
-        chaos::uni::UTF8String&);
+        const chaos::str::UTF8String&,
+        chaos::str::UTF8String&);
 
 /*!
  * \brief TODO
@@ -27,7 +27,7 @@ typedef void (*TitleResolver_t)(
 class RootTask : public Task
 {
 
-    friend RootTask* domain::new_board(const chaos::uni::UTF8String&);
+    friend RootTask* domain::new_board(const chaos::str::UTF8String&);
 
 public:
 
@@ -43,7 +43,7 @@ public:
      */
     virtual void set_parent(Task* const parent);
 
-    virtual void set_title(const chaos::uni::UTF8String& title);
+    virtual void set_title(const chaos::str::UTF8String& title);
 
 private:
 
@@ -63,7 +63,7 @@ private:
      *                       titles.
      */
     RootTask(
-            const chaos::uni::UTF8String& title,
+            const chaos::str::UTF8String& title,
             TitleResolver_t title_resolver);
 
     //--------------------------------------------------------------------------

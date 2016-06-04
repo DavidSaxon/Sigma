@@ -7,7 +7,7 @@
 
 #include <cstddef>
 
-#include <chaoscore/base/uni/UTF8String.hpp>
+#include <chaoscore/base/str/UTF8String.hpp>
 
 #include "sigma/core/Callback.hpp"
 
@@ -43,7 +43,7 @@ public:
      * \throws chaos::ex::ValueError If the ``parent`` parameter is null, or the
      *                               ``title`` parameter is empty.
      */
-    Task(Task* parent, const chaos::uni::UTF8String& title);
+    Task(Task* parent, const chaos::str::UTF8String& title);
 
     /*!
      * \brief Copy constructor.
@@ -172,12 +172,12 @@ public:
     /*!
      * \brief Returns the title string of this Task.
      */
-    const chaos::uni::UTF8String& get_title() const;
+    const chaos::str::UTF8String& get_title() const;
 
     /*!
      * \brief Sets the title string of this Task.
      */
-    virtual void set_title(const chaos::uni::UTF8String& title);
+    virtual void set_title(const chaos::str::UTF8String& title);
 
     //--------------------------------------------------------------------------
     //                              CALLBACK EVENTS
@@ -235,13 +235,13 @@ public:
      *
      * Relevant callback functions take three arguments:
      * - ``Task*`` - the Task thats title has changed.
-     * - ``const chaos::uni::UTF8String&`` - the previous title of the Task.
-     * - ``const chaos::uni::UTF8String&`` - the new title of the Task.
+     * - ``const chaos::str::UTF8String&`` - the previous title of the Task.
+     * - ``const chaos::str::UTF8String&`` - the new title of the Task.
      */
     sigma::core::CallbackInterface<
             Task*,
-            const chaos::uni::UTF8String&,
-            const chaos::uni::UTF8String&>*
+            const chaos::str::UTF8String&,
+            const chaos::str::UTF8String&>*
     on_title_changed()
     {
         return &m_title_changed_callback.get_interface();
@@ -261,7 +261,7 @@ protected:
      *
      * \param title The title of the task.
      */
-    Task(const chaos::uni::UTF8String& title);
+    Task(const chaos::str::UTF8String& title);
 
     //--------------------------------------------------------------------------
     //                            PROTECTED ATTRIBUTES
@@ -270,7 +270,7 @@ protected:
     /*!
      * \brief The title of this task.
      */
-    chaos::uni::UTF8String m_title;
+    chaos::str::UTF8String m_title;
 
 private:
 
@@ -315,8 +315,8 @@ private:
     // local callback handlers
     sigma::core::CallbackHandler<
             Task*,
-            const chaos::uni::UTF8String&,
-            const chaos::uni::UTF8String&> m_title_changed_callback;
+            const chaos::str::UTF8String&,
+            const chaos::str::UTF8String&> m_title_changed_callback;
     sigma::core::CallbackHandler<Task*, Task*, Task*> m_parent_changed_callback;
 
     //--------------------------------------------------------------------------
@@ -338,7 +338,7 @@ private:
      *
      * This function handles state checking.
      */
-    void set_title_internal(const chaos::uni::UTF8String& title);
+    void set_title_internal(const chaos::str::UTF8String& title);
 
     /*!
      * \brief Checks whether this task has the given task as a child.

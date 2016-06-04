@@ -10,7 +10,7 @@
 #include <memory>
 #include <set>
 
-#include <chaoscore/base/uni/UTF8String.hpp>
+#include <chaoscore/base/str/UTF8String.hpp>
 
 namespace sigma
 {
@@ -66,7 +66,7 @@ const std::set<std::unique_ptr<RootTask>>& get_boards();
 /*!
  * \brief TODO:
  */
-RootTask* new_board(const chaos::uni::UTF8String& title);
+RootTask* new_board(const chaos::str::UTF8String& title);
 
 /*!
  * \brief TODO

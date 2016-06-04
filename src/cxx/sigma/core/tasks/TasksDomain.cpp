@@ -39,8 +39,8 @@ std::set<std::unique_ptr<RootTask>> m_boards;
  *                 title.
  */
 void resolve_unique_board_title(
-        const chaos::uni::UTF8String& original,
-        chaos::uni::UTF8String& resolved);
+        const chaos::str::UTF8String& original,
+        chaos::str::UTF8String& resolved);
 
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
@@ -61,7 +61,7 @@ const std::set<std::unique_ptr<RootTask>>& get_boards()
     return m_boards;
 }
 
-RootTask* new_board(const chaos::uni::UTF8String& title)
+RootTask* new_board(const chaos::str::UTF8String& title)
 {
     // check the title is not empty
     if (title.is_empty())
@@ -70,7 +70,7 @@ RootTask* new_board(const chaos::uni::UTF8String& title)
     }
 
     // ensure we have a unique title
-    chaos::uni::UTF8String resolved_title;
+    chaos::str::UTF8String resolved_title;
     resolve_unique_board_title(title, resolved_title);
     // create the Root Task
     std::unique_ptr<RootTask> root(
@@ -83,8 +83,8 @@ RootTask* new_board(const chaos::uni::UTF8String& title)
 }
 
 void resolve_unique_board_title(
-        const chaos::uni::UTF8String& original,
-        chaos::uni::UTF8String& resolved)
+        const chaos::str::UTF8String& original,
+        chaos::str::UTF8String& resolved)
 {
     resolved = original;
 
@@ -101,17 +101,17 @@ void resolve_unique_board_title(
         // check for a match with a suffix
         else if ((*board_it)->get_title().starts_with(original))
         {
-            chaos::uni::UTF8String conflicting((*board_it)->get_title());
+            chaos::str::UTF8String conflicting((*board_it)->get_title());
 
             // read the suffix
             std::size_t par_end_i   = conflicting.find_last(")");
             std::size_t par_begin_i = conflicting.find_last("(");
-            if (par_end_i   != chaos::uni::npos &&
-                par_begin_i != chaos::uni::npos &&
+            if (par_end_i   != chaos::str::npos &&
+                par_begin_i != chaos::str::npos &&
                 par_begin_i < par_end_i         &&
                 par_begin_i - 1 == original.get_length() )
             {
-                chaos::uni::UTF8String par_contents(conflicting.substring(
+                chaos::str::UTF8String par_contents(conflicting.substring(
                     par_begin_i + 1,
                     par_end_i - (par_begin_i + 1)
                 ));
@@ -138,20 +138,20 @@ void resolve_unique_board_title(
     // {
     //     if ((*board_it)->get_title() == original)
     //     {
-    //         chaos::uni::UTF8String conflicting((*board_it)->get_title());
+    //         chaos::str::UTF8String conflicting((*board_it)->get_title());
 
     //         // the number that will be used to make this title unique
     //         chaos::uint32 num = 1;
 
     //         // match found, check if this title already has a unique number
     //         std::size_t par_end_i = conflicting.find_last(")");
-    //         if (par_end_i != chaos::uni::npos)
+    //         if (par_end_i != chaos::str::npos)
     //         {
     //             std::size_t par_begin_i = conflicting.find_last("(");
-    //             if ( par_begin_i != chaos::uni::npos)
+    //             if ( par_begin_i != chaos::str::npos)
     //             {
     //                 // get the contents of the parentheses
-    //                 chaos::uni::UTF8String par_contents(conflicting.substring(
+    //                 chaos::str::UTF8String par_contents(conflicting.substring(
     //                     par_begin_i + 1,
     //                     par_end_i - (par_begin_i + 1)
     //                 ));
@@ -167,7 +167,7 @@ void resolve_unique_board_title(
     //             }
     //         }
 
-    //         chaos::uni::UTF8String modified(resolved);
+    //         chaos::str::UTF8String modified(resolved);
     //         modified << " (" << num << ")";
     //         // check the new title
     //         resolve_unique_board_title(modified, resolved);

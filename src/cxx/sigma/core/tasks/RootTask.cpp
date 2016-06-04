@@ -21,10 +21,10 @@ void RootTask::set_parent(Task* const parent)
     throw chaos::ex::IllegalActionError("");
 }
 
-void RootTask::set_title(const chaos::uni::UTF8String& title)
+void RootTask::set_title(const chaos::str::UTF8String& title)
 {
     // ensure this is a unique title using the resolver
-    chaos::uni::UTF8String resolved;
+    chaos::str::UTF8String resolved;
     // only use the resolver if the title has changed
     if (title == m_title)
     {
@@ -44,7 +44,7 @@ void RootTask::set_title(const chaos::uni::UTF8String& title)
 //------------------------------------------------------------------------------
 
 RootTask::RootTask(
-        const chaos::uni::UTF8String& title,
+        const chaos::str::UTF8String& title,
         TitleResolver_t title_resolver)
     :
     Task            (title),

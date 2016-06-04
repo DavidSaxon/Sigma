@@ -10,10 +10,7 @@
 #include <map>
 #include <memory>
 
-#include <chaoscore/base/BaseExceptions.hpp>
-
-// TODO:
-#include <iostream>
+#include <chaoscore/base/Exceptions.hpp>
 
 namespace sigma
 {

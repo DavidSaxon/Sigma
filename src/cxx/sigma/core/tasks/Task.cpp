@@ -22,7 +22,7 @@ sigma::core::CallbackHandler<Task*> Task::s_destroyed_callback;
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-Task::Task(Task* parent, const chaos::uni::UTF8String& title)
+Task::Task(Task* parent, const chaos::str::UTF8String& title)
     :
     m_parent(nullptr)
 {
@@ -186,14 +186,14 @@ void Task::clear_children()
     m_children.clear();
 }
 
-const chaos::uni::UTF8String& Task::get_title() const
+const chaos::str::UTF8String& Task::get_title() const
 {
     return m_title;
 }
 
-void Task::set_title(const chaos::uni::UTF8String& title)
+void Task::set_title(const chaos::str::UTF8String& title)
 {
-    chaos::uni::UTF8String old_title(title);
+    chaos::str::UTF8String old_title(title);
     set_title_internal(title);
     // fire callback
     m_title_changed_callback.trigger(this, old_title, m_title);
@@ -203,7 +203,7 @@ void Task::set_title(const chaos::uni::UTF8String& title)
 //                             PROTECTED CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-Task::Task(const chaos::uni::UTF8String& title)
+Task::Task(const chaos::str::UTF8String& title)
     :
     m_parent(nullptr),
     m_title (title)
@@ -254,7 +254,7 @@ void Task::set_parent_internal(Task* const parent)
     m_parent->m_children.push_back(this);
 }
 
-void Task::set_title_internal(const chaos::uni::UTF8String& title)
+void Task::set_title_internal(const chaos::str::UTF8String& title)
 {
     // check the title is not empty
     if (title.is_empty())

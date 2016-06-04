@@ -78,12 +78,12 @@ CHAOS_TEST_UNIT_FIXTURE(constructor, ConstructorFixture)
     CHAOS_CHECK_EQUAL(fixture->callback_task, nullptr);
 
     CHAOS_TEST_MESSAGE("Checking callback after construction");
-    chaos::uni::UTF8String task_1_title("task_1");
+    chaos::str::UTF8String task_1_title("task_1");
     sigma::core::tasks::Task* task_1 =
         new sigma::core::tasks::Task(fixture->board, task_1_title);
     CHAOS_CHECK_EQUAL(fixture->callback_task, task_1);
 
-    chaos::uni::UTF8String task_2_title("task_2");
+    chaos::str::UTF8String task_2_title("task_2");
     sigma::core::tasks::Task* task_2 =
         new sigma::core::tasks::Task(task_1, task_2_title);
     CHAOS_CHECK_EQUAL(fixture->callback_task, task_2);
@@ -142,10 +142,10 @@ CHAOS_TEST_UNIT_FIXTURE(copy_constructor, ConstructorFixture)
     CHAOS_CHECK_EQUAL(fixture->callback_task, nullptr);
 
     // create a tasks to copy from
-    chaos::uni::UTF8String task_1_title("task_1");
+    chaos::str::UTF8String task_1_title("task_1");
     sigma::core::tasks::Task* task_1 =
         new sigma::core::tasks::Task(fixture->board, task_1_title);
-    chaos::uni::UTF8String task_2_title("task_2");
+    chaos::str::UTF8String task_2_title("task_2");
     sigma::core::tasks::Task* task_2 =
         new sigma::core::tasks::Task(task_1, task_2_title);
 

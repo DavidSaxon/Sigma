@@ -34,6 +34,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++0x")
 include_directories(
         ${INCLUDE_DIRECTORIES}
         ${CMAKE_BINARY_DIR}/ext/ChaosCore/include/
+        ${CMAKE_BINARY_DIR}/ext/MetaEngine/include/
         src/cxx
 )
 
@@ -44,6 +45,7 @@ find_package(Qt5Widgets REQUIRED)
 link_directories(
         ${LINK_DIRECTORIES}
         ${CMAKE_BINARY_DIR}/ext/ChaosCore/lib/linux_x86
+        ${CMAKE_BINARY_DIR}/ext/MetaEngine/lib/linux_x86
 )
 
 add_library(sigma_core SHARED ${CORE_LIB_SRC})
@@ -51,6 +53,7 @@ add_library(sigma_core SHARED ${CORE_LIB_SRC})
 target_link_libraries(sigma_core
     chaoscore_base
     chaoscore_io
+    metaengine
 )
 
 add_library(sigma_gui SHARED ${GUI_LIB_SRC})

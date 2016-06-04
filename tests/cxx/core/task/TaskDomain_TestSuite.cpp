@@ -50,7 +50,7 @@ public:
     bool has_board_with_title(
             const std::set<std::unique_ptr<
                 sigma::core::tasks::RootTask>>& boards,
-            const chaos::uni::UTF8String& title)
+            const chaos::str::UTF8String& title)
     {
         CHAOS_FOR_EACH(it, boards)
         {

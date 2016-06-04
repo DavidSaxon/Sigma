@@ -1,0 +1,9 @@
+{
+    "resource_path": ["res"],
+    "gui_resource_path": ["${resource_path}", "gui"],
+    "fonts":
+    {
+        "resource_path": ["${gui_resource_path}", "fonts"],
+        "supported_formats": ["ttf", "otf"]
+    }
+}
