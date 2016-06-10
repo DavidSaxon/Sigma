@@ -16,6 +16,7 @@ set(UI_SRC
 
 set(GUI_LIB_SRC
     src/cxx/sigma/gui/GUIBootstrap.cpp
+    src/cxx/sigma/gui/GUIMeta.cpp
     src/cxx/sigma/gui/startup/SplashScreen.cpp
 )
 
@@ -34,6 +35,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++0x")
 include_directories(
         ${INCLUDE_DIRECTORIES}
         ${CMAKE_BINARY_DIR}/ext/ChaosCore/include/
+        ${CMAKE_BINARY_DIR}/ext/ChaosLog/include/
         ${CMAKE_BINARY_DIR}/ext/MetaEngine/include/
         src/cxx
 )
@@ -45,6 +47,7 @@ find_package(Qt5Widgets REQUIRED)
 link_directories(
         ${LINK_DIRECTORIES}
         ${CMAKE_BINARY_DIR}/ext/ChaosCore/lib/linux_x86
+        ${CMAKE_BINARY_DIR}/ext/ChaosLog/lib/linux_x86
         ${CMAKE_BINARY_DIR}/ext/MetaEngine/lib/linux_x86
 )
 
@@ -53,6 +56,7 @@ add_library(sigma_core SHARED ${CORE_LIB_SRC})
 target_link_libraries(sigma_core
     chaoscore_base
     chaoscore_io
+    chlog
     metaengine
 )
 

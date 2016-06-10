@@ -1,6 +1,9 @@
 #include "sigma/core/Sigma.hpp"
 #include "sigma/core/tasks/TasksDomain.hpp"
 
+// TODO: REMOVE ME
+#include <chlog/Logging.hpp>
+
 namespace sigma
 {
 namespace core
@@ -17,6 +20,8 @@ namespace core
 
 void init(APIDomains api_domains)
 {
+    chlog::notice("Sigma init");
+
     // initialise requested domains
     if ( api_domains & API_TASKS )
     {

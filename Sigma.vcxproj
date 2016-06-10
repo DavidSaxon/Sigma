@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='GUI_lib'">
     <ClCompile Include="src\cxx\sigma\gui\GUIBootstrap.cpp" />
+    <ClCompile Include="src\cxx\sigma\gui\GUIMeta.cpp" />
     <ClCompile Include="src\cxx\sigma\gui\startup/SplashScreen.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='UI_EXE'">
