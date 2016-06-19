@@ -11,5 +11,14 @@
     <ClCompile Include="gen\cpp\**" />
     <ClCompile Include="gen\cpp\**" />
     <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
   </ItemGroup>
 </Project>

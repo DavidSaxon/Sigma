@@ -31,6 +31,15 @@ typedef std::unique_ptr<metaeng::Data> DataPtr;
 //------------------------------------------------------------------------------
 
 /*!
+ * \brief Meta data for logging the GUI runtime.
+ *
+ * This metadata is loaded before other data since logging needs to be connected
+ * first.
+ */
+extern DataPtr logging;
+
+// TODO: REMOVE ME?
+/*!
  * \brief Meta data for global resource information.
  */
 extern DataPtr resource_globals;

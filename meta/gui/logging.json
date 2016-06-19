@@ -1,0 +1,27 @@
+{
+    "profile": "Sigma-GUI",
+    "outputs":
+    {
+        "StdOutput":
+        {
+            "enabled": true,
+            "verbosity_level": "debug"
+        },
+        "FileOutput":
+        {
+            "enabled": true,
+            "verbosity_level": "debug",
+            // the folder that logs will be written into, this will be followed
+            // by the date as a folder and the time as the file
+            "base_path": ["logs"],
+            // the symbol used to separate the sections of the date in the log's
+            // parent folder
+            "path_date_syntax": "%Y_%m_%d",
+            // the symbol used to separate the sections of the time in the log's
+            // file name
+            "path_time_syntax": "%H_%M_%S",
+            // the file extension of the log
+            "file_extension": "log"
+        }
+    }
+}

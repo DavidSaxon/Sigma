@@ -7,11 +7,11 @@
 #include <QtGui/QFontDatabase>
 #include <QtWidgets/QApplication>
 
+#include "sigma/gui/GUILogging.hpp"
 #include "sigma/gui/GUIMeta.hpp"
 #include "sigma/gui/startup/SplashScreen.hpp"
 
 // TODO: REMOVE ME
-#include <sigma/core/Sigma.hpp>
 #include <chlog/Logging.hpp>
 
 namespace sigma
@@ -23,13 +23,18 @@ int bootstrap(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    // TODO: REMOVE ME
-    sigma::core::init();
+    // initialise logging
+    sigma::gui::init_logging();
+    sigma::gui::logger->critical << "Test" << std::endl;
+    sigma::gui::logger->error << "Test" << std::endl;
+    sigma::gui::logger->warning << "Test" << std::endl;
+    sigma::gui::logger->notice << "Test" << std::endl;
+    sigma::gui::logger->info << "Test" << std::endl;
+    sigma::gui::logger->debug << "Test" << std::endl;
 
-    chlog::notice("gui startup");
 
     // initialise MetaEngine data
-    meta::init();
+    sigma::gui::meta::init();
 
     // load fonts
     load_fonts();

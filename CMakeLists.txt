@@ -16,7 +16,9 @@ set(UI_SRC
 
 set(GUI_LIB_SRC
     src/cxx/sigma/gui/GUIBootstrap.cpp
+    src/cxx/sigma/gui/GUILogging.cpp
     src/cxx/sigma/gui/GUIMeta.cpp
+    src/cxx/sigma/gui/GUIMetaCompiled.cpp
     src/cxx/sigma/gui/startup/SplashScreen.cpp
 )
 
