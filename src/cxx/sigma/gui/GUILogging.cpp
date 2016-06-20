@@ -118,12 +118,12 @@ void init_logging()
         // this report must be done through std::cerr since logging isn't active
         // yet
         std::cerr << "Failed to load GUI logging meta data from \""
-                  << logging_meta_path << "\" with error: \"" << exc.what()
-                  << "\". Reverting to loading meta data from memory."
+                  << logging_meta_path << "\" with error:\n" << exc.what()
+                  << "\nReverting to loading metadata from memory."
                   << std::endl;
 
         // load from memory, no point in using a scheme since the memory path
-        // was what we previously used as scheme
+        // was what we previously used as schema
         meta::logging = meta::DataPtr(new metaeng::Data(&meta_comp::logging));
     }
 
@@ -152,6 +152,13 @@ void init_std_output()
     std_output->set_verbosity_level(verbosity);
     // add to handler
     chlog::default_handler.add_output(std_output);
+
+    // if enabled alert that we're writing to std out
+    if(enabled)
+    {
+        logger->info << "Sigma session logging to stdout and stderr"
+                     << std::endl;
+    }
 }
 
 void init_file_output()

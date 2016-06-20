@@ -1,0 +1,6 @@
+// directories where to find GUI resources
+{
+    "resource_path": ["res"],
+    "gui_resource_path": ["${resource_path}", "gui"],
+    "fonts_resource_path": ["${gui_resource_path}", "fonts"]
+}

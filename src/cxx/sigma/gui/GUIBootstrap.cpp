@@ -2,6 +2,7 @@
 
 #include <algorithm>
 
+#include <chaoscore/base/str/StringOperations.hpp>
 #include <chaoscore/io/sys/FileSystemOperations.hpp>
 
 #include <QtGui/QFontDatabase>
@@ -10,9 +11,6 @@
 #include "sigma/gui/GUILogging.hpp"
 #include "sigma/gui/GUIMeta.hpp"
 #include "sigma/gui/startup/SplashScreen.hpp"
-
-// TODO: REMOVE ME
-#include <chlog/Logging.hpp>
 
 namespace sigma
 {
@@ -25,19 +23,14 @@ int bootstrap(int argc, char* argv[])
 
     // initialise logging
     sigma::gui::init_logging();
-    sigma::gui::logger->critical << "Test" << std::endl;
-    sigma::gui::logger->error << "Test" << std::endl;
-    sigma::gui::logger->warning << "Test" << std::endl;
-    sigma::gui::logger->notice << "Test" << std::endl;
-    sigma::gui::logger->info << "Test" << std::endl;
-    sigma::gui::logger->debug << "Test" << std::endl;
-
 
     // initialise MetaEngine data
     sigma::gui::meta::init();
 
     // load fonts
     load_fonts();
+
+    // TODO: ?
 
     startup::SplashScreen* s = new startup::SplashScreen();
 
@@ -48,9 +41,11 @@ int bootstrap(int argc, char* argv[])
 
 void load_fonts()
 {
+    logger->notice << "Loading fonts" << std::endl;
+
     // get the directory where fonts are stored
     chaos::io::sys::Path font_directory;
-    meta::resource_globals->get("fonts.resource_path", font_directory);
+    meta::resource_locations->get("fonts_resource_path", font_directory);
     // iterate over each file in the fonts directory and add to the database
     std::vector<chaos::io::sys::Path> font_files =
         chaos::io::sys::list_rec(font_directory);
@@ -60,8 +55,7 @@ void load_fonts()
 
         // get the supported font formats
         std::vector<chaos::str::UTF8String> supported_formats;
-        meta::resource_globals->get(
-            "fonts.supported_formats", supported_formats);
+        meta::fonts->get("supported_formats", supported_formats);
         // check that this font is a supported format
         chaos::str::UTF8String extension(it->get_extension());
         // currently only TrueTypeFont and OpenTypeFont formats are supported by
@@ -76,7 +70,13 @@ void load_fonts()
         }
         else
         {
-            // TODO: report stream of one form or another (chaos::core::)
+            static chaos::str::UTF8String f_supported_formats(
+                chaos::str::join(supported_formats, ", "));
+
+            logger->warning << "Font file will not be loaded as it is an "
+                            << "unsupported format \"" << *it << "\". "
+                            << "Supported formats are: ["
+                            << f_supported_formats << "]" << std::endl;
         }
     }
 }

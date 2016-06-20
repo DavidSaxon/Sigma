@@ -38,11 +38,15 @@ typedef std::unique_ptr<metaeng::Data> DataPtr;
  */
 extern DataPtr logging;
 
-// TODO: REMOVE ME?
 /*!
- * \brief Meta data for global resource information.
+ * \brief Meta data for directories where to find resources.
  */
-extern DataPtr resource_globals;
+extern DataPtr resource_locations;
+/*!
+ * \brief Meta data about fonts.
+ */
+extern DataPtr fonts;
+
 
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS

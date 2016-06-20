@@ -1,5 +1,8 @@
 #include "sigma/gui/GUIMeta.hpp"
 
+#include "sigma/gui/GUILogging.hpp"
+#include "sigma/gui/GUIMetaCompiled.hpp"
+
 namespace sigma
 {
 namespace gui
@@ -13,7 +16,27 @@ namespace meta
 
 DataPtr logging;
 
-DataPtr resource_globals;
+DataPtr resource_locations;
+DataPtr fonts;
+
+//------------------------------------------------------------------------------
+//                                   PROTOTYPES
+//------------------------------------------------------------------------------
+
+/*!
+ * \breif Handles the generic actions of loading MetaEngine Data objects.
+ *
+ * \param path The file path to the JSON metadata to read.
+ * \param memory Fallback JSON to read from memory if reading from the path
+ *               fails.
+ * \param schema Schema to validate provided metadata against.
+ *
+ * \returns The MetaEngine data that was loaded as a result of this function.
+ */
+DataPtr load_meta_data(
+        const chaos::io::sys::Path& path,
+        const chaos::str::UTF8String* const memory,
+        const chaos::str::UTF8String& schema);
 
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
@@ -21,21 +44,47 @@ DataPtr resource_globals;
 
 void init()
 {
-    // TODO: functionise
-    // resource globals
-    chaos::io::sys::Path resource_globals_path;
-    resource_globals_path << "meta" << "resources" << "globals.json";
+    //----------------------------RESOURCE LOCATIONS----------------------------
+    logger->debug << "Loading resource location metadata" << std::endl;
+    chaos::io::sys::Path resource_locations_path;
+    resource_locations_path
+        << "meta" << "gui" << "resources" << "locations.json";
+    meta::resource_locations = load_meta_data(
+        resource_locations_path,
+        &meta_comp::resource_locations,
+        meta_comp::resource_locations
+    );
+    //----------------------------------FONTS-----------------------------------
+    logger->debug << "Loading fonts metadata" << std::endl;
+    chaos::io::sys::Path fonts_path;
+    fonts_path
+        << "meta" << "gui" << "resources" << "fonts.json";
+    meta::fonts = load_meta_data(
+        fonts_path,
+        &meta_comp::fonts,
+        meta_comp::fonts
+    );
+}
+
+
+DataPtr load_meta_data(
+        const chaos::io::sys::Path& path,
+        const chaos::str::UTF8String* const memory,
+        const chaos::str::UTF8String& schema)
+{
     try
     {
-        resource_globals = DataPtr(new metaeng::Data(resource_globals_path));
+        return DataPtr(new metaeng::Data(path, schema));
     }
-    catch(...)
+    catch(const chaos::ex::ChaosException& exc)
     {
-        // TODO: log error
+        logger->error << "Failed to load meta data from \"" << path
+                      << "\" with error:\n" << exc.what() << "\nReverting to "
+                      << "loading metadata from memory." << std::endl;
 
-        // TODO: set up metaengine baking
-        // resource_globals = DataPtr(
-        //     new metaeng::Data(&meta_bake::resource_globals));
+        // load from memory, no point in using a scheme since the memory path
+        // was what we previously used as schema
+        return meta::DataPtr(new metaeng::Data(memory));
     }
 }
 

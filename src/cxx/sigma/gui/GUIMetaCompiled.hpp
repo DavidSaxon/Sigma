@@ -25,6 +25,15 @@ namespace meta_comp
  */
 extern const chaos::str::UTF8String logging;
 
+/*!
+ * \brief MetaEngine JSON data for directories where to find resources.
+ */
+extern const chaos::str::UTF8String resource_locations;
+/*!
+ * \brief MetaEngine JSON data in relation to fonts.
+ */
+extern const chaos::str::UTF8String fonts;
+
 } // namespace meta_comp
 } // namespace gui
 } // namespace sigma

@@ -27,6 +27,19 @@ const chaos::str::UTF8String logging(
     "}"
 );
 
+const chaos::str::UTF8String resource_locations(
+    "{"
+    "    \"resource_path\": [\"res\"],"
+    "    \"gui_resource_path\": [\"${resource_path}\", \"gui\"],"
+    "    \"fonts_resource_path\": [\"${gui_resource_path}\", \"fonts\"]"
+    "}"
+);
+const chaos::str::UTF8String fonts(
+    "{"
+    "    \"supported_formats\": [\"ttf\", \"otf\"]"
+    "}"
+);
+
 } // namespace meta_comp
 } // namespace gui
 } // namespace sigma
