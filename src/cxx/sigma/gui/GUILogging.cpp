@@ -4,8 +4,6 @@
 #include <ctime>
 #include <iostream>
 
-#include <chaoscore/io/sys/FileSystemOperations.hpp>
-
 #include <chlog/Logging.hpp>
 #include <chlog/outputs/FileOutput.hpp>
 #include <chlog/outputs/StdOutput.hpp>
@@ -206,24 +204,15 @@ void init_file_output()
     // update the path
     log_path << file_name;
 
-    // can the path be validated
-    try
-    {
-        chaos::io::sys::validate(log_path);
-    }
-    catch(const chaos::ex::ChaosException& exc)
-    {
-        // report the error using std::cerr since logging is not setup yet
-        std::cerr << "Failed to validate path for log file: \"" << log_path
-                  << "\". With error: \"" << exc.what() << "\". Logging to "
-                  << "file will be disabled." << std::endl;
-        return;
-    }
-
     // create the file output
+    file_output = new chlog::FileOutput(log_path, false);
+
+    // enabled?
+    bool enabled = meta::logging->get("outputs.FileOutput.enabled", enabled);
+    // need to test this since enabling the file writer opens it
     try
     {
-        file_output = new chlog::FileOutput(log_path);
+        file_output->set_enabled(enabled);
     }
     catch(const chaos::ex::ChaosException& exc)
     {
@@ -234,9 +223,6 @@ void init_file_output()
         return;
     }
 
-    // enabled?
-    bool enabled = meta::logging->get("outputs.FileOutput.enabled", enabled);
-    file_output->set_enabled(enabled);
     // verbosity
     chlog::Verbosity verbosity =
         meta::logging->get("outputs.FileOutput.verbosity_level", verbosity);

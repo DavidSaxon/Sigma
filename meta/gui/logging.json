@@ -9,7 +9,7 @@
         },
         "FileOutput":
         {
-            "enabled": true,
+            "enabled": false,
             "verbosity_level": "debug",
             // the folder that logs will be written into, this will be followed
             // by the date as a folder and the time as the file

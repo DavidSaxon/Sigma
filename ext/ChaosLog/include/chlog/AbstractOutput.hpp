@@ -72,7 +72,7 @@ public:
     /*!
      * \brief Sets whether this output is enabled or not.
      */
-    void set_enabled(bool enabled);
+    virtual void set_enabled(bool enabled);
 
     /*!
      * \brief Returns the maximum verbosity level of messages this output will

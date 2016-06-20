@@ -107,6 +107,18 @@ public:
     //--------------------------------------------------------------------------
 
     /*!
+     * \brief Returns the open mode of this FileWriter.
+     */
+    OpenMode get_open_mode() const;
+
+    /*!
+     * \brief Sets the open mode of this FileWriter.
+     *
+     * \throws chaos::ex::StateError If this FileHandle is open.
+     */
+    void set_open_mode(OpenMode open_mode);
+
+    /*!
      * \brief Opens this FileWriter to the internal path.
      *
      * \note If a encoding other than chaos::io::sys::FileHandle::ENCODING_RAW
