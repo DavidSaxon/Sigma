@@ -103,6 +103,19 @@ public:
     ~FileWriter();
 
     //--------------------------------------------------------------------------
+    //                                 OPERATORS
+    //--------------------------------------------------------------------------
+
+    /*!
+     * \brief Move assignment operator.
+     *
+     * Moves resources from the given FileWriter to this FileWriter.
+     *
+     * \param other The FileWriter to move resources from.
+     */
+    FileWriter& operator=(FileWriter&& other);
+
+    //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
