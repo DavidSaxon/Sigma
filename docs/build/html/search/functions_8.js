@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['register_5ffunction',['register_function',['../classsigma_1_1core_1_1_callback_interface.html#a447678d82d322396c293aabc534e4e96',1,'sigma::core::CallbackInterface']]],
-  ['register_5fmember_5ffunction',['register_member_function',['../classsigma_1_1core_1_1_callback_interface.html#aea30ba6ae89d5638e91db8ba2207854a',1,'sigma::core::CallbackInterface']]],
-  ['remove_5fchild',['remove_child',['../classsigma_1_1core_1_1tasks_1_1_task.html#a9df7e8a262b51b440cc6a45dbe219810',1,'sigma::core::tasks::Task']]]
+  ['new_5fboard',['new_board',['../namespacesigma_1_1core_1_1tasks_1_1domain.html#ad580ee5a60c4d885fea6fecff72fcf8d',1,'sigma::core::tasks::domain']]]
 ];

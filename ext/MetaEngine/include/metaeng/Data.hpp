@@ -5,9 +5,9 @@
 #ifndef METAENGINE_DATA_HPP_
 #define METAENGINE_DATA_HPP_
 
-#include <chaoscore/base/Exceptions.hpp>
-#include <chaoscore/base/introspect/IntrospectOperations.hpp>
-#include <chaoscore/io/sys/Path.hpp>
+#include <arcanecore/base/Exceptions.hpp>
+#include <arcanecore/base/introspect/IntrospectOperations.hpp>
+#include <arcanecore/io/sys/Path.hpp>
 
 #include <json/json.h>
 
@@ -35,7 +35,7 @@ class Data
 {
 private:
 
-    CHAOS_DISALLOW_COPY_AND_ASSIGN(Data);
+    ARC_DISALLOW_COPY_AND_ASSIGN(Data);
 
 public:
 
@@ -54,14 +54,14 @@ public:
      *               to match. If an empty string is provided, schema validation
      *               is not preformed.
      *
-     * \throws chaos::ex::InvalidPathError If the path cannot be accessed.
-     * \throws chaos::ex::ParseError If the file contents or the schema cannot
+     * \throws arc::ex::InvalidPathError If the path cannot be accessed.
+     * \throws arc::ex::ParseError If the file contents or the schema cannot
      *                               be parsed as JSON.
      * TODO: throw validation error
      */
     Data(
-            const chaos::io::sys::Path& path,
-            const chaos::str::UTF8String& schema = chaos::str::UTF8String());
+            const arc::io::sys::Path& path,
+            const arc::str::UTF8String& schema = arc::str::UTF8String());
 
     /*!
      * \brief Memory constructor.
@@ -69,19 +69,19 @@ public:
      * Constructs a new MetaEngine Data object by reading JSON from the given
      * memory address.
      *
-     * \param mem Pointer to a chaos::str::UTF8String that contains the JSON to
+     * \param mem Pointer to a arc::str::UTF8String that contains the JSON to
      *            read from.
      * \param schema JSON data the denotes the layout the input data is expected
      *               to match. If an empty string is provided, schema validation
      *               is not preformed.
      *
-     * \throws chaos::ex::ParseError If the memory or the schema cannot be
+     * \throws arc::ex::ParseError If the memory or the schema cannot be
      *                               parsed as JSON.
      * TODO: throw validation error
      */
     Data(
-            const chaos::str::UTF8String* const mem,
-            const chaos::str::UTF8String& schema = chaos::str::UTF8String());
+            const arc::str::UTF8String* const mem,
+            const arc::str::UTF8String& schema = arc::str::UTF8String());
 
     /*!
      * \brief Fallback constructor.
@@ -94,21 +94,21 @@ public:
      *       printed to ```std::cerr``` if loading from the file path fails.
      *
      * \param path File path to a JSON file to load data from.
-     * \param mem Pointer to a chaos::str::UTF8String that contains JSON to read
+     * \param mem Pointer to a arc::str::UTF8String that contains JSON to read
      *            from if reading from the file fails.
      * \param schema JSON data the denotes the layout the input data is expected
      *               to match. If an empty string is provided, schema validation
      *               is not preformed.
      *
-     * \throws chaos::ex::ParseError If the file cannot be loaded, and the
+     * \throws arc::ex::ParseError If the file cannot be loaded, and the
      *                               memory or the schema cannot be parsed as
      *                               JSON.
      * TODO: throw validation error
      */
     Data(
-            const chaos::io::sys::Path& path,
-            const chaos::str::UTF8String* const mem,
-            const chaos::str::UTF8String& schema = chaos::str::UTF8String());
+            const arc::io::sys::Path& path,
+            const arc::str::UTF8String* const mem,
+            const arc::str::UTF8String& schema = arc::str::UTF8String());
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
@@ -121,12 +121,12 @@ public:
      * The data will be reloaded using the same source that this object was
      * constructed with. i.e. if the file constructor was used the data will be
      * reloaded from the file, if the memory constructor was used the data will
-     * be reread from the chaos::str::UTF8String pointer, and if the fallback
+     * be reread from the arc::str::UTF8String pointer, and if the fallback
      * constructor was used, the data will be reloaded from the file and if that
      * fails then reread from the pointer
      *
-     * \throws chaos::ex::InvalidPathError If the path cannot be accessed.
-     * \throws chaos::ex::ParseError If the file and/or memory contents cannot
+     * \throws arc::ex::InvalidPathError If the path cannot be accessed.
+     * \throws arc::ex::ParseError If the file and/or memory contents cannot
      *                               be parsed as JSON.
      */
     void reload();
@@ -147,13 +147,13 @@ public:
      * \param key The key of the value to retrieve from the data.
      * \param value Returns the value from the data.
      *
-     * \throws chaos::ex::KeyError If the key does not exist in the data.
-     * \throws chaos::ex::TypeError If the value cannot be parsed as the
+     * \throws arc::ex::KeyError If the key does not exist in the data.
+     * \throws arc::ex::TypeError If the value cannot be parsed as the
      *                              ValueType.
      */
     template<typename ValueType>
     ValueType& get(
-            const chaos::str::UTF8String& key,
+            const arc::str::UTF8String& key,
             ValueType& value) const
     {
         // get the JSON value
@@ -162,12 +162,12 @@ public:
         // check if the conversion is possible
         if(!is_type<ValueType>(j_value))
         {
-            chaos::str::UTF8String error_message;
+            arc::str::UTF8String error_message;
             error_message << "Unable to convert value for key: \"" << key
                           << "\" to a value of type: <"
-                          << chaos::introspect::get_typename<ValueType>()
+                          << arc::introspect::get_typename<ValueType>()
                           << ">";
-            throw chaos::ex::TypeError(error_message);
+            throw arc::ex::TypeError(error_message);
         }
 
         // perform the conversion and return
@@ -183,7 +183,7 @@ public:
      */
     template<typename ValueType>
     std::vector<ValueType>& get(
-            const chaos::str::UTF8String& key,
+            const arc::str::UTF8String& key,
             std::vector<ValueType>& value) const
     {
         // temporary vector
@@ -221,12 +221,12 @@ public:
         // throw if the conversion cannot be done
         if(!can_convert)
         {
-            chaos::str::UTF8String error_message;
+            arc::str::UTF8String error_message;
             error_message << "Unable to convert value for key: \"" << key
                           << "\" to a value of type: <std::vector<"
-                          << chaos::introspect::get_typename<ValueType>()
+                          << arc::introspect::get_typename<ValueType>()
                           << ">>";
-            throw chaos::ex::TypeError(error_message);
+            throw arc::ex::TypeError(error_message);
         }
 
         // copy temporary and return
@@ -270,7 +270,7 @@ protected:
     /*!
      * \brief Returns the Json Value associated with the given key.
      */
-    const Json::Value* resolve_key(const chaos::str::UTF8String& key) const;
+    const Json::Value* resolve_key(const arc::str::UTF8String& key) const;
 
 private:
 
@@ -285,18 +285,18 @@ private:
     /*!
      * \brief The file path that data should be read from.
      */
-    chaos::io::sys::Path m_path;
+    arc::io::sys::Path m_path;
 
     /*!
      * \brief Pointer to UTF8String that data should be read from.
      */
-    const chaos::str::UTF8String* m_mem;
+    const arc::str::UTF8String* m_mem;
 
     /*!
      * \brief Schema that is used to check whether the input data is valid or
      *        not.
      */
-    chaos::str::UTF8String m_schema;
+    arc::str::UTF8String m_schema;
 
     /*!
      * \brief The root Json Value hold the internal data.
@@ -306,7 +306,7 @@ private:
     /*!
      * \brief Caches keys to paths that have been resolved for them.
      */
-    mutable std::map<chaos::str::UTF8String, chaos::io::sys::Path> m_path_cache;
+    mutable std::map<arc::str::UTF8String, arc::io::sys::Path> m_path_cache;
 
     //--------------------------------------------------------------------------
     //                          PRIVATE MEMBER FUNCTIONS
@@ -320,7 +320,7 @@ private:
      * \param throw_on_failure Whether a parse error should be thrown if parsing
      *                         fails.
      */
-    void parse_str(const chaos::str::UTF8String& str, bool throw_on_failure);
+    void parse_str(const arc::str::UTF8String& str, bool throw_on_failure);
 
     /*!
      * \brief Recursively checks whether the values of the schema are within
@@ -329,12 +329,12 @@ private:
      * \param schema_root the root JSON node of the schema to check against.
      * \param data_root the root JSON node of the data to check against.
      *
-     * \throws chaos::ex::ValidationError If a schema mismatch is found.
+     * \throws arc::ex::ValidationError If a schema mismatch is found.
      */
     void check_schema(
             const Json::Value* schema_root,
             const Json::Value* data_root,
-            const chaos::str::UTF8String& parent_key);
+            const arc::str::UTF8String& parent_key);
 
     /*!
      * \brief Replaces any elements of the given list that have expansion syntax
@@ -350,8 +350,8 @@ private:
      *                       the initial path's key.
      */
     void path_expansion(
-            std::vector<chaos::str::UTF8String>& elements,
-            std::vector<chaos::str::UTF8String> traversed_keys) const;
+            std::vector<arc::str::UTF8String>& elements,
+            std::vector<arc::str::UTF8String> traversed_keys) const;
 };
 
 //------------------------------------------------------------------------------
@@ -359,7 +359,7 @@ private:
 //------------------------------------------------------------------------------
 
 /*!
- * \brief Attempts to retrieve a chaos::io::sys::Path from internal data using
+ * \brief Attempts to retrieve a arc::io::sys::Path from internal data using
  *        the key.
  *
  * See data::get().
@@ -382,17 +382,17 @@ private:
  *
  * Would be retrieved as: ```/path/to/location/sub/folder```.
  *
- * \throws chaos::ex::KeyError If the key does not exist in the data.
- * \throws chaos::ex::TypeError If the value cannot be parsed as a
- *                              chaos::io::sys::Path.
- * \throws chaos::ex::RuntimeError If the a cyclic expansion is detected (i.e.
+ * \throws arc::ex::KeyError If the key does not exist in the data.
+ * \throws arc::ex::TypeError If the value cannot be parsed as a
+ *                              arc::io::sys::Path.
+ * \throws arc::ex::RuntimeError If the a cyclic expansion is detected (i.e.
  *                                 path_1 references path_2 but path_2
  *                                 references path_1).
  */
 template<>
-chaos::io::sys::Path& Data::get(
-        const chaos::str::UTF8String& key,
-        chaos::io::sys::Path& value) const;
+arc::io::sys::Path& Data::get(
+        const arc::str::UTF8String& key,
+        arc::io::sys::Path& value) const;
 
 //------------------------------------------------------------------------------
 
@@ -410,82 +410,82 @@ void Data::as_type<bool>(const Json::Value* value, bool& ret) const;
 //-------------------------------------INT8-------------------------------------
 
 template <>
-bool Data::is_type<chaos::int8>(const Json::Value* value) const;
+bool Data::is_type<arc::int8>(const Json::Value* value) const;
 
 template<>
-void Data::as_type<chaos::int8>(
+void Data::as_type<arc::int8>(
         const Json::Value* value,
-        chaos::int8& ret) const;
+        arc::int8& ret) const;
 
 //------------------------------------UINT8-------------------------------------
 
 template <>
-bool Data::is_type<chaos::uint8>(const Json::Value* value) const;
+bool Data::is_type<arc::uint8>(const Json::Value* value) const;
 
 template<>
-void Data::as_type<chaos::uint8>(
+void Data::as_type<arc::uint8>(
         const Json::Value* value,
-        chaos::uint8& ret) const;
+        arc::uint8& ret) const;
 
 //------------------------------------INT16-------------------------------------
 
 template <>
-bool Data::is_type<chaos::int16>(const Json::Value* value) const;
+bool Data::is_type<arc::int16>(const Json::Value* value) const;
 
 template<>
-void Data::as_type<chaos::int16>(
+void Data::as_type<arc::int16>(
         const Json::Value* value,
-        chaos::int16& ret) const;
+        arc::int16& ret) const;
 
 //------------------------------------UINT16------------------------------------
 
 template <>
-bool Data::is_type<chaos::uint16>(const Json::Value* value) const;
+bool Data::is_type<arc::uint16>(const Json::Value* value) const;
 
 template<>
-void Data::as_type<chaos::uint16>(
+void Data::as_type<arc::uint16>(
         const Json::Value* value,
-        chaos::uint16& ret) const;
+        arc::uint16& ret) const;
 
 //------------------------------------INT32-------------------------------------
 
 template <>
-bool Data::is_type<chaos::int32>(const Json::Value* value) const;
+bool Data::is_type<arc::int32>(const Json::Value* value) const;
 
 template<>
-void Data::as_type<chaos::int32>(
+void Data::as_type<arc::int32>(
         const Json::Value* value,
-        chaos::int32& ret) const;
+        arc::int32& ret) const;
 
 //------------------------------------UINT32------------------------------------
 
 template <>
-bool Data::is_type<chaos::uint32>(const Json::Value* value) const;
+bool Data::is_type<arc::uint32>(const Json::Value* value) const;
 
 template<>
-void Data::as_type<chaos::uint32>(
+void Data::as_type<arc::uint32>(
         const Json::Value* value,
-        chaos::uint32& ret) const;
+        arc::uint32& ret) const;
 
 //------------------------------------INT64-------------------------------------
 
 template <>
-bool Data::is_type<chaos::int64>(const Json::Value* value) const;
+bool Data::is_type<arc::int64>(const Json::Value* value) const;
 
 template<>
-void Data::as_type<chaos::int64>(
+void Data::as_type<arc::int64>(
         const Json::Value* value,
-        chaos::int64& ret) const;
+        arc::int64& ret) const;
 
 //------------------------------------UINT64------------------------------------
 
 template <>
-bool Data::is_type<chaos::uint64>(const Json::Value* value) const;
+bool Data::is_type<arc::uint64>(const Json::Value* value) const;
 
 template<>
-void Data::as_type<chaos::uint64>(
+void Data::as_type<arc::uint64>(
         const Json::Value* value,
-        chaos::uint64& ret) const;
+        arc::uint64& ret) const;
 
 //------------------------------------FLOAT-------------------------------------
 
@@ -510,13 +510,13 @@ void Data::as_type<double>(
 //----------------------------------UTF8STRING----------------------------------
 
 template <>
-bool Data::is_type<chaos::str::UTF8String>(
+bool Data::is_type<arc::str::UTF8String>(
         const Json::Value* value) const;
 
 template<>
-void Data::as_type<chaos::str::UTF8String>(
+void Data::as_type<arc::str::UTF8String>(
         const Json::Value* value,
-        chaos::str::UTF8String& ret) const;
+        arc::str::UTF8String& ret) const;
 
 #endif
 // IN_DOXYGEN

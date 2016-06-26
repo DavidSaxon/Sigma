@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['has_5fchild',['has_child',['../classsigma_1_1core_1_1tasks_1_1_task.html#a99e98800a473e1a05093d64853b75740',1,'sigma::core::tasks::Task']]]
+  ['delete_5fboard',['delete_board',['../namespacesigma_1_1core_1_1tasks_1_1domain.html#ae36532706d00b1956d589ffb8c8be6fe',1,'sigma::core::tasks::domain']]]
 ];

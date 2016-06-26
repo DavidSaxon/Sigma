@@ -111,10 +111,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a482feda3a077f8c4877a4a56df7eefa3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsigma_1_1core_1_1_scoped_callback.html">ScopedCallback</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_scoped_callback.html#a482feda3a077f8c4877a4a56df7eefa3">operator=</a> (TransientCallbackID transient)</td></tr>
 <tr class="memdesc:a482feda3a077f8c4877a4a56df7eefa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">TransientCallbackID assignment operator.  <a href="#a482feda3a077f8c4877a4a56df7eefa3">More...</a><br/></td></tr>
 <tr class="separator:a482feda3a077f8c4877a4a56df7eefa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b4ae371184bb639999677cf66440461"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3b4ae371184bb639999677cf66440461"></a>
-chaos::uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_scoped_callback.html#a3b4ae371184bb639999677cf66440461">get_id</a> () const </td></tr>
-<tr class="memdesc:a3b4ae371184bb639999677cf66440461"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of this callback. <br/></td></tr>
-<tr class="separator:a3b4ae371184bb639999677cf66440461"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7db354f147b3e625319f640de420cbbb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7db354f147b3e625319f640de420cbbb"></a>
+arc::uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_scoped_callback.html#a7db354f147b3e625319f640de420cbbb">get_id</a> () const </td></tr>
+<tr class="memdesc:a7db354f147b3e625319f640de420cbbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of this callback. <br/></td></tr>
+<tr class="separator:a7db354f147b3e625319f640de420cbbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e2737f20e405f06f5d5a640c5746d70"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsigma_1_1core_1_1_scoped_callback.html#a2e2737f20e405f06f5d5a640c5746d70">is_null</a> () const </td></tr>
 <tr class="memdesc:a2e2737f20e405f06f5d5a640c5746d70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this is a null <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a>.  <a href="#a2e2737f20e405f06f5d5a640c5746d70">More...</a><br/></td></tr>
 <tr class="separator:a2e2737f20e405f06f5d5a640c5746d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -182,7 +182,7 @@ chaos::uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <p>Constructs a new <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a> from the given TransientCallbackID. </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">chaos::ex::IllegalActionError</td><td>If a <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a> has already been initialised for this callback id. </td></tr>
+    <tr><td class="paramname">arc::ex::IllegalActionError</td><td>If a <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a> has already been initialised for this callback id. </td></tr>
   </table>
   </dd>
 </dl>
@@ -215,7 +215,7 @@ chaos::uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <p>Makes a copy of the given <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a> and increases the reference counter.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">chaos::ex::IllegalActionError</td><td>If the other <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a> to copy from is a null <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a>. </td></tr>
+    <tr><td class="paramname">arc::ex::IllegalActionError</td><td>If the other <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a> to copy from is a null <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -250,7 +250,7 @@ chaos::uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <dl class="section note"><dt>Note</dt><dd>This can only be performed on null ScopedCallbacks.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">chaos::ex::IllegalActionError</td><td>If a <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a> has already been initialised for this callback id. Or if this is not a null <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a>. </td></tr>
+    <tr><td class="paramname">arc::ex::IllegalActionError</td><td>If a <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a> has already been initialised for this callback id. Or if this is not a null <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -338,7 +338,7 @@ chaos::uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <p>Once the callback has been unregistered the function this is associated with will no longer be called when the <a class="el" href="classsigma_1_1core_1_1_callback_handler.html" title="Object used to handle callbacks of a given function type. ">CallbackHandler</a> is triggered and this will become a null <a class="el" href="classsigma_1_1core_1_1_scoped_callback.html" title="Object that holds the id of a callback function and aids in life cycle management of the callback...">ScopedCallback</a>.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">chaos::ex::IllegalActionError</td><td>If this is called on a null ScopedCallbackId. </td></tr>
+    <tr><td class="paramname">arc::ex::IllegalActionError</td><td>If this is called on a null ScopedCallbackId. </td></tr>
   </table>
   </dd>
 </dl>
@@ -346,13 +346,13 @@ chaos::uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/david/Dropbox/Development/Sigma/Sigma/src/cxx/sigma/core/<a class="el" href="_callback_8hpp_source.html">Callback.hpp</a></li>
+<li>/home/david/Dropbox/Development/Sigma/Sigma/src/cpp/sigma/core/<a class="el" href="_callback_8hpp_source.html">Callback.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.6-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 14 2016 23:31:04 for Sigma  |  API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 27 2016 02:49:48 for Sigma  |  API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

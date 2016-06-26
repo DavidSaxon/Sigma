@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['delete_5fboard',['delete_board',['../namespacesigma_1_1core_1_1tasks_1_1domain.html#ae36532706d00b1956d589ffb8c8be6fe',1,'sigma::core::tasks::domain']]]
+  ['bootstrap',['bootstrap',['../namespacesigma_1_1gui.html#af29d2039a3ce3982f2f7cec59b9a4678',1,'sigma::gui']]]
 ];

@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['register_5ffunction',['register_function',['../classsigma_1_1core_1_1_callback_interface.html#a447678d82d322396c293aabc534e4e96',1,'sigma::core::CallbackInterface']]],
-  ['register_5fmember_5ffunction',['register_member_function',['../classsigma_1_1core_1_1_callback_interface.html#aea30ba6ae89d5638e91db8ba2207854a',1,'sigma::core::CallbackInterface']]],
-  ['remove_5fchild',['remove_child',['../classsigma_1_1core_1_1tasks_1_1_task.html#a9df7e8a262b51b440cc6a45dbe219810',1,'sigma::core::tasks::Task']]],
-  ['roottask',['RootTask',['../classsigma_1_1core_1_1tasks_1_1_root_task.html',1,'sigma::core::tasks']]],
-  ['roottask_2ehpp',['RootTask.hpp',['../_root_task_8hpp.html',1,'']]]
+  ['load_5ffonts',['load_fonts',['../namespacesigma_1_1gui.html#ac69e307732a86f3ecf06e62cf37f7715',1,'sigma::gui']]],
+  ['logger',['logger',['../namespacesigma_1_1gui.html#a9d8c6737746c5e1adb36699753b9c779',1,'sigma::gui']]],
+  ['logging',['logging',['../namespacesigma_1_1gui_1_1meta.html#aefbe9867bf506582ce619fc6f5c2c850',1,'sigma::gui::meta::logging()'],['../namespacesigma_1_1gui_1_1meta__comp.html#a9d830b72a14e4195dec0dacf0808fd94',1,'sigma::gui::meta_comp::logging()']]]
 ];

@@ -24,7 +24,7 @@ Object that holds the id of a callback function and aids in life cycle managemen
 \item 
 \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\-Callback} \& \hyperlink{classsigma_1_1core_1_1_scoped_callback_a482feda3a077f8c4877a4a56df7eefa3}{operator=} (Transient\-Callback\-I\-D transient)
 \begin{DoxyCompactList}\small\item\em Transient\-Callback\-I\-D assignment operator. \end{DoxyCompactList}\item 
-\hypertarget{classsigma_1_1core_1_1_scoped_callback_a3b4ae371184bb639999677cf66440461}{chaos\-::uint32 \hyperlink{classsigma_1_1core_1_1_scoped_callback_a3b4ae371184bb639999677cf66440461}{get\-\_\-id} () const }\label{classsigma_1_1core_1_1_scoped_callback_a3b4ae371184bb639999677cf66440461}
+\hypertarget{classsigma_1_1core_1_1_scoped_callback_a7db354f147b3e625319f640de420cbbb}{arc\-::uint32 \hyperlink{classsigma_1_1core_1_1_scoped_callback_a7db354f147b3e625319f640de420cbbb}{get\-\_\-id} () const }\label{classsigma_1_1core_1_1_scoped_callback_a7db354f147b3e625319f640de420cbbb}
 
 \begin{DoxyCompactList}\small\item\em Returns the id of this callback. \end{DoxyCompactList}\item 
 bool \hyperlink{classsigma_1_1core_1_1_scoped_callback_a2e2737f20e405f06f5d5a640c5746d70}{is\-\_\-null} () const 
@@ -72,7 +72,7 @@ Constructs a new \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\-Call
 
 
 \begin{DoxyExceptions}{Exceptions}
-{\em chaos\-::ex\-::\-Illegal\-Action\-Error} & If a \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\-Callback} has already been initialised for this callback id. \\
+{\em arc\-::ex\-::\-Illegal\-Action\-Error} & If a \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\-Callback} has already been initialised for this callback id. \\
 \hline
 \end{DoxyExceptions}
 \hypertarget{classsigma_1_1core_1_1_scoped_callback_ae39d91862f76b1804acc8edae410678e}{\index{sigma\-::core\-::\-Scoped\-Callback@{sigma\-::core\-::\-Scoped\-Callback}!Scoped\-Callback@{Scoped\-Callback}}
@@ -90,7 +90,7 @@ Makes a copy of the given \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Sco
 
 
 \begin{DoxyExceptions}{Exceptions}
-{\em chaos\-::ex\-::\-Illegal\-Action\-Error} & If the other \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\-Callback} to copy from is a null \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\-Callback}. \\
+{\em arc\-::ex\-::\-Illegal\-Action\-Error} & If the other \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\-Callback} to copy from is a null \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\-Callback}. \\
 \hline
 \end{DoxyExceptions}
 
@@ -114,7 +114,7 @@ This can only be performed on null Scoped\-Callbacks.
 \end{DoxyNote}
 
 \begin{DoxyExceptions}{Exceptions}
-{\em chaos\-::ex\-::\-Illegal\-Action\-Error} & If a \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\-Callback} has already been initialised for this callback id. Or if this is not a null \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\-Callback}. \\
+{\em arc\-::ex\-::\-Illegal\-Action\-Error} & If a \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\-Callback} has already been initialised for this callback id. Or if this is not a null \hyperlink{classsigma_1_1core_1_1_scoped_callback}{Scoped\-Callback}. \\
 \hline
 \end{DoxyExceptions}
 \hypertarget{classsigma_1_1core_1_1_scoped_callback_a2e2737f20e405f06f5d5a640c5746d70}{\index{sigma\-::core\-::\-Scoped\-Callback@{sigma\-::core\-::\-Scoped\-Callback}!is\-\_\-null@{is\-\_\-null}}
@@ -158,11 +158,11 @@ Once the callback has been unregistered the function this is associated with wil
 
 
 \begin{DoxyExceptions}{Exceptions}
-{\em chaos\-::ex\-::\-Illegal\-Action\-Error} & If this is called on a null Scoped\-Callback\-Id. \\
+{\em arc\-::ex\-::\-Illegal\-Action\-Error} & If this is called on a null Scoped\-Callback\-Id. \\
 \hline
 \end{DoxyExceptions}
 
 
 The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
 \item 
-/home/david/\-Dropbox/\-Development/\-Sigma/\-Sigma/src/cxx/sigma/core/\hyperlink{_callback_8hpp}{Callback.\-hpp}\end{DoxyCompactItemize}
+/home/david/\-Dropbox/\-Development/\-Sigma/\-Sigma/src/cpp/sigma/core/\hyperlink{_callback_8hpp}{Callback.\-hpp}\end{DoxyCompactItemize}

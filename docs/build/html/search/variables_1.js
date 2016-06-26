@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['m_5fassociated_5fcallback',['m_associated_callback',['../classsigma_1_1core_1_1_callback_manager_1_1_trigger.html#a2c63d87443c7b86ea3bbdf558ce8b67c',1,'sigma::core::CallbackManager::Trigger']]]
+  ['logger',['logger',['../namespacesigma_1_1gui.html#a9d8c6737746c5e1adb36699753b9c779',1,'sigma::gui']]],
+  ['logging',['logging',['../namespacesigma_1_1gui_1_1meta.html#aefbe9867bf506582ce619fc6f5c2c850',1,'sigma::gui::meta::logging()'],['../namespacesigma_1_1gui_1_1meta__comp.html#a9d830b72a14e4195dec0dacf0808fd94',1,'sigma::gui::meta_comp::logging()']]]
 ];

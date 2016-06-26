@@ -1,13 +1,11 @@
 var searchData=
 [
-  ['callback_2ehpp',['Callback.hpp',['../_callback_8hpp.html',1,'']]],
-  ['callbackhandler',['CallbackHandler',['../classsigma_1_1core_1_1_callback_handler.html#a640cd1f70da16d82b91a52f6c4e3a7bb',1,'sigma::core::CallbackHandler']]],
-  ['callbackhandler',['CallbackHandler',['../classsigma_1_1core_1_1_callback_handler.html',1,'sigma::core']]],
-  ['callbackhandler_3c_20sigma_3a_3acore_3a_3atasks_3a_3atask_20_2a_20_3e',['CallbackHandler&lt; sigma::core::tasks::Task * &gt;',['../classsigma_1_1core_1_1_callback_handler.html',1,'sigma::core']]],
-  ['callbackhandler_3c_20sigma_3a_3acore_3a_3atasks_3a_3atask_20_2a_2c_20const_20chaos_3a_3auni_3a_3autf8string_20_26_2c_20const_20chaos_3a_3auni_3a_3autf8string_20_26_20_3e',['CallbackHandler&lt; sigma::core::tasks::Task *, const chaos::uni::UTF8String &amp;, const chaos::uni::UTF8String &amp; &gt;',['../classsigma_1_1core_1_1_callback_handler.html',1,'sigma::core']]],
-  ['callbackhandler_3c_20sigma_3a_3acore_3a_3atasks_3a_3atask_20_2a_2c_20sigma_3a_3acore_3a_3atasks_3a_3atask_20_2a_2c_20sigma_3a_3acore_3a_3atasks_3a_3atask_20_2a_20_3e',['CallbackHandler&lt; sigma::core::tasks::Task *, sigma::core::tasks::Task *, sigma::core::tasks::Task * &gt;',['../classsigma_1_1core_1_1_callback_handler.html',1,'sigma::core']]],
-  ['callbackinterface',['CallbackInterface',['../classsigma_1_1core_1_1_callback_interface.html',1,'sigma::core']]],
-  ['callbackinterface_3c_20function_5fparameters_2e_2e_2e_3e',['CallbackInterface&lt; function_parameters...&gt;',['../classsigma_1_1core_1_1_callback_interface.html',1,'sigma::core']]],
-  ['clean_5fup',['clean_up',['../namespacesigma_1_1core_1_1tasks_1_1domain.html#a5133e92ea740e153728af3fd8d872d36',1,'sigma::core::tasks::domain']]],
-  ['clear_5fchildren',['clear_children',['../classsigma_1_1core_1_1tasks_1_1_task.html#acb08acc571c5e0678d27d52a18a7db5e',1,'sigma::core::tasks::Task']]]
+  ['add_5fchild',['add_child',['../classsigma_1_1core_1_1tasks_1_1_task.html#abac88c4ddaf54ae20aab497e95023f9e',1,'sigma::core::tasks::Task']]],
+  ['api_5fall',['API_ALL',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227a5328f8d7cbf6b6709e5f314832bcb007',1,'sigma::core']]],
+  ['api_5fbuild',['API_BUILD',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227a21b294c75f929374e9eebfa67e31d80b',1,'sigma::core']]],
+  ['api_5flint',['API_LINT',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227aac7402732b780aa9407183ed7bd7c809',1,'sigma::core']]],
+  ['api_5fnone',['API_NONE',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227ad5c128a2a2f3f1354dc44fd6e477b2c9',1,'sigma::core']]],
+  ['api_5ftasks',['API_TASKS',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227a165d0d460d4f55091c38bab695b27bb4',1,'sigma::core']]],
+  ['api_5ftest',['API_TEST',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227acd512ee6c623f9c4b6faafc279cb93c8',1,'sigma::core']]],
+  ['apidomains',['APIDomains',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227',1,'sigma::core']]]
 ];
