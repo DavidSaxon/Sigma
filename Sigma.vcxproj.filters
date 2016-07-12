@@ -1,7 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\cpp\sigma\Main.cpp" />
+    <ClCompile Include="gen\cpp\moc_CoreLogging.cpp" />
+    <ClCompile Include="gen\cpp\moc_Geometry.cpp" />
+    <ClCompile Include="gen\cpp\moc_GUIBootstrap.cpp" />
+    <ClCompile Include="gen\cpp\moc_GUILogging.cpp" />
+    <ClCompile Include="gen\cpp\moc_GUIMeta.cpp" />
+    <ClCompile Include="gen\cpp\moc_GUIMetaCompiled.cpp" />
+    <ClCompile Include="gen\cpp\moc_Logging.cpp" />
+    <ClCompile Include="gen\cpp\moc_Qt.cpp" />
+    <ClCompile Include="gen\cpp\moc_RootTask.cpp" />
+    <ClCompile Include="gen\cpp\moc_Sigma.cpp" />
+    <ClCompile Include="gen\cpp\moc_SplashScreen.cpp" />
+    <ClCompile Include="gen\cpp\moc_Task.cpp" />
+    <ClCompile Include="gen\cpp\moc_TasksDomain.cpp" />
+    <ClCompile Include="gen\cpp\moc___meta_qt.cpp" />
+    <ClCompile Include="gen\cpp\moc___sigma.cpp" />
+    <ClCompile Include="gen\cpp\moc___startup.cpp" />
+    <ClCompile Include="gen\cpp\moc___util.cpp" />
     <ClCompile Include="gen\cpp\**" />
     <ClCompile Include="gen\cpp\**" />
     <ClCompile Include="gen\cpp\**" />
@@ -32,5 +48,34 @@
     <ClCompile Include="gen\cpp\**" />
     <ClCompile Include="gen\cpp\**" />
     <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="gen\cpp\**" />
+    <ClCompile Include="src\cpp\meta_qt\core\Qt.cpp" />
   </ItemGroup>
 </Project>

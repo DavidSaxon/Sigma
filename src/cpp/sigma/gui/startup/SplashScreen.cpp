@@ -9,6 +9,10 @@
 #include <QtWidgets/QSizePolicy>
 #include <QtWidgets/QVBoxLayout>
 
+#include <meta_qt/core/Qt.hpp>
+
+#include "sigma/gui/GUIMeta.hpp"
+
 namespace
 {
 
@@ -36,7 +40,12 @@ SplashScreen::SplashScreen()
     :
     QWidget()
 {
-    setWindowFlags(Qt::SplashScreen);
+    // Qt::WindowFlags window_flags
+    // meta::widgets_startup->get("splash_screen.window_flags", window_flags);
+    setWindowFlags(*meta::widgets_startup->get(
+        "splash_screen.window_flags",
+        meta_qt::QtWindowFlagsV::instance()
+    ));
     resize(SPLASH_SIZE);
 
     // TODO: explore on disk style sheets or QML

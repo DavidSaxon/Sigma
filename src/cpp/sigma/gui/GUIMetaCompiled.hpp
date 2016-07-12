@@ -34,6 +34,12 @@ extern const arc::str::UTF8String resource_locations;
  */
 extern const arc::str::UTF8String fonts;
 
+/*!
+ * \brief MetaEngine JSON data in relation to startup widgets.
+ */
+extern const arc::str::UTF8String widgets_startup;
+
+
 } // namespace meta_comp
 } // namespace gui
 } // namespace sigma

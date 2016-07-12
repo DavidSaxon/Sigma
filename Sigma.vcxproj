@@ -9,6 +9,10 @@
       <Configuration>GUI_lib</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="meta_qt|Win32">
+      <Configuration>meta_qt</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="tests|Win32">
       <Configuration>tests</Configuration>
       <Platform>Win32</Platform>
@@ -23,6 +27,10 @@
     <ClCompile Include="src\cpp\sigma\core\tasks\TasksDomain.cpp" />
     <ClCompile Include="src\cpp\sigma\core\tasks\RootTask.cpp" />
     <ClCompile Include="src\cpp\sigma\core\tasks\Task.cpp" />
+    <ClCompile Include="src\cpp\sigma\core\util\Logging.cpp" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='meta_qt'">
+    <ClCompile Include="src\cpp\meta_qt\core\Qt.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='GUI_lib'">
     <ClCompile Include="src\cpp\sigma\gui\GUIBootstrap.cpp" />
@@ -60,6 +68,13 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='meta_qt|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GUI_lib|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -83,6 +98,9 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Core_lib|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='meta_qt|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='GUI_lib|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -101,6 +119,11 @@
     <OutDir>$(SolutionDir)\$(ProjectName)\build\win_x86\</OutDir>
     <IntDir>intermediate\$(Configuration)\</IntDir>
     <TargetName>sigma_core</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='meta_qt|Win32'">
+    <OutDir>$(SolutionDir)\$(ProjectName)\build\win_x86\</OutDir>
+    <IntDir>intermediate\$(Configuration)\</IntDir>
+    <TargetName>meta_qt</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GUI_lib|Win32'">
     <OutDir>$(SolutionDir)\$(ProjectName)\build\win_x86\</OutDir>
@@ -126,7 +149,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ArcaneCore\lib\win_x86;D:\Dropbox\Development\Sigma\Sigma\ext\ArcaneLog\lib\win_x86;D:\Dropbox\Development\Sigma\Sigma\ext\MetaEngine\lib\win_x86;D:\Libraries\qt5-5.5.0-vs2013\qt5-x86-shared-release\lib;D:\Dropbox\Development\Sigma\Sigma\build\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>arcanecore_base.lib;arcanecore_io.lib;arcanelog.lib;metaengine.lib;sigma_core.lib;sigma_gui.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>arcanecore_base.lib;arcanecore_io.lib;arcanelog.lib;arcanelog_shared.lib;metaengine.lib;meta_qt.lib;sigma_core.lib;sigma_gui.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Core_lib|Win32'">
@@ -137,6 +160,23 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ArcaneCore\include;D:\Dropbox\Development\Sigma\Sigma\ext\ArcaneLog\include;D:\Dropbox\Development\Sigma\Sigma\ext\MetaEngine\include;D:\Dropbox\Development\Sigma\Sigma\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ChaosCore\lib\win_x86;D:\Libraries\qt5-5.5.0-vs2013\qt5-x86-shared-release\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>chaoscore_base.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='meta_qt|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\Sigma\Sigma\ext\ArcaneCore\include;D:\Dropbox\Development\Sigma\Sigma\ext\ArcaneLog\include;D:\Dropbox\Development\Sigma\Sigma\ext\MetaEngine\include;D:\Libraries\qt5-5.5.0-vs2013\qt5-x86-shared-release\include;D:\Dropbox\Development\Sigma\Sigma\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

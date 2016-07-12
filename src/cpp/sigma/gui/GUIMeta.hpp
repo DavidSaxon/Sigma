@@ -8,7 +8,7 @@
 
 #include <memory>
 
-#include <metaeng/Data.hpp>
+#include <metaengine/Document.hpp>
 
 namespace sigma
 {
@@ -24,28 +24,33 @@ namespace meta
 //                              TYPEDEF DEFINITIONS
 //------------------------------------------------------------------------------
 
-typedef std::unique_ptr<metaeng::Data> DataPtr;
+typedef std::unique_ptr<metaengine::Document> DocumentPtr;
 
 //------------------------------------------------------------------------------
 //                                      DATA
 //------------------------------------------------------------------------------
 
 /*!
- * \brief Meta data for logging the GUI runtime.
+ * \brief MetaEngine data for logging the GUI runtime.
  *
- * This metadata is loaded before other data since logging needs to be connected
+ * This data is loaded before other data since logging needs to be connected
  * first.
  */
-extern DataPtr logging;
+extern DocumentPtr logging;
 
 /*!
- * \brief Meta data for directories where to find resources.
+ * \brief MetaEngine data for directories where to find resources.
  */
-extern DataPtr resource_locations;
+extern DocumentPtr resource_locations;
 /*!
- * \brief Meta data about fonts.
+ * \brief MetaEngine data about fonts.
  */
-extern DataPtr fonts;
+extern DocumentPtr fonts;
+
+/*!
+ * \brief MetaEngine data about startup widgets.
+ */
+extern DocumentPtr widgets_startup;
 
 
 //------------------------------------------------------------------------------
@@ -53,7 +58,7 @@ extern DataPtr fonts;
 //------------------------------------------------------------------------------
 
 /*!
- * \brief Initialises the MetaEngine Data pointers.
+ * \brief Initialises the MetaEngine Document pointers.
  */
 void init();
 

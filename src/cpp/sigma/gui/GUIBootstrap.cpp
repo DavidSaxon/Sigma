@@ -5,6 +5,9 @@
 #include <arcanecore/base/str/StringOperations.hpp>
 #include <arcanecore/io/sys/FileSystemOperations.hpp>
 
+#include <metaengine/visitors/Path.hpp>
+#include <metaengine/visitors/String.hpp>
+
 #include <QtGui/QFontDatabase>
 #include <QtWidgets/QApplication>
 
@@ -44,29 +47,27 @@ void load_fonts()
     logger->notice << "Loading fonts" << std::endl;
 
     // get the directory where fonts are stored
-    arc::io::sys::Path font_directory;
-    meta::resource_locations->get("fonts_resource_path", font_directory);
+    arc::io::sys::Path font_directory(*meta::resource_locations->get(
+        "fonts_resource_path",
+        metaengine::PathV::instance()
+    ));
     // iterate over each file in the fonts directory and add to the database
-    std::vector<arc::io::sys::Path> font_files =
-        arc::io::sys::list_rec(font_directory);
-    ARC_FOR_EACH(it, font_files)
+    for(const arc::io::sys::Path& path : arc::io::sys::list_rec(font_directory))
     {
-        // TODO: list with skip . and ..
-
         // get the supported font formats
-        std::vector<arc::str::UTF8String> supported_formats;
-        meta::fonts->get("supported_formats", supported_formats);
-        // check that this font is a supported format
-        arc::str::UTF8String extension(it->get_extension());
-        // currently only TrueTypeFont and OpenTypeFont formats are supported by
-        // QT
+        std::vector<arc::str::UTF8String> supported_formats(*meta::fonts->get(
+            "supported_formats",
+            metaengine::UTF8StringVectorV::instance()
+        ));
+        // check that this font is a supporteded format
+        arc::str::UTF8String extension(path.get_extension());
         if (std::find(
                 supported_formats.begin(),
                 supported_formats.end(),
                 extension
             ) != supported_formats.end())
         {
-            QFontDatabase::addApplicationFont(it->to_native().get_raw());
+            QFontDatabase::addApplicationFont(path.to_native().get_raw());
         }
         else
         {
@@ -74,7 +75,7 @@ void load_fonts()
                 arc::str::join(supported_formats, ", "));
 
             logger->warning << "Font file will not be loaded as it is an "
-                            << "unsupported format \"" << *it << "\". "
+                            << "unsupported format \"" << path << "\". "
                             << "Supported formats are: ["
                             << f_supported_formats << "]" << std::endl;
         }

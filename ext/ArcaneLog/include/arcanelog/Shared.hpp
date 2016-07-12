@@ -1,14 +1,25 @@
 /*!
  * \file
- * \brief Generic globals for logging. Most simple programs will only need to
- *        include this file and use the provided log inputs.
+ * \brief Provides the default shared logging handler
  * \author David Saxon
  */
-#ifndef ARCANELOG_LOGGING_HPP_
-#define ARCANELOG_LOGGING_HPP_
+#ifndef ARCANELOG_SHARED_HPP_
+#define ARCANELOG_SHARED_HPP_
+
+#include <arcanecore/base/Preproc.hpp>
 
 #include "arcanelog/Input.hpp"
 #include "arcanelog/LogHandler.hpp"
+
+#ifdef ARC_OS_WINDOWS
+    #ifdef ARCANELOG_GLOBAL_EXPORT
+        #define ARCANELOG_GLOBAL_API __declspec(dllexport)
+    #else
+        #define ARCANELOG_GLOBAL_API __declspec(dllimport)
+    #endif
+#else
+    #define ARCANELOG_GLOBAL_API
+#endif
 
 /*!
  * \mainpage ArcaneLog C++ Documentation.
@@ -21,7 +32,7 @@
  * ArcaneLog uses the arclog::LogHandler object to connect arclog::Input objects
  * and arclog::AbstractOutput objects. An input will write to all outputs
  * connected to the same arclog::LogHandler. A pre-existing arclog::LogHandler
- * is provided with ArcaneLog: arclog::default_handler. This handler initially
+ * is provided with ArcaneLog: arclog::shared_handler. This handler initially
  * has no inputs or outputs connected. Providing a default handler means that
  * multiple libraries or sections of an application can link against ArcaneLog
  * and share the same logging facility and add their own inputs and outputs.
@@ -37,7 +48,7 @@
  * arclog::Profile objects.
  *
  * \code
- * #include <arclog/Logging.hpp>
+ * #include <arclog/Shared.hpp>
  *
  * arclog::Input* core_logger;
  * arclog::Input* gui_logger;
@@ -46,11 +57,11 @@
  * {
  *     // add an input for the core application
  *     arclog::Profile core_profile("MyApp::core");
- *     core_logger = arclog::default_handler.vend_input(core_profile);
+ *     core_logger = arclog::shared_handler.vend_input(core_profile);
  *
  *     // add an input for the application's GUI
  *     arclog::Profile gui_profile("MyApp::gui");
- *     gui_logger = arclog::default_handler.vend_input(gui_profile);
+ *     gui_logger = arclog::shared_handler.vend_input(gui_profile);
  * }
  * \endcode
  *
@@ -62,7 +73,7 @@
  * which writes logging messages to a file on disk.
  *
  * \code
- * #include <arclog/Logging.hpp>
+ * #include <arclog/Shared.hpp>
  * #include <arclog/outputs/StdOutput.hpp>
  * #include <arclog/outputs/StdOutput.hpp>
  *
@@ -75,7 +86,7 @@
  *     // add a library provided output that will write messages to std::cout
  *     // and std::cerr. The log handler will handle deleting the stdout_writer.
  *     arclog::StdOutput* stdout_writer = new arclog::StdOutput();
- *     arclog::default_handler.add_output(stdout_writer);
+ *     arclog::shared_handler.add_output(stdout_writer);
  *
  *     // create the path the FileOutput will write to
  *     arc::io::sys::Path log_path;
@@ -84,7 +95,7 @@
  *     // disk.
  *     arclog::FileOutput* file_writer =
  *         new arclog::FileOutput(log_path, false, arclog::VERBOSITY_DEBUG);
- *     arclog::default_handler.add_output(file_writer);
+ *     arclog::shared_handler.add_output(file_writer);
  *
  *     // will write the following message to std::cout and disk:
  *     // {MyApp::core} - [NOTICE]: Hello world!
@@ -134,7 +145,7 @@ namespace arclog
  * this handler means multi-library applications can use the same handler
  * without libraries need to provide access to their own handler instances.
  */
-extern arclog::LogHandler default_handler;
+ARCANELOG_GLOBAL_API extern arclog::LogHandler shared_handler;
 
 } // namespace arclog
 

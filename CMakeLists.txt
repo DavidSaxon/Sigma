@@ -8,10 +8,11 @@ set(CORE_LIB_SRC
     src/cpp/sigma/core/tasks/TasksDomain.cpp
     src/cpp/sigma/core/tasks/RootTask.cpp
     src/cpp/sigma/core/tasks/Task.cpp
+    src/cpp/sigma/core/util/Logging.cpp
 )
 
-set(UI_SRC
-    src/cpp/sigma/Main.cpp
+set(META_QT_SRC
+    src/cpp/meta_qt/core/Qt.cpp
 )
 
 set(GUI_LIB_SRC
@@ -22,6 +23,10 @@ set(GUI_LIB_SRC
     src/cpp/sigma/gui/startup/SplashScreen.cpp
 )
 
+set(UI_SRC
+    src/cpp/sigma/Main.cpp
+)
+
 set(TEST_SRC
     tests/cpp/TestsMain.cpp
     tests/cpp/core/Callback_TestSuite.cpp
@@ -29,6 +34,7 @@ set(TEST_SRC
     tests/cpp/core/task/Task_TestSuite.cpp
 )
 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/linux_x86)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/linux_x86)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/linux_x86)
 
@@ -53,19 +59,22 @@ link_directories(
         ${CMAKE_BINARY_DIR}/ext/MetaEngine/lib/linux_x86
 )
 
-add_library(sigma_core SHARED ${CORE_LIB_SRC})
+add_library(sigma_core STATIC ${CORE_LIB_SRC})
 
 target_link_libraries(sigma_core
-    arcanecore_base
-    arcanecore_io
-    arcanelog
-    metaengine
 )
 
-add_library(sigma_gui SHARED ${GUI_LIB_SRC})
+add_library(meta_qt STATIC ${META_QT_SRC})
+
+target_link_libraries(meta_qt
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Widgets
+)
+
+add_library(sigma_gui STATIC ${GUI_LIB_SRC})
 
 target_link_libraries(sigma_gui
-    sigma_core
     Qt5::Core
     Qt5::Gui
     Qt5::Widgets
@@ -75,6 +84,13 @@ add_executable(Sigma ${UI_SRC})
 
 target_link_libraries(Sigma
     sigma_gui
+    sigma_core
+    meta_qt
+    arcanelog_shared
+    arcanelog
+    metaengine
+    arcanecore_io
+    arcanecore_base
 )
 
 add_executable(tests ${TEST_SRC})

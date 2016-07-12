@@ -7,5 +7,6 @@ var searchData=
   ['api_5fnone',['API_NONE',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227ad5c128a2a2f3f1354dc44fd6e477b2c9',1,'sigma::core']]],
   ['api_5ftasks',['API_TASKS',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227a165d0d460d4f55091c38bab695b27bb4',1,'sigma::core']]],
   ['api_5ftest',['API_TEST',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227acd512ee6c623f9c4b6faafc279cb93c8',1,'sigma::core']]],
-  ['apidomains',['APIDomains',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227',1,'sigma::core']]]
+  ['apidomains',['APIDomains',['../namespacesigma_1_1core.html#a48ec553a4adec5e4ca04a94946e39227',1,'sigma::core']]],
+  ['arclogverbosityv',['ArcLogVerbosityV',['../classsigma_1_1core_1_1util_1_1_arc_log_verbosity_v.html',1,'sigma::core::util']]]
 ];

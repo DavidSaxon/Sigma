@@ -14,29 +14,32 @@ namespace meta
 //                                      DATA
 //------------------------------------------------------------------------------
 
-DataPtr logging;
+DocumentPtr logging;
 
-DataPtr resource_locations;
-DataPtr fonts;
+DocumentPtr resource_locations;
+DocumentPtr fonts;
+
+DocumentPtr widgets_startup;
 
 //------------------------------------------------------------------------------
 //                                   PROTOTYPES
 //------------------------------------------------------------------------------
 
 /*!
- * \breif Handles the generic actions of loading MetaEngine Data objects.
- *
- * \param path The file path to the JSON metadata to read.
- * \param memory Fallback JSON to read from memory if reading from the path
- *               fails.
- * \param schema Schema to validate provided metadata against.
- *
- * \returns The MetaEngine data that was loaded as a result of this function.
+ * \brief Reports when a MetaEngine Document has failed to load, and a fallback
+ *        protocol must be executed.
  */
-DataPtr load_meta_data(
-        const arc::io::sys::Path& path,
-        const arc::str::UTF8String* const memory,
-        const arc::str::UTF8String& schema);
+static void load_fallback_reporter(
+        const arc::io::sys::Path& file_path,
+        const arc::str::UTF8String& message);
+
+/*!
+ * \brief Reports when retrieving a value from a MetaEngine Document has failed,
+ *        and a fallback protocol must be executed.
+ */
+static void get_fallback_reporter(
+        const arc::io::sys::Path& file_path,
+        const arc::str::UTF8String& message);
 
 //------------------------------------------------------------------------------
 //                                   FUNCTIONS
@@ -44,48 +47,55 @@ DataPtr load_meta_data(
 
 void init()
 {
+    // connect fallback reporters
+    metaengine::Document::set_load_fallback_reporter(load_fallback_reporter);
+    metaengine::Document::set_get_fallback_reporter(get_fallback_reporter);
+
     //----------------------------RESOURCE LOCATIONS----------------------------
-    logger->debug << "Loading resource location metadata" << std::endl;
+    logger->debug << "Loading MetaEngine data for resource locations."
+                  << std::endl;
     arc::io::sys::Path resource_locations_path;
     resource_locations_path
         << "meta" << "gui" << "resources" << "locations.json";
-    meta::resource_locations = load_meta_data(
+    meta::resource_locations.reset(new metaengine::Document(
         resource_locations_path,
-        &meta_comp::resource_locations,
-        meta_comp::resource_locations
-    );
+        &meta_comp::logging
+    ));
     //----------------------------------FONTS-----------------------------------
-    logger->debug << "Loading fonts metadata" << std::endl;
+    logger->debug << "Loading MetaEngine data for fonts." << std::endl;
     arc::io::sys::Path fonts_path;
     fonts_path
         << "meta" << "gui" << "resources" << "fonts.json";
-    meta::fonts = load_meta_data(
+    meta::fonts.reset(new metaengine::Document(
         fonts_path,
-        &meta_comp::fonts,
-        meta_comp::fonts
-    );
+        &meta_comp::fonts
+    ));
+    //-----------------------------STARTUP WIDGETS------------------------------
+    logger->debug << "Loading MetaEngine data for startup widgets."
+                  << std::endl;
+    arc::io::sys::Path widgets_startup_path;
+    widgets_startup_path
+        << "meta" << "gui" << "widgets" << "startup.json";
+    meta::widgets_startup.reset(new metaengine::Document(
+        widgets_startup_path,
+        &meta_comp::widgets_startup
+    ));
 }
 
-
-DataPtr load_meta_data(
-        const arc::io::sys::Path& path,
-        const arc::str::UTF8String* const memory,
-        const arc::str::UTF8String& schema)
+static void load_fallback_reporter(
+        const arc::io::sys::Path& file_path,
+        const arc::str::UTF8String& message)
 {
-    try
-    {
-        return DataPtr(new metaeng::Data(path, schema));
-    }
-    catch(const arc::ex::ArcException& exc)
-    {
-        logger->error << "Failed to load meta data from \"" << path
-                      << "\" with error:\n" << exc.what() << "\nReverting to "
-                      << "loading metadata from memory." << std::endl;
+    logger->error << "MetaEngine error loading data associated with file \""
+                  << file_path << "\": " << message << std::endl;
+}
 
-        // load from memory, no point in using a scheme since the memory path
-        // was what we previously used as schema
-        return meta::DataPtr(new metaeng::Data(memory));
-    }
+static void get_fallback_reporter(
+        const arc::io::sys::Path& file_path,
+        const arc::str::UTF8String& message)
+{
+    logger->error << "MetaEngine error accessing data in \"" << file_path
+                  << "\": " << message << std::endl;
 }
 
 } // namespace meta
