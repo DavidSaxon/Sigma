@@ -4,8 +4,8 @@
         "window_flags": ["SplashScreen"],
         "size":
         {
-            "height": "50#",
-            "width": "1:2"
+            "width": "33:16",
+            "height": "44#"
         },
         "position":
         {

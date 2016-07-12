@@ -12,6 +12,7 @@ set(CORE_LIB_SRC
 )
 
 set(META_QT_SRC
+    src/cpp/meta_qt/core/Geometry.cpp
     src/cpp/meta_qt/core/Qt.cpp
 )
 

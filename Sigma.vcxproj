@@ -30,6 +30,7 @@
     <ClCompile Include="src\cpp\sigma\core\util\Logging.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='meta_qt'">
+    <ClCompile Include="src\cpp\meta_qt\core\Geometry.cpp" />
     <ClCompile Include="src\cpp\meta_qt\core\Qt.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='GUI_lib'">
