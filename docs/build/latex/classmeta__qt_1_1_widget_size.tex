@@ -1,0 +1,106 @@
+\hypertarget{classmeta__qt_1_1_widget_size}{}\section{meta\+\_\+qt\+:\+:Widget\+Size Class Reference}
+\label{classmeta__qt_1_1_widget_size}\index{meta\+\_\+qt\+::\+Widget\+Size@{meta\+\_\+qt\+::\+Widget\+Size}}
+
+
+Meta\+Engine Visitor that is used to retrieve the absolute size of a Q\+Widget as a Q\+Size from a J\+S\+O\+N object type in a metaengine\+::\+Doument.  
+
+
+
+
+{\ttfamily \#include $<$Geometry.\+hpp$>$}
+
+Inheritance diagram for meta\+\_\+qt\+:\+:Widget\+Size\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classmeta__qt_1_1_widget_size}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmeta__qt_1_1_widget_size_adaef79cc1c5a01f2cf2f6a5a901925ad}{Widget\+Size} (const Q\+Widget $\ast$widget)
+\begin{DoxyCompactList}\small\item\em Constructs a new \hyperlink{classmeta__qt_1_1_widget_size}{Widget\+Size} Meta\+Engine Visitor. \end{DoxyCompactList}\item 
+\hypertarget{classmeta__qt_1_1_widget_size_a696e34414795bb8a0182bbec3add4cf5}{}virtual bool {\bfseries retrieve} (const Json\+::\+Value $\ast$data, const arc\+::str\+::\+U\+T\+F8\+String \&key, metaengine\+::\+Document $\ast$requester, arc\+::str\+::\+U\+T\+F8\+String \&error\+\_\+message)\label{classmeta__qt_1_1_widget_size_a696e34414795bb8a0182bbec3add4cf5}
+
+\item 
+\hypertarget{classmeta__qt_1_1_widget_size_a557d090b722ed19fe9cc4f4bdf276a96}{}void \hyperlink{classmeta__qt_1_1_widget_size_a557d090b722ed19fe9cc4f4bdf276a96}{set\+\_\+widget} (const Q\+Widget $\ast$widget)\label{classmeta__qt_1_1_widget_size_a557d090b722ed19fe9cc4f4bdf276a96}
+
+\begin{DoxyCompactList}\small\item\em Sets the Q\+Widget this will be retrieving the size for. \end{DoxyCompactList}\item 
+\hypertarget{classmeta__qt_1_1_widget_size_a1a396d71956c8e59ee373536e23997b3}{}const Q\+Widget $\ast$ \hyperlink{classmeta__qt_1_1_widget_size_a1a396d71956c8e59ee373536e23997b3}{get\+\_\+widget} () const \label{classmeta__qt_1_1_widget_size_a1a396d71956c8e59ee373536e23997b3}
+
+\begin{DoxyCompactList}\small\item\em Returns the Q\+Widget this is retrieving the size for. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classmeta__qt_1_1_widget_size}{Widget\+Size} \& \hyperlink{classmeta__qt_1_1_widget_size_a51fb854483bce752eb63ed3695a33a9c}{instance} (const Q\+Widget $\ast$widget=nullptr)
+\begin{DoxyCompactList}\small\item\em Provides an existing static instance of this object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Meta\+Engine Visitor that is used to retrieve the absolute size of a Q\+Widget as a Q\+Size from a J\+S\+O\+N object type in a metaengine\+::\+Doument. 
+
+The J\+S\+O\+N data must be an object that has two sub members named {\ttfamily width} and {\ttfamily height} which may be either integral or string type.
+
+Example\+:
+
+
+\begin{DoxyCode}
+\textcolor{stringliteral}{"size"}:
+ \{
+     \textcolor{stringliteral}{"width"}: 200,
+     \textcolor{stringliteral}{"height"}: \textcolor{stringliteral}{"1:2"}
+ \}
+\end{DoxyCode}
+
+
+The {\ttfamily width} and {\ttfamily height} members allow for a number of different syntax\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries integral, string of integral type, or {\ttfamily px} suffix\+:} The absolute pixel value of the size. Examples\+: {\ttfamily 1000}, {\ttfamily \char`\"{}200\char`\"{}}, {\ttfamily \char`\"{}50px\char`\"{}}.
+\item {\bfseries string with {\ttfamily \%} suffix\+:} The size is a relative percent of the widget\textquotesingle{}s parent\textquotesingle{}s size. Example\+: {\ttfamily \char`\"{}50\%\char`\"{}} -\/ the width/height will be half of the parent\textquotesingle{}s width/height.
+\item {\bfseries string with {\ttfamily \#} suffix\+:} The size is a percent of the desktop\textquotesingle{}s default screen\textquotesingle{}s size. Example\+: {\ttfamily \char`\"{}22\#\char`\"{}} -\/ the width/height will be 22\% of the desktop\textquotesingle{}s width/height.
+\item {\bfseries string ratio\+: } The size is a percentage of the other size member. This means both width and height cannot both be ratios. Example\+: {\ttfamily \char`\"{}2\+:1\char`\"{}} -\/ if this was set for width, the width would be twice the size of the height. 
+\end{DoxyItemize}
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classmeta__qt_1_1_widget_size_adaef79cc1c5a01f2cf2f6a5a901925ad}{}\index{meta\+\_\+qt\+::\+Widget\+Size@{meta\+\_\+qt\+::\+Widget\+Size}!Widget\+Size@{Widget\+Size}}
+\index{Widget\+Size@{Widget\+Size}!meta\+\_\+qt\+::\+Widget\+Size@{meta\+\_\+qt\+::\+Widget\+Size}}
+\subsubsection[{Widget\+Size(const Q\+Widget $\ast$widget)}]{\setlength{\rightskip}{0pt plus 5cm}meta\+\_\+qt\+::\+Widget\+Size\+::\+Widget\+Size (
+\begin{DoxyParamCaption}
+\item[{const Q\+Widget $\ast$}]{widget}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{classmeta__qt_1_1_widget_size_adaef79cc1c5a01f2cf2f6a5a901925ad}
+
+
+Constructs a new \hyperlink{classmeta__qt_1_1_widget_size}{Widget\+Size} Meta\+Engine Visitor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em widget} & Pointer to the widget that this is retrieve the size for. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classmeta__qt_1_1_widget_size_a51fb854483bce752eb63ed3695a33a9c}{}\index{meta\+\_\+qt\+::\+Widget\+Size@{meta\+\_\+qt\+::\+Widget\+Size}!instance@{instance}}
+\index{instance@{instance}!meta\+\_\+qt\+::\+Widget\+Size@{meta\+\_\+qt\+::\+Widget\+Size}}
+\subsubsection[{instance(const Q\+Widget $\ast$widget=nullptr)}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf Widget\+Size}\& meta\+\_\+qt\+::\+Widget\+Size\+::instance (
+\begin{DoxyParamCaption}
+\item[{const Q\+Widget $\ast$}]{widget = {\ttfamily nullptr}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classmeta__qt_1_1_widget_size_a51fb854483bce752eb63ed3695a33a9c}
+
+
+Provides an existing static instance of this object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em widget} & The Q\+Widget that the returned instance will be retrieving the size for. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Dropbox/\+Development/\+Sigma/\+Sigma/src/cpp/meta\+\_\+qt/core/Geometry.\+hpp\end{DoxyCompactItemize}

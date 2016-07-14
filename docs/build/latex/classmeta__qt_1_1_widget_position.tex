@@ -1,0 +1,116 @@
+\hypertarget{classmeta__qt_1_1_widget_position}{}\section{meta\+\_\+qt\+:\+:Widget\+Position Class Reference}
+\label{classmeta__qt_1_1_widget_position}\index{meta\+\_\+qt\+::\+Widget\+Position@{meta\+\_\+qt\+::\+Widget\+Position}}
+
+
+Meta\+Engine Visitor that is used to retrieve the absolute position of a Q\+Widget as a Q\+Point from a J\+S\+O\+N object type in a metaengine\+::\+Doument.  
+
+
+
+
+{\ttfamily \#include $<$Geometry.\+hpp$>$}
+
+Inheritance diagram for meta\+\_\+qt\+:\+:Widget\+Position\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classmeta__qt_1_1_widget_position}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmeta__qt_1_1_widget_position_af6b012ea736567d503c95368db37fa1e}{Widget\+Position} (const Q\+Widget $\ast$widget)
+\begin{DoxyCompactList}\small\item\em Constructs a new \hyperlink{classmeta__qt_1_1_widget_position}{Widget\+Position} Meta\+Engine Visitor. \end{DoxyCompactList}\item 
+\hypertarget{classmeta__qt_1_1_widget_position_a6a0684f0d2d7166a5024f55724ddb9f2}{}virtual bool {\bfseries retrieve} (const Json\+::\+Value $\ast$data, const arc\+::str\+::\+U\+T\+F8\+String \&key, metaengine\+::\+Document $\ast$requester, arc\+::str\+::\+U\+T\+F8\+String \&error\+\_\+message)\label{classmeta__qt_1_1_widget_position_a6a0684f0d2d7166a5024f55724ddb9f2}
+
+\item 
+\hypertarget{classmeta__qt_1_1_widget_position_a0e65b85095e3730f3b592fa9ef61ac92}{}void \hyperlink{classmeta__qt_1_1_widget_position_a0e65b85095e3730f3b592fa9ef61ac92}{set\+\_\+widget} (const Q\+Widget $\ast$widget)\label{classmeta__qt_1_1_widget_position_a0e65b85095e3730f3b592fa9ef61ac92}
+
+\begin{DoxyCompactList}\small\item\em Sets the Q\+Widget this will be retrieving the position for. \end{DoxyCompactList}\item 
+\hypertarget{classmeta__qt_1_1_widget_position_a66b98f4f2d9037cc0b8494f2f39fd20d}{}const Q\+Widget $\ast$ \hyperlink{classmeta__qt_1_1_widget_position_a66b98f4f2d9037cc0b8494f2f39fd20d}{get\+\_\+widget} () const \label{classmeta__qt_1_1_widget_position_a66b98f4f2d9037cc0b8494f2f39fd20d}
+
+\begin{DoxyCompactList}\small\item\em Returns the Q\+Widget this is retrieving the position for. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classmeta__qt_1_1_widget_position}{Widget\+Position} \& \hyperlink{classmeta__qt_1_1_widget_position_ada9a8a92258884fc06bd0482b29e13fa}{instance} (const Q\+Widget $\ast$widget=nullptr)
+\begin{DoxyCompactList}\small\item\em Provides an existing static instance of this object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Meta\+Engine Visitor that is used to retrieve the absolute position of a Q\+Widget as a Q\+Point from a J\+S\+O\+N object type in a metaengine\+::\+Doument. 
+
+The J\+S\+O\+N data must be an object that has sub members named {\ttfamily x} and {\ttfamily y}, and optional members named {\ttfamily origin\+\_\+x} and {\ttfamily origin\+\_\+y}, which may be either integral or string type. The origin x and y values define what will be considered the origin of the widget to move, they default to {\ttfamily 0,0} which is the top left of the widget.
+
+Example\+:
+
+
+\begin{DoxyCode}
+\textcolor{stringliteral}{"position"}:
+  \{
+      \textcolor{stringliteral}{"x"}: \textcolor{stringliteral}{"50#"},
+      \textcolor{stringliteral}{"y"}: \textcolor{stringliteral}{"50#"},
+      \textcolor{stringliteral}{"origin\_x"}: \textcolor{stringliteral}{"50%"},
+      \textcolor{stringliteral}{"origin\_y"}: \textcolor{stringliteral}{"50%"}
+  \}
+\end{DoxyCode}
+
+
+The x and y values support the following syntax\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries integral, string of integral type, or {\ttfamily px} suffix\+:} The absolute pixel value of the position. Examples\+: {\ttfamily 75}, {\ttfamily \char`\"{}200\char`\"{}}, {\ttfamily \char`\"{}500px\char`\"{}}.
+\item {\bfseries string with {\ttfamily \%} suffix\+:} The position is a relative percent of the widget\textquotesingle{}s parent\textquotesingle{}s position. Example\+: {\ttfamily \char`\"{}50\%\char`\"{}} -\/ the x/y position will be half of the parent\textquotesingle{}s x/y position.
+\item {\bfseries string with {\ttfamily \#} suffix\+:} The position a relative percent of the desktop\textquotesingle{}s default screen\textquotesingle{}s size. Example\+: {\ttfamily \char`\"{}40\#\char`\"{}} -\/ the x/y position will be 40\% of the desktop\textquotesingle{}s width/height.
+\item {\bfseries string ratio\+: } The x/y value is a percentage of the other x/y member. This means both x and y cannot both be ratios. Example\+: {\ttfamily \char`\"{}1\+:3\char`\"{}} -\/ if this was set for x, the x position would be a third of the y position.
+\end{DoxyItemize}
+
+The origin\+\_\+x and origin\+\_\+y values support the following syntax\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries integral, string of integral type, or {\ttfamily px} suffix\+:} The absolute pixel value of the widget\textquotesingle{}s origin from 0, 0 (top left corner). Examples\+: {\ttfamily 20}, {\ttfamily \char`\"{}44\char`\"{}}, {\ttfamily \char`\"{}0px\char`\"{}}.
+\item {\bfseries string with {\ttfamily \%} suffix\+:} The widget\textquotesingle{}s origin from it\textquotesingle{}s top left corner as a percentage of the widget\textquotesingle{}s size. Example\+: {\ttfamily \char`\"{}75\%\char`\"{}}. 
+\end{DoxyItemize}
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classmeta__qt_1_1_widget_position_af6b012ea736567d503c95368db37fa1e}{}\index{meta\+\_\+qt\+::\+Widget\+Position@{meta\+\_\+qt\+::\+Widget\+Position}!Widget\+Position@{Widget\+Position}}
+\index{Widget\+Position@{Widget\+Position}!meta\+\_\+qt\+::\+Widget\+Position@{meta\+\_\+qt\+::\+Widget\+Position}}
+\subsubsection[{Widget\+Position(const Q\+Widget $\ast$widget)}]{\setlength{\rightskip}{0pt plus 5cm}meta\+\_\+qt\+::\+Widget\+Position\+::\+Widget\+Position (
+\begin{DoxyParamCaption}
+\item[{const Q\+Widget $\ast$}]{widget}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{classmeta__qt_1_1_widget_position_af6b012ea736567d503c95368db37fa1e}
+
+
+Constructs a new \hyperlink{classmeta__qt_1_1_widget_position}{Widget\+Position} Meta\+Engine Visitor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em widget} & Pointer to the widget that this is retrieve the position for. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classmeta__qt_1_1_widget_position_ada9a8a92258884fc06bd0482b29e13fa}{}\index{meta\+\_\+qt\+::\+Widget\+Position@{meta\+\_\+qt\+::\+Widget\+Position}!instance@{instance}}
+\index{instance@{instance}!meta\+\_\+qt\+::\+Widget\+Position@{meta\+\_\+qt\+::\+Widget\+Position}}
+\subsubsection[{instance(const Q\+Widget $\ast$widget=nullptr)}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf Widget\+Position}\& meta\+\_\+qt\+::\+Widget\+Position\+::instance (
+\begin{DoxyParamCaption}
+\item[{const Q\+Widget $\ast$}]{widget = {\ttfamily nullptr}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classmeta__qt_1_1_widget_position_ada9a8a92258884fc06bd0482b29e13fa}
+
+
+Provides an existing static instance of this object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em widget} & The Q\+Widget that the returned instance will be retrieving the position for. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Dropbox/\+Development/\+Sigma/\+Sigma/src/cpp/meta\+\_\+qt/core/Geometry.\+hpp\end{DoxyCompactItemize}

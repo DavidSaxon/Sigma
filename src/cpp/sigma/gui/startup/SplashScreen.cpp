@@ -41,17 +41,22 @@ SplashScreen::SplashScreen()
     :
     QWidget()
 {
-    // Qt::WindowFlags window_flags
-    // meta::widgets_startup->get("splash_screen.window_flags", window_flags);
+    // window flags
     setWindowFlags(*meta::widgets_startup->get(
         "splash_screen.window_flags",
         meta_qt::QtWindowFlagsV::instance()
     ));
-
+    // size
     resize(*meta::widgets_startup->get(
         "splash_screen.size",
-        meta_qt::QtWidgetSize::instance(this)
+        meta_qt::WidgetSize::instance(this)
     ));
+    // position
+    move(*meta::widgets_startup->get(
+        "splash_screen.position",
+        meta_qt::WidgetPosition::instance(this)
+    ));
+
 
     // TODO: explore on disk style sheets or QML
     setStyleSheet(
